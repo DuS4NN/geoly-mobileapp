@@ -1,5 +1,7 @@
-export default {
+export const text = {
     loginScreen: {
-        login: "Prihláste sa do Geoly"
+        title: "Prihláste sa do Geoly",
+        email: "Email",
+        password: "Heslo"
     }
 }
