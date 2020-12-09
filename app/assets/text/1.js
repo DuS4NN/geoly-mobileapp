@@ -1,7 +1,16 @@
 export const text = {
     loginScreen: {
-        title: "Sign in to Geoly",
+        title: "Prihláste sa do Geoly",
         email: "Email",
-        password: "Password"
+        password: "Heslo",
+        register: "Nemáte ešte účet?",
+        signIn: "Prihlásiť sa",
+        noCredentials: "Zadajte email a heslo"
+    },
+    error: {
+        badCredentials: "Email alebo heslo sú nesprávne",
+        inactiveAccount: "Váš účet nie je aktívny",
+        unverifiedAccount: "Váš účet nie je overený",
+        somethingWentWrong: "Niečo sa pokazilo, skúste to znovu"
     }
 }

@@ -10,6 +10,9 @@ export default {
     gray: "#999E9D",
     backgroundGray: "#EFF6F4",
 
-    white: "#FFFFFF"
+    white: "#FFFFFF",
+
+    snackBarError: "#FF4444",
+    snackBarSuccess: "#00C851"
 }
 

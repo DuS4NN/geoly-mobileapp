@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Platform, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, LogBox } from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
 import {API_SERVER_URL} from "@env"
 import * as Font from "expo-font"
 import axios from "axios"
 import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
+
+import styles from "./AppStyleSheet"
 
 export default function App () {
 
@@ -14,6 +16,8 @@ export default function App () {
     const [fontLoaded, setFontLoaded] = useState(false)
 
     useEffect(() => {
+
+        LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
         loadFonts(setFontLoaded)
 
@@ -55,7 +59,7 @@ export default function App () {
     }, [])
 
     return (
-    <SafeAreaView style={styles.main}>
+    <SafeAreaView style={styles.mainSafeAreaView}>
 
         {loaded && fontLoaded && (
             <UserContext.Provider value={{userContext, setUserContext}}>
@@ -66,13 +70,6 @@ export default function App () {
     </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-    }
-})
 
 
 async function loadFonts(setFontLoaded) {

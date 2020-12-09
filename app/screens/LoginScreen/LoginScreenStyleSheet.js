@@ -6,35 +6,46 @@ export default StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
         justifyContent: "flex-start",
-        alignItems: "center"
+        alignItems: "center",
     },
     title:{
-        flex: 1.5,
-        paddingTop: 20,
-        alignItems: "center"
+        flex: 2,
+        alignItems: "center",
+        backgroundColor: colors.backgroundGreen
     },
     image: {
-        flex: 2,
-        resizeMode: "contain"
+        flex: 1.5,
+        resizeMode: "contain",
+        marginTop: 20
     },
     text: {
         flex: 0.5,
         fontFamily: "MarkProBold",
         fontWeight: "bold",
-        fontSize: 25,
+        fontSize: 30,
         textTransform: "uppercase",
         color: colors.darkGreen
     },
-
+    division: {
+        width: 0,
+        height: 0,
+        backgroundColor: 'white',
+        borderStyle: 'solid',
+        borderRightColor: 'transparent',
+        borderTopColor: colors.backgroundGreen,
+    },
     form: {
-      flex: 2
+        flex: 2
     },
     label: {
         fontFamily: "OpenSans",
         fontSize: 12,
         color: colors.gray,
-        paddingTop: 20,
-        paddingBottom: 10
+        marginTop: 10,
+        marginBottom: 10
+    },
+    passwordLabel: {
+        marginTop: 40
     },
     input: {
         width: 300,
@@ -46,5 +57,27 @@ export default StyleSheet.create({
         paddingRight: 15,
         fontFamily: "OpenSans",
         fontWeight: "bold"
+    },
+    register: {
+        color: colors.gray,
+        fontSize: 14,
+        fontFamily: "OpenSansLight",
+        paddingTop: 15,
+        textDecorationLine: "underline"
+    },
+    button: {
+        marginTop: 40,
+        height: 40,
+        width: 150,
+        alignSelf: "center",
+        flexDirection: "row",
+        justifyContent: "center",
+        borderRadius: 50,
+    },
+    buttonText: {
+        fontFamily: "OpenSans",
+        color: colors.white,
+        fontSize: 15,
+        alignSelf: "center",
     }
 })
