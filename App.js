@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, LogBox } from 'react-native';
+import { SafeAreaView, LogBox, Text } from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
 import {API_SERVER_URL} from "@env"
 import * as Font from "expo-font"
@@ -8,6 +8,7 @@ import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
 
 import styles from "./AppStyleSheet"
+import QuestsScreen from "./app/screens/QuestsScreen/QuestsScreen";
 
 export default function App () {
 
@@ -16,17 +17,18 @@ export default function App () {
     const [fontLoaded, setFontLoaded] = useState(false)
 
     useEffect(() => {
-
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
         loadFonts(setFontLoaded)
+        checkUser()
+    }, [])
 
+    const checkUser = () => {
         axios({
             method: "GET",
             url: API_SERVER_URL+"/checkUser",
             withCredentials: true
         }).then(function (response) {
-
             let statusCode = response.data.responseEntity.statusCode
 
             if(statusCode === "OK"){
@@ -51,19 +53,29 @@ export default function App () {
             }
 
         }).catch(function (error) {
+            setUserContext({
+                nickName: null,
+                profileImage: null,
+                languageId: 2,
+                mapTheme: 1,
+                darkMode: false
+            })
             handleError(error)
         }).finally(function () {
             setLoaded(true)
         })
-
-    }, [])
+    }
 
     return (
     <SafeAreaView style={styles.mainSafeAreaView}>
 
         {loaded && fontLoaded && (
             <UserContext.Provider value={{userContext, setUserContext}}>
-                <LoginScreen/>
+                {userContext["nickName"] !== null ? (
+                    <QuestsScreen/>
+                ) : (
+                    <LoginScreen/>
+                )}
             </UserContext.Provider>
         )}
 
@@ -71,14 +83,14 @@ export default function App () {
     )
 }
 
-
-async function loadFonts(setFontLoaded) {
-    await Font.loadAsync({
+const loadFonts = (setFontLoaded) => {
+    Font.loadAsync({
         MarkProBold: require("./app/assets/fonts/MarkProBold.otf"),
         OpenSans: require("./app/assets/fonts/OpenSans.otf"),
         OpenSansLight: require("./app/assets/fonts/OpenSansLight.otf")
+    }).then(function () {
+        setFontLoaded(true)
     })
-    setFontLoaded(true)
 }
 
 

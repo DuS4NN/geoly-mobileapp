@@ -10,6 +10,7 @@ import getText from "../../assets/text/Text";
 import colors from "../../../AppColors"
 import styles from "./LoginScreenStyleSheet";
 import mainStyles from "../../../AppStyleSheet.js"
+import handleError from "../../../ErrorHandler";
 
 
 function LoginScreen() {
@@ -43,13 +44,13 @@ function LoginScreen() {
     }
 
     const handleLogin = () => {
-        setLoading(true)
         if(email.length === 0 || password.length === 0){
             setTextSnack(text.loginScreen.noCredentials)
             setTypeSnack("ERROR")
             setShowSnack(true)
             return
         }
+        setLoading(true)
 
         axios({
             method: "POST",
@@ -64,8 +65,6 @@ function LoginScreen() {
                 profileImage: response.data.options[0][4],
                 roles: response.data.roles
             })
-
-            //Redirect
         }).catch(function (error) {
             switch (error.response.data.exception) {
                 case "Bad credentials":
@@ -78,10 +77,12 @@ function LoginScreen() {
                     setTextSnack(text.error.unverifiedAccount)
                     break
                 default:
+                    handleError(error)
                     setTextSnack(text.error.somethingWentWrong)
             }
+            setPassword("")
+            setTypeSnack("ERROR")
             setShowSnack(true)
-        }).finally(function () {
             setLoading(false)
         })
     }
