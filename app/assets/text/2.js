@@ -7,6 +7,12 @@ export const text = {
         signIn: "Sign in",
         noCredentials: "Enter e-mail and password"
     },
+    questScreen: {
+        quests: "Quests",
+        daily: "Daily",
+        classic: "Classic",
+        party: "Group"
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",

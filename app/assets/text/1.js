@@ -7,6 +7,12 @@ export const text = {
         signIn: "Prihlásiť sa",
         noCredentials: "Zadajte email a heslo"
     },
+    questScreen: {
+        quests: "Úlohy",
+        daily: "Denné",
+        classic: "Klasické",
+        party: "Skupinové"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
