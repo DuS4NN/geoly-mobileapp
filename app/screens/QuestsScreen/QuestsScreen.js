@@ -99,18 +99,30 @@ function QuestsScreen() {
                     <View style={styles.contentNavigation}>
 
                         <Pressable onPress={() => switchButtonInNavigation("DAILY")}>
-                            <View style={navigationItem === "DAILY" ? [styles.contentNavigationItem, styles.contentNavigationLeftItem, styles.contentNavigationItemSelected] : [styles.contentNavigationItem, styles.contentNavigationLeftItem]}>
-                                <Text style={navigationItem === "DAILY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.daily}</Text>
+                            <View style={[styles.contentNavigationItem, styles.contentNavigationLeftItem]}>
+
+                                <View style={navigationItem === "DAILY" ? styles.contentNavigationItemBackgroundSelectedLeft : styles.contentNavigationItemBackgroundLeft}>
+                                    <Text style={navigationItem === "DAILY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.daily}</Text>
+                                </View>
+
                             </View>
                         </Pressable>
                         <Pressable onPress={() => switchButtonInNavigation("CLASSIC")}>
-                            <View style={navigationItem === "CLASSIC" ? [styles.contentNavigationItem, styles.contentNavigationItemSelected] : styles.contentNavigationItem }>
-                                <Text style={navigationItem === "CLASSIC" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.classic}</Text>
+                            <View style={styles.contentNavigationItem }>
+
+                                <View style={navigationItem === "CLASSIC" ? styles.contentNavigationItemBackgroundSelectedCenter : styles.contentNavigationItemBackgroundCenter}>
+                                    <Text style={navigationItem === "CLASSIC" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.classic}</Text>
+                                </View>
+
                             </View>
                         </Pressable>
                         <Pressable onPress={() => switchButtonInNavigation("PARTY")}>
-                            <View style={navigationItem === "PARTY" ? [styles.contentNavigationItem, styles.contentNavigationRightItem, styles.contentNavigationItemSelected] : [styles.contentNavigationItem, styles.contentNavigationRightItem]}>
-                                <Text style={navigationItem === "PARTY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.party}</Text>
+                            <View style={[styles.contentNavigationItem, styles.contentNavigationRightItem]}>
+
+                                <View style={navigationItem === "PARTY" ? styles.contentNavigationItemBackgroundSelectedRight : styles.contentNavigationItemBackgroundRight}>
+                                    <Text style={navigationItem === "PARTY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.party}</Text>
+                                </View>
+
                             </View>
                         </Pressable>
 

@@ -71,26 +71,60 @@ export default StyleSheet.create({
         borderTopWidth: 2,
         borderBottomColor: "black",
         borderBottomWidth: 2,
-        padding: 6,
         alignItems: "center"
-    },
-    contentNavigationItemSelected: {
-        backgroundColor: colors.backgroundGreen
     },
     contentNavigationLeftItem: {
         borderLeftWidth: 2,
         borderLeftColor: "black",
         borderBottomLeftRadius: 50,
         borderTopLeftRadius: 50,
-        paddingLeft: 15
     },
     contentNavigationRightItem: {
         borderRightWidth: 2,
         borderRightColor: "black",
         borderBottomRightRadius: 50,
         borderTopRightRadius: 50,
-        paddingRight: 15
     },
+
+    contentNavigationItemBackgroundLeft: {
+        padding: 6,
+        width: 105,
+        alignItems: "center",
+    },
+    contentNavigationItemBackgroundCenter: {
+        padding: 6,
+        width: 105,
+        alignItems: "center"
+    },
+    contentNavigationItemBackgroundRight: {
+        padding: 6,
+        width: 105,
+        alignItems: "center",
+
+    },
+    contentNavigationItemBackgroundSelectedLeft: {
+        backgroundColor: colors.backgroundGreen,
+        padding: 6,
+        width: 109,
+        alignItems: "center",
+        borderRadius: 50
+    },
+    contentNavigationItemBackgroundSelectedCenter: {
+        backgroundColor: colors.backgroundGreen,
+        padding: 6,
+        width: 109,
+        alignItems: "center",
+        borderRadius: 50
+    },
+    contentNavigationItemBackgroundSelectedRight: {
+        backgroundColor: colors.backgroundGreen,
+        padding: 6,
+        width: 109,
+        alignItems: "center",
+
+        borderRadius: 50
+    },
+
     contentNavigationItemText: {
         fontFamily: "OpenSans",
         fontWeight: "bold",
@@ -98,13 +132,12 @@ export default StyleSheet.create({
         color: colors.black
     },
     contentNavigationItemTextSelected: {
-        color: colors.darkGreen
+        color: colors.darkGreen,
     },
     /*
         --- CONTENT DATA ---
      */
     contentData: {
-        flex: 1,
-
+        flex: 1
     }
 })
