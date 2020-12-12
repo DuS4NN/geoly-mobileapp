@@ -8,6 +8,8 @@ export default {
     darkRed: "#B22626",
 
     gray: "#999E9D",
+    lightGray: "#E0E0E0",
+    lightBackgroundGray: "#F4F4F4",
     backgroundGray: "#EFF6F4",
 
     white: "#FFFFFF",

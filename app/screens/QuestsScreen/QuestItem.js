@@ -1,20 +1,22 @@
-import React, {useContext, useState, useEffect} from "react";
-import {Text, View, Image, Dimensions, Pressable} from "react-native";
-import {Snackbar} from "react-native-paper"
+import React, {useContext, useState} from "react";
+import {Text, View, Image, Pressable} from "react-native";
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
-
 import handleError from "../../../ErrorHandler";
 import getText from "../../assets/text/Text";
 import styles from "./QuestListStyleSheet";
-import mainStyles from "../../../AppStyleSheet.js";
-
-
+import {LinearGradient} from "expo-linear-gradient";
+import colors from "../../../AppColors";
 
 function QuestsItem(props) {
 
-    const {quest} = props
+    const {quest, questList, setQuestList, setShowSnack, setTextSnack, setTypeSnack} = props
+
+    const {userContext} = useContext(UserContext)
+    const text = getText(userContext["languageId"])
+
+    const [deleteView, setDeleteView] = useState(false)
 
     const [categoryImages] = useState({
         1: require("../../assets/categoryImages/1.png"),
@@ -26,30 +28,73 @@ function QuestsItem(props) {
         7: require("../../assets/categoryImages/7.png")
     })
 
-    const shadowOpt = {
-        width:100,
-        height:100,
-        color:"#000",
-        border:2,
-        radius:3,
-        opacity:0.2,
-        x:0,
-        y:3,
-        style:{marginVertical:5}
+    const signOutOfQuest = () => {
+        axios({
+            method: "GET",
+            url: API_SERVER_URL+"/quest/signout?questId="+quest.id,
+            withCredentials: true
+        }).then(function (response) {
+            let statusCode = response.data.responseEntity.statusCode
+
+            if(statusCode === "ACCEPTED"){
+
+                setQuestList(questList.filter((q => {
+                    return q.id !== quest.id
+                })))
+
+                setTextSnack(text.success.signOff)
+                setTypeSnack("SUCCESS")
+                setShowSnack(true)
+            }
+        }).catch(function (error) {
+            setDeleteView(false)
+
+            setTextSnack(text.error.somethingWentWrong)
+            setTypeSnack("ERROR")
+            setShowSnack(true)
+
+            handleError(error)
+        })
     }
 
     return (
-        <View style={styles.itemContainer}>
-
-            <View style={styles.itemImageContainer}>
-                <Image style={styles.itemImage} source={categoryImages[quest.category]} />
-            </View>
-
-                <View style={styles.itemTextContainer}>
-                    <Text numberOfLines={2} style={styles.itemText}>{quest.name}</Text>
+        <Pressable onLongPress={() => setDeleteView(true)}>
+            <View style={deleteView === true ? [styles.itemContainer, styles.itemDeleteContainer] : styles.itemContainer}>
+                <View style={styles.itemImageContainer}>
+                    <Image style={styles.itemImage} source={categoryImages[quest.category]} />
                 </View>
 
-        </View>
+                <View style={styles.itemBorder} />
+
+                {deleteView === true ? (
+                    <View style={styles.itemTextContainer}>
+                        <Text style={styles.deleteText}>{text.questScreen.signOff}</Text>
+
+                        <View style={styles.deleteButtonsContainers}>
+                            <Pressable onPress={() => setDeleteView(false)}>
+                                <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+
+                                    <Text style={styles.deleteButtonText}>{text.main.no}</Text>
+                                </LinearGradient>
+                            </Pressable>
+
+                            <Pressable onPress={signOutOfQuest}>
+                                <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightRed, colors.darkRed]}>
+
+
+                                    <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
+                                </LinearGradient>
+                            </Pressable>
+                        </View>
+                    </View>
+                ) : (
+                    <View style={styles.itemTextContainer}>
+                        <Text numberOfLines={1} style={styles.itemText}>{quest.name}</Text>
+                    </View>
+                )}
+            </View>
+
+        </Pressable>
     )
 }
 

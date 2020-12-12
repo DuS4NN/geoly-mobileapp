@@ -31,7 +31,7 @@ export default StyleSheet.create({
     division: {
         width: 0,
         height: 0,
-        backgroundColor: 'white',
+        backgroundColor: colors.lightBackgroundGray,
         borderStyle: 'solid',
         borderRightColor: 'transparent',
         borderTopColor: colors.backgroundGreen,
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     loading: {
         flex: 4,
         alignItems: "center",
-        backgroundColor: colors.white
+        backgroundColor: colors.lightBackgroundGray
     },
     loadingImage: {
         height: "20%",
@@ -54,7 +54,7 @@ export default StyleSheet.create({
      */
     content: {
         flex: 4,
-        backgroundColor: colors.white
+        backgroundColor: colors.lightBackgroundGray
     },
     /*
         --- CONTENT NAVIGATION ---
@@ -71,7 +71,8 @@ export default StyleSheet.create({
         borderTopWidth: 2,
         borderBottomColor: "black",
         borderBottomWidth: 2,
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: colors.white
     },
     contentNavigationLeftItem: {
         borderLeftWidth: 2,

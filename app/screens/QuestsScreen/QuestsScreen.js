@@ -129,7 +129,7 @@ function QuestsScreen() {
                     </View>
 
                     <View style={styles.contentData}>
-                        <QuestsList questList={navigationItem === "DAILY" ? dailyQuest : navigationItem === "PARTY" ? partyQuests : classicQuests}/>
+                        <QuestsList questList={navigationItem === "DAILY" ? dailyQuest : navigationItem === "PARTY" ? partyQuests : classicQuests} setQuestList={navigationItem === "DAILY" ? setDailyQuest : navigationItem === "PARTY" ? setPartyQuests : setClassicQuests}/>
                     </View>
 
                 </View>
