@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, LogBox, Text } from 'react-native';
+import {SafeAreaView, LogBox, BackHandler} from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
 import {API_SERVER_URL} from "@env"
 import * as Font from "expo-font"
 import axios from "axios"
 import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
-
+import * as Location from "expo-location";
 import styles from "./AppStyleSheet"
 import QuestsScreen from "./app/screens/QuestsScreen/QuestsScreen";
+import GpsActivationScreen from "./app/screens/GpsActivationScreen/GpsActivationScreen";
 
 export default function App () {
 
     const [userContext, setUserContext] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [fontLoaded, setFontLoaded] = useState(false)
+    const [gpsLoaded, setGpsLoaded] = useState(false)
+
+    const [gpsEnabled, setGpsEnabled] = useState(false)
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
         loadFonts(setFontLoaded)
         checkUser()
+        getPosition()
     }, [])
 
     const checkUser = () => {
@@ -40,6 +45,7 @@ export default function App () {
                     darkMode: options[2],
                     nickName: options[3],
                     profileImage: options[4],
+                    address: options[5],
                     roles: roles
                 })
             }else{
@@ -48,7 +54,9 @@ export default function App () {
                     profileImage: null,
                     languageId: 2,
                     mapTheme: 1,
-                    darkMode: false
+                    address: null,
+                    darkMode: false,
+                    roles: null
                 })
             }
 
@@ -58,7 +66,9 @@ export default function App () {
                 profileImage: null,
                 languageId: 2,
                 mapTheme: 1,
-                darkMode: false
+                address: null,
+                darkMode: false,
+                roles: null
             })
             handleError(error)
         }).finally(function () {
@@ -66,16 +76,64 @@ export default function App () {
         })
     }
 
+    const getPosition = async () => {
+
+        let { status } = await Location.requestPermissionsAsync();
+        if (status !== 'granted') {
+            BackHandler.exitApp()
+            return
+        }
+
+        let enabled = await Location.hasServicesEnabledAsync()
+        if(enabled === true){
+            try{
+                let location = await Location.getCurrentPositionAsync({});
+                let coordinates = location.coords.latitude+","+location.coords.longitude
+
+                setUserContext({
+                    languageId: userContext["languageId"],
+                    mapTheme: userContext["mapTheme"],
+                    darkMode: userContext["darkMode"],
+                    nickName: userContext["nickName"],
+                    profileImage: userContext["profileImage"],
+                    address: coordinates,
+                    roles: userContext["roles"]
+                })
+
+                setGpsEnabled(true)
+                setGpsLoaded(true)
+                return true
+            }catch (e) {
+                setGpsEnabled(false)
+                setGpsLoaded(true)
+                return false
+            }
+        }else{
+            setGpsEnabled(false)
+            setGpsLoaded(true)
+            return false
+        }
+    }
+
     return (
     <SafeAreaView style={styles.mainSafeAreaView}>
 
-        {loaded && fontLoaded && (
+        {loaded && fontLoaded && gpsLoaded && (
             <UserContext.Provider value={{userContext, setUserContext}}>
-                {userContext["nickName"] !== null ? (
+
+                {gpsEnabled === false && (
+                    <GpsActivationScreen getPosition={getPosition}/>
+                )}
+
+                {userContext["nickName"] !== null && gpsEnabled === true && (
                     <QuestsScreen/>
-                ) : (
+                )}
+
+                {userContext["nickName"] === null && gpsEnabled === true && (
                     <LoginScreen/>
                 )}
+
+
             </UserContext.Provider>
         )}
 

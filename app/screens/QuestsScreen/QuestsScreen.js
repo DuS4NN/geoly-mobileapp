@@ -4,7 +4,7 @@ import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import GestureRecognizer from 'react-native-swipe-gestures';
 import handleError from "../../../ErrorHandler";
 import getText from "../../assets/text/Text";
 import styles from "./QuestsScreenStyleSheet";

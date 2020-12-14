@@ -88,5 +88,8 @@ export default StyleSheet.create({
         fontSize: 17,
         color: colors.black,
         alignSelf: "center",
+        textAlign: "center",
+        paddingLeft: 10,
+        paddingRight: 10
     }
 })

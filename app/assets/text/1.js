@@ -19,10 +19,15 @@ export const text = {
         signOff: "Odhlásiť sa z úlohy?",
         noActiveQuest: "Nemáte žiadnu aktívnu úlohu"
     },
+    gpsActivationScreen: {
+        gps: "Prosím zapnite GPS a reštartujte aplikáciu",
+        reload: "Reštartovať"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
         unverifiedAccount: "Váš účet nie je overený",
+        gpsIsDisabled: "GPS je vypnuté",
         somethingWentWrong: "Niečo sa pokazilo, skúste to znovu"
     },
     success: {
