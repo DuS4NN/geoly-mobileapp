@@ -23,6 +23,12 @@ export const text = {
         gps: "Prosím zapnite GPS a reštartujte aplikáciu",
         reload: "Reštartovať"
     },
+    navigation: {
+        quests: "Moje ulohy",
+        creator: "Tvorba úloh",
+        near: "Úlohy v blízkosti",
+        me: "Ja"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",

@@ -23,6 +23,12 @@ export const text = {
         gps: "Please turn on the GPS and restart the application",
         reload: "Reload"
     },
+    navigation: {
+        quests: "My quests",
+        creator: "Quest creator",
+        near: "Quest nearby",
+        me: "Me"
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import {SafeAreaView, LogBox, BackHandler} from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
-import {API_SERVER_URL} from "@env"
-import * as Font from "expo-font"
-import axios from "axios"
+import {API_SERVER_URL} from "@env";
+import * as Font from "expo-font";
+import axios from "axios";
 import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
 import * as Location from "expo-location";
-import styles from "./AppStyleSheet"
-import QuestsScreen from "./app/screens/QuestsScreen/QuestsScreen";
+import styles from "./AppStyleSheet";
 import GpsActivationScreen from "./app/screens/GpsActivationScreen/GpsActivationScreen";
+import MainScreen from "./app/screens/MainScreen/MainScreen";
 
 export default function App () {
 
@@ -24,11 +24,12 @@ export default function App () {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
 
         loadFonts(setFontLoaded)
-        checkUser()
-        getPosition()
+        checkUser().then(response => {
+            getPosition()
+        })
     }, [])
 
-    const checkUser = () => {
+    const checkUser = async () => {
         axios({
             method: "GET",
             url: API_SERVER_URL+"/checkUser",
@@ -90,7 +91,7 @@ export default function App () {
                 let location = await Location.getCurrentPositionAsync({});
                 let coordinates = location.coords.latitude+","+location.coords.longitude
 
-                setUserContext({
+                /*setUserContext({
                     languageId: userContext["languageId"],
                     mapTheme: userContext["mapTheme"],
                     darkMode: userContext["darkMode"],
@@ -98,7 +99,7 @@ export default function App () {
                     profileImage: userContext["profileImage"],
                     address: coordinates,
                     roles: userContext["roles"]
-                })
+                })*/
 
                 setGpsEnabled(true)
                 setGpsLoaded(true)
@@ -126,13 +127,12 @@ export default function App () {
                 )}
 
                 {userContext["nickName"] !== null && gpsEnabled === true && (
-                    <QuestsScreen/>
+                    <MainScreen/>
                 )}
 
                 {userContext["nickName"] === null && gpsEnabled === true && (
                     <LoginScreen/>
                 )}
-
 
             </UserContext.Provider>
         )}
