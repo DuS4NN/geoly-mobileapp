@@ -29,7 +29,7 @@ function QuestsScreen() {
 
     const [loading, setLoading] = useState(false)
 
-    const [selectedQuest, setSelectedQuest] = useState(0)
+    const [selectedQuest, setSelectedQuest] = useState(null)
 
     useEffect(() => {
         loadData()
@@ -105,8 +105,8 @@ function QuestsScreen() {
 
     return (
         <View style={{flex: 1}}>
-            {selectedQuest === 0 ? (
-                <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.6, directionalOffsetThreshold: 150}}>
+            {selectedQuest === null ? (
+                <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
                     <View style={styles.background}>
 
                         <View style={styles.header}>
@@ -166,7 +166,7 @@ function QuestsScreen() {
                     </View>
                 </GestureRecognizer>
             ) : (
-                <GameScreen questId={selectedQuest}/>
+                <GameScreen setSelectedQuest={setSelectedQuest} quest={selectedQuest} type={navigationItem}/>
             )}
         </View>
     )

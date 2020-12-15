@@ -58,7 +58,7 @@ function QuestsItem(props) {
     }
 
     return (
-        <Pressable onPress={() => setSelectedQuest(quest.id)} onLongPress={() => setDeleteView(true)}>
+        <Pressable onPress={() => setSelectedQuest(quest)} onLongPress={() => setDeleteView(true)}>
             <View style={deleteView === true ? [styles.itemContainer, styles.itemDeleteContainer] : styles.itemContainer}>
                 <View style={styles.itemImageContainer}>
                     <Image style={styles.itemImage} source={categoryImages[quest.category]} />
