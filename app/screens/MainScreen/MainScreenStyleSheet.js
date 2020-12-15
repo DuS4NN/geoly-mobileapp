@@ -4,6 +4,13 @@ import colors from "../../../AppColors";
 export default StyleSheet.create({
     background: {
         flex: 1,
+        width: "100%",
+        backgroundColor: colors.lightBackgroundGray
+    },
+    loading: {
+        height: "20%",
+        resizeMode: "contain",
+        alignSelf: "center",
     },
     content:{
         backgroundColor: colors.black,
