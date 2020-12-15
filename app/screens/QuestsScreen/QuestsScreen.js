@@ -10,6 +10,7 @@ import getText from "../../assets/text/Text";
 import styles from "./QuestsScreenStyleSheet";
 import mainStyles from "../../../AppStyleSheet.js"
 import QuestsList from "./QuestList";
+import GameScreen from "../GameScreen/GameScreen";
 
 function QuestsScreen() {
 
@@ -27,6 +28,8 @@ function QuestsScreen() {
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
     const [loading, setLoading] = useState(false)
+
+    const [selectedQuest, setSelectedQuest] = useState(0)
 
     useEffect(() => {
         loadData()
@@ -101,65 +104,71 @@ function QuestsScreen() {
     }
 
     return (
-        <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.6, directionalOffsetThreshold: 150}}>
-            <View style={styles.background}>
+        <View style={{flex: 1}}>
+            {selectedQuest === 0 ? (
+                <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.6, directionalOffsetThreshold: 150}}>
+                    <View style={styles.background}>
 
-                <View style={styles.header}>
-                    <Text style={styles.headerText} >{text.questScreen.quests}</Text>
-                    <Image style={styles.headerImage} source={require("../../assets/images/quest.png")} />
-                </View>
-                <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
-
-                {loading === true ? (
-                    <View style={styles.loading}>
-                        <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                    </View>
-                ) : (
-                    <View style={styles.content}>
-
-                        <View style={styles.contentNavigation}>
-
-                            <Pressable onPress={() => switchButtonInNavigation("DAILY")}>
-                                <View style={[styles.contentNavigationItem, styles.contentNavigationLeftItem]}>
-
-                                    <View style={navigationItem === "DAILY" ? styles.contentNavigationItemBackgroundSelectedLeft : styles.contentNavigationItemBackgroundLeft}>
-                                        <Text style={navigationItem === "DAILY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.daily}</Text>
-                                    </View>
-
-                                </View>
-                            </Pressable>
-                            <Pressable onPress={() => switchButtonInNavigation("CLASSIC")}>
-                                <View style={styles.contentNavigationItem }>
-
-                                    <View style={navigationItem === "CLASSIC" ? styles.contentNavigationItemBackgroundSelectedCenter : styles.contentNavigationItemBackgroundCenter}>
-                                        <Text style={navigationItem === "CLASSIC" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.classic}</Text>
-                                    </View>
-
-                                </View>
-                            </Pressable>
-                            <Pressable onPress={() => switchButtonInNavigation("PARTY")}>
-                                <View style={[styles.contentNavigationItem, styles.contentNavigationRightItem]}>
-
-                                    <View style={navigationItem === "PARTY" ? styles.contentNavigationItemBackgroundSelectedRight : styles.contentNavigationItemBackgroundRight}>
-                                        <Text style={navigationItem === "PARTY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.party}</Text>
-                                    </View>
-
-                                </View>
-                            </Pressable>
-
+                        <View style={styles.header}>
+                            <Text style={styles.headerText} >{text.questScreen.quests}</Text>
+                            <Image style={styles.headerImage} source={require("../../assets/images/quest.png")} />
                         </View>
+                        <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
 
-                        <View style={styles.contentData}>
-                            <QuestsList questList={navigationItem === "DAILY" ? dailyQuest : navigationItem === "PARTY" ? partyQuests : classicQuests} setQuestList={navigationItem === "DAILY" ? setDailyQuest : navigationItem === "PARTY" ? setPartyQuests : setClassicQuests}/>
-                        </View>
+                        {loading === true ? (
+                            <View style={styles.loading}>
+                                <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                            </View>
+                        ) : (
+                            <View style={styles.content}>
+
+                                <View style={styles.contentNavigation}>
+
+                                    <Pressable onPress={() => switchButtonInNavigation("DAILY")}>
+                                        <View style={[styles.contentNavigationItem, styles.contentNavigationLeftItem]}>
+
+                                            <View style={navigationItem === "DAILY" ? styles.contentNavigationItemBackgroundSelectedLeft : styles.contentNavigationItemBackgroundLeft}>
+                                                <Text style={navigationItem === "DAILY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.daily}</Text>
+                                            </View>
+
+                                        </View>
+                                    </Pressable>
+                                    <Pressable onPress={() => switchButtonInNavigation("CLASSIC")}>
+                                        <View style={styles.contentNavigationItem }>
+
+                                            <View style={navigationItem === "CLASSIC" ? styles.contentNavigationItemBackgroundSelectedCenter : styles.contentNavigationItemBackgroundCenter}>
+                                                <Text style={navigationItem === "CLASSIC" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.classic}</Text>
+                                            </View>
+
+                                        </View>
+                                    </Pressable>
+                                    <Pressable onPress={() => switchButtonInNavigation("PARTY")}>
+                                        <View style={[styles.contentNavigationItem, styles.contentNavigationRightItem]}>
+
+                                            <View style={navigationItem === "PARTY" ? styles.contentNavigationItemBackgroundSelectedRight : styles.contentNavigationItemBackgroundRight}>
+                                                <Text style={navigationItem === "PARTY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.party}</Text>
+                                            </View>
+
+                                        </View>
+                                    </Pressable>
+
+                                </View>
+
+                                <View style={styles.contentData}>
+                                    <QuestsList navigationItem={navigationItem} setSelectedQuest={setSelectedQuest} questList={navigationItem === "DAILY" ? dailyQuest : navigationItem === "PARTY" ? partyQuests : classicQuests} setQuestList={navigationItem === "DAILY" ? setDailyQuest : navigationItem === "PARTY" ? setPartyQuests : setClassicQuests}/>
+                                </View>
+
+                            </View>
+                        )}
+
+                        <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
 
                     </View>
-                )}
-
-                <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-
-            </View>
-        </GestureRecognizer>
+                </GestureRecognizer>
+            ) : (
+                <GameScreen questId={selectedQuest}/>
+            )}
+        </View>
     )
 }
 

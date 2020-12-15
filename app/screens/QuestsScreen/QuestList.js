@@ -9,7 +9,7 @@ import getText from "../../assets/text/Text";
 
 function QuestsList(props) {
 
-    const {questList, setQuestList} = props
+    const {navigationItem, questList, setQuestList, setSelectedQuest} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -21,7 +21,7 @@ function QuestsList(props) {
     return (
         <View style={styles.background}>
             {questList.map((quest => (
-                <QuestsItem setTextSnack={setTextSnack} setShowSnack={setShowSnack} setTypeSnack={setTypeSnack} quest={quest} questList={questList} setQuestList={setQuestList} key={quest.id}/>
+                <QuestsItem navigationItem={navigationItem} setSelectedQuest={setSelectedQuest} setTextSnack={setTextSnack} setShowSnack={setShowSnack} setTypeSnack={setTypeSnack} quest={quest} questList={questList} setQuestList={setQuestList} key={quest.id}/>
             )))}
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>

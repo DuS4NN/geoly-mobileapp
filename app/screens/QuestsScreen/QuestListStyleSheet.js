@@ -42,6 +42,13 @@ export default StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
+    itemPartyNameText: {
+        fontFamily: "OpenSansLight",
+        paddingLeft: 10,
+        paddingRight: 10,
+        color: colors.gray,
+        fontSize: 13,
+    },
 
     itemDeleteContainer: {
       backgroundColor: colors.lightGray

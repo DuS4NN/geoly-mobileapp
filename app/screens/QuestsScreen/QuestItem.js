@@ -11,7 +11,7 @@ import colors from "../../../AppColors";
 
 function QuestsItem(props) {
 
-    const {quest, questList, setQuestList, setShowSnack, setTextSnack, setTypeSnack} = props
+    const {navigationItem, setSelectedQuest, quest, questList, setQuestList, setShowSnack, setTextSnack, setTypeSnack} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -58,7 +58,7 @@ function QuestsItem(props) {
     }
 
     return (
-        <Pressable onLongPress={() => setDeleteView(true)}>
+        <Pressable onPress={() => setSelectedQuest(quest.id)} onLongPress={() => setDeleteView(true)}>
             <View style={deleteView === true ? [styles.itemContainer, styles.itemDeleteContainer] : styles.itemContainer}>
                 <View style={styles.itemImageContainer}>
                     <Image style={styles.itemImage} source={categoryImages[quest.category]} />
@@ -80,8 +80,6 @@ function QuestsItem(props) {
 
                             <Pressable onPress={signOutOfQuest}>
                                 <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightRed, colors.darkRed]}>
-
-
                                     <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
                                 </LinearGradient>
                             </Pressable>
@@ -90,6 +88,9 @@ function QuestsItem(props) {
                 ) : (
                     <View style={styles.itemTextContainer}>
                         <Text numberOfLines={1} style={styles.itemText}>{quest.name}</Text>
+                        {navigationItem === "PARTY" && (
+                            <Text style={styles.itemPartyNameText}>{quest.party}</Text>
+                        )}
                     </View>
                 )}
             </View>
