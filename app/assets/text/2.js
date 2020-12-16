@@ -29,6 +29,9 @@ export const text = {
         near: "Quest nearby",
         me: "Me"
     },
+    gameScreen: {
+      leftStages: "Number of remaining stages: "
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",

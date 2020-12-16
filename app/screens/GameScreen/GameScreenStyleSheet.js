@@ -63,5 +63,16 @@ export default StyleSheet.create({
         resizeMode: "contain"
     },
 
+    leftStagesContainer: {
+        height: 20,
+        backgroundColor: colors.backgroundGreen
+    },
+    leftStagesText: {
+        fontSize: 13,
+        fontFamily: "OpenSansLight",
+        textAlign: "center",
+        color: colors.gray
+    }
+
 
 })

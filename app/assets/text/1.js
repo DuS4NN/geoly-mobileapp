@@ -29,6 +29,9 @@ export const text = {
         near: "Úlohy v blízkosti",
         me: "Ja"
     },
+    gameScreen: {
+        leftStages: "Počet zostávajúcich etáp: "
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",

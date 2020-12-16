@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../../UserContext";
-import {View, Image} from "react-native";
+import {View, Image, Text} from "react-native";
 import getText from "../../assets/text/Text";
 import styles from "./GameScreenStyleSheet";
 import GameScreenHeader from "./GameScreenHeader";
@@ -96,15 +96,21 @@ function GameScreen (props) {
                         </View>
                     ) : (
                         <View style={{flex: 1}}>
-                            {stageList[0].type === "GO_TO_PLACE" && (
+
+                            <View style={styles.leftStagesContainer}>
+                                <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageList.length}</Text>
+                            </View>
+
+                            {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
                                 <GoToPlaceScreen stageList={stageList} setStageList={setStageList}/>
                             )}
-                            {stageList[0].type === "ANSWER_QUESTION" && (
+                            {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
                                 <AnswerQuestionScreen stageList={stageList} setStageList={setStageList}/>
                             )}
-                            {stageList[0].type === "SCAN_QR_CODE" && (
+                            {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
                                 <ScanQrCodeScreen stageList={stageList} setStageList={setStageList}/>
                             )}
+
                         </View>
                     )}
                 </View>
