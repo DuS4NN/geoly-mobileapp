@@ -64,7 +64,8 @@ function QuestsScreen() {
                         name: partyQuests[0],
                         category: partyQuests[1],
                         party: partyQuests[2],
-                        id: partyQuests[3]
+                        id: partyQuests[3],
+                        partyId: partyQuests[4]
                     }
                 }))
             }else{

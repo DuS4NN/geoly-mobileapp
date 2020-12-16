@@ -51,7 +51,17 @@ export default StyleSheet.create({
     gameContent: {
         flex: 4,
         backgroundColor: colors.lightBackgroundGray
-    }
+    },
+
+    loading: {
+        flex: 4,
+        alignItems: "center",
+        backgroundColor: colors.lightBackgroundGray
+    },
+    loadingImage: {
+        height: "20%",
+        resizeMode: "contain"
+    },
 
 
 })
