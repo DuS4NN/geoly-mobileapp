@@ -1,13 +1,14 @@
 import React, {useContext, useState} from "react";
 import {Text, View, Image, Pressable} from "react-native";
-import {UserContext} from "../../../UserContext";
+import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
-import handleError from "../../../ErrorHandler";
-import getText from "../../assets/text/Text";
+import handleError from "../../../../ErrorHandler";
+import getText from "../../../assets/text/Text";
 import styles from "./StageTypeScreenStyleSheet";
 import {LinearGradient} from "expo-linear-gradient";
-import colors from "../../../AppColors";
+import colors from "../../../../AppColors";
+
 
 function AnswerQuestionScreen(props) {
 

@@ -27,7 +27,7 @@ function QuestsScreen() {
     const [showSnack, setShowSnack] = useState(false)
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const [selectedQuest, setSelectedQuest] = useState(null)
 

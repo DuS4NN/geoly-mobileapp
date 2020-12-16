@@ -7,10 +7,11 @@ import {LinearGradient} from "expo-linear-gradient";
 import colors from "../../../AppColors";
 import mainStyles from "../../../AppStyleSheet";
 import {Snackbar} from "react-native-paper";
+import GPS from "../../components/GPS";
 
 function GpsActivationScreen(props) {
 
-    const {getPosition} = props
+    const {setCoordinates} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -23,12 +24,14 @@ function GpsActivationScreen(props) {
 
     const reloadPosition = () => {
         setLoading(true)
-        getPosition().then(response => {
-            if(response === false){
-                setLoading(false)
+        GPS().then(response => {
+            if(response === null){
                 setTextSnack(text.error.gpsIsDisabled)
-                setShowSnack(true)
                 setTypeSnack("ERROR")
+                setShowSnack(true)
+                setLoading(false)
+            }else{
+                setCoordinates(true)
             }
         })
     }

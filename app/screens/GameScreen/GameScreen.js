@@ -1,10 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {UserContext} from "../../../UserContext";
-import {View, Image, Text} from "react-native";
+import {View, Image, Text, BackHandler} from "react-native";
 import getText from "../../assets/text/Text";
 import styles from "./GameScreenStyleSheet";
 import GameScreenHeader from "./GameScreenHeader";
-import GestureRecognizer from "react-native-swipe-gestures";
 import axios from "axios"
 import {API_SERVER_URL} from "@env";
 import handleError from "../../../ErrorHandler";
@@ -30,6 +29,11 @@ function GameScreen (props) {
 
     useEffect(() => {
         getStages()
+
+        BackHandler.addEventListener("hardwareBackPress", function () {
+            goBack()
+            return true
+        })
     }, [])
 
     const getStages = () => {
@@ -85,7 +89,6 @@ function GameScreen (props) {
     }
 
     return (
-        <GestureRecognizer style={{flex: 1}} onSwipeRight={() => goBack()} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
             <View style={styles.background}>
                 <GameScreenHeader quest={quest} type={type} goBack={goBack}/>
 
@@ -114,11 +117,9 @@ function GameScreen (props) {
                         </View>
                     )}
                 </View>
+
+                <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
             </View>
-
-            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-
-        </GestureRecognizer>
     )
 }
 

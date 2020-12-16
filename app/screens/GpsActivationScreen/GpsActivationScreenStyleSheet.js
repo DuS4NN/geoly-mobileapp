@@ -4,7 +4,7 @@ import colors from "../../../AppColors";
 export default StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: colors.backgroundGreen,
+        backgroundColor: colors.lightBackgroundGray,
         alignItems: "center",
         justifyContent: "flex-start",
     },
