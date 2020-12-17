@@ -49,7 +49,7 @@ function GameScreen (props) {
                 url += "/getUnfinishedStagesParty?questId="+quest.id+"&partyId="+quest.partyId
                 break
             case "DAILY":
-                url += ""
+                url += "/dailyquest"
                 break
         }
 
@@ -58,21 +58,32 @@ function GameScreen (props) {
             url: url,
             withCredentials: true
         }).then(function (response) {
-
-            setStageList(response.data.data.map((stage => {
-                return {
-                    stageId: stage[0],
-                    answer: stage[1],
-                    latitude: stage[2],
-                    longitude: stage[3],
-                    qrCodeUrl: stage[4],
-                    question: stage[5],
-                    type: stage[6],
-                    advise: stage[7],
-                    note: stage[8],
-                    answerList: stage[9]
-                }
-            })))
+            if(type !== "DAILY"){
+                setStageList(response.data.data.map((stage => {
+                    return {
+                        stageId: stage[0],
+                        answer: stage[1],
+                        latitude: stage[2],
+                        longitude: stage[3],
+                        qrCodeUrl: stage[4],
+                        question: stage[5],
+                        type: stage[6],
+                        advise: stage[7],
+                        note: stage[8],
+                        answerList: stage[9]
+                    }
+                })))
+            }else{
+                let data = response.data.data
+                setStageList([{
+                    questId: data[0][0],
+                    stageId: data[0][2],
+                    duration: data[1],
+                    latitude: data[2].latitude,
+                    longitude: data[2].longitude,
+                    type: "GO_TO_PLACE"
+                }])
+            }
 
         }).catch(function (error) {
             handleError(error)

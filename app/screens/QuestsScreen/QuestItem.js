@@ -87,7 +87,11 @@ function QuestsItem(props) {
                     </View>
                 ) : (
                     <View style={styles.itemTextContainer}>
-                        <Text numberOfLines={1} style={styles.itemText}>{quest.name}</Text>
+                        {navigationItem === "DAILY" ? (
+                            <Text  numberOfLines={1} style={styles.itemText}>{text.gameScreen.daily}</Text>
+                        ) : (
+                            <Text numberOfLines={1} style={styles.itemText}>{quest.name}</Text>
+                        )}
                         {navigationItem === "PARTY" && (
                             <Text style={styles.itemPartyNameText}>{quest.party}</Text>
                         )}
