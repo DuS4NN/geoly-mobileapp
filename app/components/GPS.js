@@ -13,7 +13,10 @@ export default async () => {
     if(enabled === true){
         try{
             let location = await Location.getCurrentPositionAsync({});
-            return location.coords.latitude+","+location.coords.longitude
+            return {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude
+            }
         }catch (e) {
             return null
         }

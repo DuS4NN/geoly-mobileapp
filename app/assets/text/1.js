@@ -30,7 +30,9 @@ export const text = {
         me: "Ja"
     },
     gameScreen: {
-        leftStages: "Počet zostávajúcich etáp: "
+        leftStages: "Počet zostávajúcich etáp: ",
+        location: "Moja poloha",
+        destination: "Ciel"
     },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",

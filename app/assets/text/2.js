@@ -30,7 +30,9 @@ export const text = {
         me: "Me"
     },
     gameScreen: {
-      leftStages: "Number of remaining stages: "
+        leftStages: "Number of remaining stages: ",
+        location: "My location",
+        destination: "Destination"
     },
     error: {
         badCredentials: "Email or password is incorrect",
