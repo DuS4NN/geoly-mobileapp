@@ -23,6 +23,8 @@ function GameScreen (props) {
     const [stageList, setStageList] = useState([])
     const [loading, setLoading] = useState(false)
 
+    const [finishLoading, setFinishLoading] = useState(false)
+
     const [textSnack, setTextSnack] = useState("")
     const [showSnack, setShowSnack] = useState(false)
     const [typeSnack, setTypeSnack] = useState("ERROR")
@@ -99,6 +101,13 @@ function GameScreen (props) {
         setSelectedQuest(null)
     }
 
+    const handleFinishStage = () => {
+        setFinishLoading(true)
+        setTypeSnack("ERROR")
+        setShowSnack(true)
+        setTextSnack(text.error.somethingWentWrong)
+    }
+
     return (
             <View style={styles.background}>
                 <GameScreenHeader quest={quest} type={type} goBack={goBack}/>
@@ -116,13 +125,13 @@ function GameScreen (props) {
                             </View>
 
                             {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
-                                <GoToPlaceScreen stageList={stageList} setStageList={setStageList}/>
+                                <GoToPlaceScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                             )}
                             {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
-                                <AnswerQuestionScreen stageList={stageList} setStageList={setStageList}/>
+                                <AnswerQuestionScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                             )}
                             {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
-                                <ScanQrCodeScreen stageList={stageList} setStageList={setStageList}/>
+                                <ScanQrCodeScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                             )}
 
                         </View>

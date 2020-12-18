@@ -12,7 +12,7 @@ import colors from "../../../../AppColors";
 
 function ScanQrCodeScreen(props) {
 
-    const {stage, setStageList} = props
+    const {finishLoading, stage, handleFinishStage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])

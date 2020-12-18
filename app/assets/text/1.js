@@ -33,7 +33,10 @@ export const text = {
         leftStages: "Počet zostávajúcich etáp: ",
         location: "Moja poloha",
         destination: "Ciel",
-        daily: "Denná úloha"
+        daily: "Denná úloha",
+        finishedScreenTitle: "Gratulujeme! Dokončili ste etapu",
+        noteTitle: "Informácie od autora",
+        continue: "Pokračovať"
     },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",

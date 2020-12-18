@@ -33,7 +33,10 @@ export const text = {
         leftStages: "Number of remaining stages: ",
         location: "My location",
         destination: "Destination",
-        daily: "Daily quest"
+        daily: "Daily quest",
+        finishedScreenTitle: "Congratulations! You have completed the stage",
+        noteTitle: "Information from the author",
+        continue: "Continue"
     },
     error: {
         badCredentials: "Email or password is incorrect",

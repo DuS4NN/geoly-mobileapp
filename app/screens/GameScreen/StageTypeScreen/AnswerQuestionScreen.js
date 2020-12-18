@@ -12,7 +12,7 @@ import colors from "../../../../AppColors";
 
 function AnswerQuestionScreen(props) {
 
-    const {stageList, setStageList} = props
+    const {finishLoading, stage, handleFinishStage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
