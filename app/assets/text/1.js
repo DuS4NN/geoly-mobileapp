@@ -36,7 +36,12 @@ export const text = {
         daily: "Denná úloha",
         finishedScreenTitle: "Gratulujeme! Dokončili ste etapu",
         noteTitle: "Informácie od autora",
-        continue: "Pokračovať"
+        continue: "Pokračovať",
+        answerPlaceholder: "Odpoveď",
+        advise: "Poraď mi",
+        submit: "Potvrdiť",
+        adviseAlert: "Rada",
+        wrongAnswer: "Odpoveď je nesprávna"
     },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",

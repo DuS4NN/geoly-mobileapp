@@ -109,37 +109,37 @@ function GameScreen (props) {
     }
 
     return (
-            <View style={styles.background}>
-                <GameScreenHeader quest={quest} type={type} goBack={goBack}/>
+        <View style={styles.background}>
+            <GameScreenHeader quest={quest} type={type} goBack={goBack}/>
 
-                <View style={styles.gameContent}>
-                    {loading === true ? (
-                        <View style={styles.loading}>
-                            <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+            <View style={styles.gameContent}>
+                {loading === true ? (
+                    <View style={styles.loading}>
+                        <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                    </View>
+                ) : (
+                    <View style={{flex: 1}}>
+
+                        <View style={styles.leftStagesContainer}>
+                            <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageList.length}</Text>
                         </View>
-                    ) : (
-                        <View style={{flex: 1}}>
 
-                            <View style={styles.leftStagesContainer}>
-                                <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageList.length}</Text>
-                            </View>
+                        {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
+                            <GoToPlaceScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                        )}
+                        {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
+                            <AnswerQuestionScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                        )}
+                        {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
+                            <ScanQrCodeScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                        )}
 
-                            {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
-                                <GoToPlaceScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
-                            )}
-                            {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
-                                <AnswerQuestionScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
-                            )}
-                            {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
-                                <ScanQrCodeScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
-                            )}
-
-                        </View>
-                    )}
-                </View>
-
-                <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
+                    </View>
+                )}
             </View>
+
+            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
+        </View>
     )
 }
 

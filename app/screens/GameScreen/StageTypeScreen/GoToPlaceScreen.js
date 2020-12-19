@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect, useRef, useCallback} from "react";
-import {View, Image, Text} from "react-native";
+import {View, Image} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {GOOGLE_API_KEY} from "@env";
 import * as Location from "expo-location";

@@ -36,7 +36,12 @@ export const text = {
         daily: "Daily quest",
         finishedScreenTitle: "Congratulations! You have completed the stage",
         noteTitle: "Information from the author",
-        continue: "Continue"
+        continue: "Continue",
+        answerPlaceholder: "Answer",
+        advise: "Advise me",
+        submit: "Submit",
+        adviseAlert: "Advise",
+        wrongAnswer: "The answer is incorrect"
     },
     error: {
         badCredentials: "Email or password is incorrect",

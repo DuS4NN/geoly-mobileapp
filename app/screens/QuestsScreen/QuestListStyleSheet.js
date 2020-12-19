@@ -13,6 +13,7 @@ export default StyleSheet.create({
         flexDirection: "row",
         backgroundColor: colors.white,
         borderRadius: 15,
+        marginBottom: 20
 
     },
     itemImageContainer: {
