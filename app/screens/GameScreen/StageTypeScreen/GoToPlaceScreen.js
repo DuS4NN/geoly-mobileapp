@@ -47,11 +47,12 @@ function GoToPlaceScreen(props) {
             }
         })
 
-        await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, distanceInterval: 1 }, loc => {
-            setCoordinates({latitude: loc.coords.latitude, longitude: loc.coords.longitude})
+        await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, distanceInterval: 0.1 }, loc => {
             let distance = positionChangeHandler(loc.coords.latitude, loc.coords.longitude, stage.latitude, stage.longitude)*1000
             if(distance <= DISTANCE_DIFFERENCE){
                 setFinishScreen(true)
+            }else{
+                setCoordinates({latitude: loc.coords.latitude, longitude: loc.coords.longitude})
             }
         })
     }

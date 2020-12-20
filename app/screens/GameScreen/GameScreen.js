@@ -110,14 +110,14 @@ function GameScreen (props) {
         if(stageList.length === 1){
             axios({
                 method: "GET",
-                url: API_SERVER_URL+"/finishQuest?stageId="+stageList[0].stageId+"&type="+stageList[0].questType,
+                url: API_SERVER_URL+"/finishQuest?stageId="+stageList[0].stageId+"&type="+stageList[0].questType+"&questId="+stageList[0].questId,
                 withCredentials: true
             }).then(function (response) {
                 let statusCode = response.data.responseEntity.statusCode
 
                 if(statusCode === "ACCEPTED"){
-                    removeQuestFromList()
                     goBack()
+                    removeQuestFromList()
                 }else{
                     setTypeSnack("ERROR")
                     setShowSnack(true)
@@ -128,7 +128,6 @@ function GameScreen (props) {
                 setTypeSnack("ERROR")
                 setShowSnack(true)
                 setTextSnack(text.error.somethingWentWrong)
-            }).finally(function () {
                 setFinishLoading(false)
             })
         }else{
