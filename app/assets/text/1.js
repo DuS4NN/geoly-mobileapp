@@ -54,6 +54,7 @@ export const text = {
         wrongQrCode: "Potrebný QR kód sa nezhoduje s načítaním"
     },
     success: {
-        signOff: "Boli ste odhlásený z úlohy"
+        signOff: "Boli ste odhlásený z úlohy",
+        questFinish: "Gratulujeme! Úspešne ste dokončili úlohu"
     }
 }

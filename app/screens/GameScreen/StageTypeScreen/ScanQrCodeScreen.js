@@ -12,13 +12,12 @@ import FinishScreen from "./FinishScreen";
 
 function ScanQrCodeScreen(props) {
 
-    const {finishLoading, stage, handleFinishStage} = props
+    const {finishScreen, setFinishScreen, finishLoading, stage, handleFinishStage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
 
     const [codeData, setCodeData] = useState(null)
-    const [finishScreen, setFinishScreen] = useState(false)
 
     const [textSnack, setTextSnack] = useState("")
     const [showSnack, setShowSnack] = useState(false)
@@ -58,7 +57,7 @@ function ScanQrCodeScreen(props) {
 
     return (
         <View style={{flex: 1, backgroundColor: colors.white}}>
-            
+
             {finishScreen === true ? (
                 <FinishScreen finishLoading={finishLoading} note={stage.note} handleFinishStage={handleFinishStage}/>
             ) : (

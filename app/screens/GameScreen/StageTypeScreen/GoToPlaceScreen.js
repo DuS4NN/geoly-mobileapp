@@ -15,7 +15,7 @@ import FinishScreen from "./FinishScreen";
 
 function GoToPlaceScreen(props) {
 
-    const {finishLoading, handleFinishStage, stage} = props
+    const {finishScreen, setFinishScreen, finishLoading, handleFinishStage, stage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -27,7 +27,6 @@ function GoToPlaceScreen(props) {
     const mapRef = useRef(null)
 
     const [coordinates, setCoordinates] = useState(null)
-    const [finishScreen, setFinishScreen] = useState(false)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {

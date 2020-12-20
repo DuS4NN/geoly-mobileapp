@@ -53,6 +53,7 @@ export const text = {
         cantLoadCode: "The required QR code does not match the load"
     },
     success: {
-        signOff: "You have been signed out of quest"
+        signOff: "You have been signed out of quest",
+        questFinish: "Congratulations! You have successfully completed the quest"
     }
 }

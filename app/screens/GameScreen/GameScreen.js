@@ -15,7 +15,7 @@ import AnswerQuestionScreen from "./StageTypeScreen/AnswerQuestionScreen";
 
 function GameScreen (props) {
 
-    const {quest, type, setSelectedQuest} = props
+    const {removeQuestFromList, quest, type, setSelectedQuest} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -24,6 +24,7 @@ function GameScreen (props) {
     const [loading, setLoading] = useState(false)
 
     const [finishLoading, setFinishLoading] = useState(false)
+    const [finishScreen, setFinishScreen] = useState(false)
 
     const [textSnack, setTextSnack] = useState("")
     const [showSnack, setShowSnack] = useState(false)
@@ -73,6 +74,7 @@ function GameScreen (props) {
                         advise: stage[7],
                         note: stage[8],
                         answerList: stage[9],
+                        questId: stage[10],
                         questType: type
                     }
                 })))
@@ -105,9 +107,62 @@ function GameScreen (props) {
 
     const handleFinishStage = () => {
         setFinishLoading(true)
-        setTypeSnack("SUCCESS")
-        setShowSnack(true)
-        setTextSnack(text.error.somethingWentWrong)
+        if(stageList.length === 1){
+            axios({
+                method: "GET",
+                url: API_SERVER_URL+"/finishQuest?stageId="+stageList[0].stageId+"&type="+stageList[0].questType,
+                withCredentials: true
+            }).then(function (response) {
+                let statusCode = response.data.responseEntity.statusCode
+
+                if(statusCode === "ACCEPTED"){
+                    removeQuestFromList()
+                    goBack()
+                }else{
+                    setTypeSnack("ERROR")
+                    setShowSnack(true)
+                    setTextSnack(text.error.somethingWentWrong)
+                }
+            }).catch(function (error) {
+                handleError(error)
+                setTypeSnack("ERROR")
+                setShowSnack(true)
+                setTextSnack(text.error.somethingWentWrong)
+            }).finally(function () {
+                setFinishLoading(false)
+            })
+        }else{
+            axios({
+                method: "GET",
+                url: API_SERVER_URL+"/finishStageAndStartNew?stageId="+stageList[0].stageId+"&questId="+stageList[0].questId+"&type="+stageList[0].questType,
+                withCredentials: true
+            }).then(function (response) {
+                let statusCode = response.data.responseEntity.statusCode
+
+                if(statusCode === "ACCEPTED"){
+                    setFinishScreen(false)
+                    let newStageList = []
+
+                    if(stageList.length > 2){
+                        newStageList = stageList.pop()
+                    }else{
+                        newStageList = [stageList.pop()]
+                    }
+                    setStageList(newStageList)
+                }else{
+                    setTypeSnack("ERROR")
+                    setShowSnack(true)
+                    setTextSnack(text.error.somethingWentWrong)
+                }
+            }).catch(function (error) {
+                handleError(error)
+                setTypeSnack("ERROR")
+                setShowSnack(true)
+                setTextSnack(text.error.somethingWentWrong)
+            }).finally(function () {
+                setFinishLoading(false)
+            })
+        }
     }
 
     return (
@@ -127,13 +182,13 @@ function GameScreen (props) {
                         </View>
 
                         {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
-                            <GoToPlaceScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                            <GoToPlaceScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                         )}
                         {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
-                            <AnswerQuestionScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                            <AnswerQuestionScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                         )}
                         {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
-                            <ScanQrCodeScreen finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                            <ScanQrCodeScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
                         )}
 
                     </View>

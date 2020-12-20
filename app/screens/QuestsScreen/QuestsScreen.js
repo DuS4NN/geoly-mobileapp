@@ -88,7 +88,7 @@ function QuestsScreen() {
         setNavigationItem(item)
     }
 
-    const onSwipe = (gestureName, gestureState) => {
+    const onSwipe = (gestureName) => {
          switch(gestureName){
             case "SWIPE_LEFT":
                 if(navigationItem === "DAILY") setNavigationItem("CLASSIC")
@@ -102,6 +102,29 @@ function QuestsScreen() {
                 loadData()
                 break
         }
+    }
+
+    const removeQuestFromList = () => {
+        switch (navigationItem) {
+            case "PARTY":
+                setPartyQuests(partyQuests.filter((filterQuest => {
+                    return filterQuest.id !== selectedQuest.id
+                })))
+                break
+            case "CLASSIC":
+                setClassicQuests(classicQuests.filter((filterQuest => {
+                    return filterQuest.id !== selectedQuest.id
+                })))
+                break
+            case "DAILY":
+                setDailyQuest(dailyQuest.filter((filterQuest => {
+                    return filterQuest.id !== selectedQuest.id
+                })))
+                break
+        }
+        setTypeSnack("SUCCESS")
+        setShowSnack(true)
+        setTextSnack(text.success.questFinish)
     }
 
     return (
@@ -167,7 +190,7 @@ function QuestsScreen() {
                     </View>
                 </GestureRecognizer>
             ) : (
-                <GameScreen setSelectedQuest={setSelectedQuest} quest={selectedQuest} type={navigationItem}/>
+                <GameScreen removeQuestFromList={removeQuestFromList} setSelectedQuest={setSelectedQuest} quest={selectedQuest} type={navigationItem}/>
             )}
         </View>
     )

@@ -14,7 +14,7 @@ import FinishScreen from "./FinishScreen";
 
 function AnswerQuestionScreen(props) {
 
-    const {finishLoading, stage, handleFinishStage} = props
+    const {finishScreen, setFinishScreen, finishLoading, stage, handleFinishStage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -30,9 +30,6 @@ function AnswerQuestionScreen(props) {
 
     const [adviseLoading, setAdviseLoading] = useState(false)
     const [answerLoading, setAnswerLoading] = useState(false)
-
-    const [finishScreen, setFinishScreen] = useState(false)
-
 
     useEffect(() => {
         if(stage.answerList === null) return
