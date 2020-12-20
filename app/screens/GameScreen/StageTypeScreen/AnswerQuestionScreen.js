@@ -66,7 +66,7 @@ function AnswerQuestionScreen(props) {
     }
 
     const handleGetAdvise = () => {
-        if(adviseUsed === true){
+        if(adviseUsed === true || stage.questType === "PARTY"){
             Alert.alert(text.gameScreen.adviseAlert, stage.advise)
             return
         }
@@ -109,6 +109,16 @@ function AnswerQuestionScreen(props) {
 
         if(finalAnswer === stage.answer.toLowerCase()){
             setFinishScreen(true)
+            return
+        }
+
+        if(stage.questType === "PARTY"){
+            setAnswer("")
+            setSelectedAnswer("")
+
+            setTextSnack(text.gameScreen.wrongAnswer)
+            setShowSnack(true)
+            setTypeSnack("ERROR")
             return
         }
 

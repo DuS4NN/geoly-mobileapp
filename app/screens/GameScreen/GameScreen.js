@@ -72,7 +72,8 @@ function GameScreen (props) {
                         type: stage[6],
                         advise: stage[7],
                         note: stage[8],
-                        answerList: stage[9]
+                        answerList: stage[9],
+                        questType: type
                     }
                 })))
             }else{
@@ -83,7 +84,8 @@ function GameScreen (props) {
                     duration: data[1],
                     latitude: data[2].latitude,
                     longitude: data[2].longitude,
-                    type: "GO_TO_PLACE"
+                    type: "GO_TO_PLACE",
+                    questType: type
                 }])
             }
 
