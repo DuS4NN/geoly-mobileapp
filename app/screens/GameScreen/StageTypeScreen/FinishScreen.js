@@ -19,7 +19,7 @@ function FinishScreen(props) {
         <View style={styles.finishedContainer}>
             <Text style={styles.finishedTitle}>{text.gameScreen.finishedScreenTitle}</Text>
             <Image style={styles.finishImage} source={require("../../../assets/images/celebration.png")} />
-            {note !== "" && (
+            {note !== "" && note !== null && (
                 <View style={styles.finishNoteContainer}>
                     <Text style={styles.finishNoteTitle}>{text.gameScreen.noteTitle}</Text>
                     <Text style={styles.finishNote}>{note}</Text>
