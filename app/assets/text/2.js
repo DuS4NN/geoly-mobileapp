@@ -41,14 +41,16 @@ export const text = {
         advise: "Advise me",
         submit: "Submit",
         adviseAlert: "Advise",
-        wrongAnswer: "The answer is incorrect"
+        wrongAnswer: "The answer is incorrect",
+        scanQrCode: "Find and scan the QR Code"
     },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",
         unverifiedAccount: "Your account is unverified",
         gpsIsDisabled: "GPS is still disabled",
-        somethingWentWrong: "Something went wrong, please try again"
+        somethingWentWrong: "Something went wrong, please try again",
+        cantLoadCode: "The required QR code does not match the load"
     },
     success: {
         signOff: "You have been signed out of quest"

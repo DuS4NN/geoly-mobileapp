@@ -89,7 +89,12 @@ export default StyleSheet.create({
     /*
     ----- QR CODE SCREEN -----
      */
-
+    qrCodeText: {
+        fontSize: 17,
+        fontFamily: "OpenSans",
+        textAlign: "center",
+        paddingTop: 15
+    },
 
 
     /*

@@ -41,14 +41,17 @@ export const text = {
         advise: "Poraď mi",
         submit: "Potvrdiť",
         adviseAlert: "Rada",
-        wrongAnswer: "Odpoveď je nesprávna"
+        wrongAnswer: "Odpoveď je nesprávna",
+        scanQrCode: "Nájdite a oskenujte QR kód"
     },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
         unverifiedAccount: "Váš účet nie je overený",
         gpsIsDisabled: "GPS je vypnuté",
-        somethingWentWrong: "Niečo sa pokazilo, skúste to znovu"
+        somethingWentWrong: "Niečo sa pokazilo, skúste to znovu",
+        cantLoadCode: "Nie je možné načítať obsah QR kódu",
+        wrongQrCode: "Potrebný QR kód sa nezhoduje s načítaním"
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy"

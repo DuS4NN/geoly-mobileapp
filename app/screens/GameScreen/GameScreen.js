@@ -105,7 +105,7 @@ function GameScreen (props) {
 
     const handleFinishStage = () => {
         setFinishLoading(true)
-        setTypeSnack("ERROR")
+        setTypeSnack("SUCCESS")
         setShowSnack(true)
         setTextSnack(text.error.somethingWentWrong)
     }
