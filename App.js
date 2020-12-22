@@ -8,6 +8,7 @@ import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
 import styles from "./AppStyleSheet";
 import MainScreen from "./app/screens/MainScreen/MainScreen";
+import GPS from "./app/components/GPS";
 
 export default function App () {
 
@@ -20,9 +21,20 @@ export default function App () {
 
         loadFonts(setFontLoaded)
         checkUser()
+
     }, [])
 
-    const checkUser = () => {
+    const setAddress = (address) => {
+        axios({
+            method: "GET",
+            url: API_SERVER_URL+"/setAddress?address="+address.latitude+","+address.longitude,
+            withCredentials: true
+        }).catch(function (error) {
+            handleError(error)
+        })
+    }
+
+    const checkUser = async () => {
         axios({
             method: "GET",
             url: API_SERVER_URL+"/checkUser",
@@ -40,8 +52,21 @@ export default function App () {
                     nickName: options[3],
                     profileImage: options[4],
                     address: options[5],
+                    addressUpdate: options[6],
                     roles: roles
                 })
+
+                let lastUpdate = new Date(options[6])
+                let now = new Date()
+
+                if(options[6] === null || options[5] === null || now.getMonth() !== lastUpdate.getMonth() || now.getDate() !== lastUpdate.getDate() || now.getFullYear() !== lastUpdate.getFullYear() ){
+                    GPS().then(response => {
+                        if(response !== null){
+                            setAddress(response)
+                        }
+                    })
+                }
+
             }else{
                 setUserContext({
                     nickName: null,
@@ -53,7 +78,6 @@ export default function App () {
                     roles: null
                 })
             }
-
         }).catch(function (error) {
             setUserContext({
                 nickName: null,

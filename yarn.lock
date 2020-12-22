@@ -5937,11 +5937,6 @@ expo-location@~9.0.0:
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-9.0.1.tgz#adf93b8adf5e9dcf9570cba1d66c8e3831329156"
   integrity sha512-yl4V2IelxrjG1h3nshkyILwghysNJvvEuR4Of0U7oYAsBrT0cq8NxFuaDemRvqt9Yb19wVFNMoVtYFNpthcqpQ==
 
-expo-network@~2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/expo-network/-/expo-network-2.4.0.tgz#f96fda92d68be1556f9e4ff8bc3b5c65b178b1f1"
-  integrity sha512-p9UxdgQbLGLfEJsD71eaNgPKCo2A4cbLTIYS10fL6FROT31H08Br7AFWx9H8jHLGLNWyjA0R1vTJ2ETDyjse/Q==
-
 expo-permissions@~9.3.0:
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-9.3.0.tgz#b90c7e9e411d306c1c7ba2bae18d5c53c201affd"
@@ -5979,6 +5974,13 @@ expo-status-bar@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.0.2.tgz#2441a77c56be31597898337b0d086981f2adefd8"
   integrity sha512-5313u744GcLzCadxIPXyTkYw77++UXv1dXCuhYDxDbtsEf93iMra7WSvzyE8a7mRQLIIPRuGnBOdrL/V1C7EOQ==
+
+expo-task-manager@~8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/expo-task-manager/-/expo-task-manager-8.5.0.tgz#8d4d192937a10f046cc4d7a5346f1a69dbacc939"
+  integrity sha512-5r0k9m7sY802pGjC/HtFchEG1oiOEScuSOA1jgsbaiC6qXyxKEOGNLBcjtvmI5BAKuSkGBC4dmxyL8sWCRLTAg==
+  dependencies:
+    unimodules-app-loader "~1.3.0"
 
 expo@~39.0.2:
   version "39.0.5"
