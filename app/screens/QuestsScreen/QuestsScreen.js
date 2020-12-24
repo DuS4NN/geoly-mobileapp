@@ -2,7 +2,7 @@ import React, {useContext, useState, useEffect} from "react";
 import {Text, View, Image, Dimensions, Pressable} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
-import {API_SERVER_URL} from "@env";
+import {API_SERVER_URL, PUSHER_KEY, PUSHER_CLUSTER} from "@env";
 import axios from "axios";
 import GestureRecognizer from 'react-native-swipe-gestures';
 import handleError from "../../../ErrorHandler";
@@ -11,6 +11,8 @@ import styles from "./QuestsScreenStyleSheet";
 import mainStyles from "../../../AppStyleSheet.js"
 import QuestsList from "./QuestList";
 import GameScreen from "../GameScreen/GameScreen";
+import Pusher from "pusher-js/react-native";
+import { debounce } from "lodash";
 
 function QuestsScreen() {
 
@@ -37,6 +39,12 @@ function QuestsScreen() {
 
     const loadData = () => {
         setLoading(true)
+
+        const channels_questUpdate = []
+        const channels_partyUpdate = []
+        const channels_partyQuestUpdate = []
+        const channels_partyUserUpdate = []
+
         axios({
             method: "GET",
             url: API_SERVER_URL+"/allactivequests",
@@ -46,6 +54,8 @@ function QuestsScreen() {
 
             if(statusCode === "OK"){
                 setDailyQuest(response.data.data[0].map((daily) => {
+
+                    channels_questUpdate.push("QUEST-"+daily[2])
                     return {
                         name: daily[0],
                         category: daily[1],
@@ -53,6 +63,8 @@ function QuestsScreen() {
                     }
                 }))
                 setClassicQuests(response.data.data[1].map((quest) => {
+
+                    channels_questUpdate.push("QUEST-"+quest[2])
                     return {
                         name: quest[0],
                         category: quest[1],
@@ -60,6 +72,10 @@ function QuestsScreen() {
                     }
                 }))
                 setPartyQuests(response.data.data[2].map((partyQuests) => {
+
+                    channels_partyUpdate.push("PARTY-"+partyQuests[4])
+                    channels_partyQuestUpdate.push("QUEST-"+partyQuests[4]+"-"+partyQuests[3])
+                    channels_partyUserUpdate.push("PARTY-"+partyQuests[4]+"-"+userContext['id'])
                     return {
                         name: partyQuests[0],
                         category: partyQuests[1],
@@ -81,8 +97,58 @@ function QuestsScreen() {
             handleError(error)
         }).finally(function () {
             setLoading(false)
+            initPusherChannels(channels_questUpdate, channels_partyUpdate, channels_partyQuestUpdate, channels_partyUserUpdate)
         })
     }
+
+
+    const initPusherChannels = (channels_questUpdate, channels_partyUpdate, channels_partyQuestUpdate, channels_partyUserUpdate) => {
+        const pusher = new Pusher(PUSHER_KEY+"", {
+            cluster: PUSHER_CLUSTER+""
+        })
+
+        channels_questUpdate = channels_questUpdate.filter((v, i, a) => a.indexOf(v) === i);
+        channels_partyUpdate = channels_partyUpdate.filter((v, i, a) => a.indexOf(v) === i);
+        channels_partyQuestUpdate = channels_partyQuestUpdate.filter((v, i, a) => a.indexOf(v) === i);
+        channels_partyUserUpdate = channels_partyUserUpdate.filter((v, i, a) => a.indexOf(v) === i);
+
+        channels_questUpdate.map((channel => {
+            const channels = pusher.subscribe(channel)
+            channels.bind("QUEST-UPDATE", function (data) {
+                reloadData(text.success.reloadQuest)
+            })
+        }))
+        channels_partyUpdate.map((channel => {
+            const channels = pusher.subscribe(channel)
+            channels.bind("PARTY-UPDATE", function (data) {
+                reloadData(text.success.reloadParty)
+            })
+        }))
+        channels_partyQuestUpdate.map((channel => {
+            const channels = pusher.subscribe(channel)
+            channels.bind("PARTY-QUEST-UPDATE", function (data) {
+                reloadData(text.success.reloadQuest)
+            })
+        }))
+        channels_partyUserUpdate.map((channel => {
+            const channels = pusher.subscribe(channel)
+            channels.bind("PARTY-USER-UPDATE", function (data) {
+                reloadData(text.success.reloadParty)
+            })
+        }))
+        //channel: QUEST-UPDATE, event: QUEST-<QUESTID>, deleteQuest, signOutOfDaily
+        //channel: PARTY-UPDATE, event: PARTY-<PARTYID>, deleteParty
+        //channel: PARTY-QUEST-UPDATE, event: QUEST-<PARTYID>-<QUESTID>, deleteQeust, singOutOfPartyQuest
+        //channel: PARTY-USER-UPDATE, event: PARTY-<PARTYID>-<USERID>, leaveParty, kickFromParty
+    }
+
+    const reloadData = debounce((snackText) => {
+        setSelectedQuest(null)
+        setShowSnack(true)
+        setTypeSnack("SUCCESS")
+        setTextSnack(snackText)
+        loadData()
+    }, 1000)
 
     const switchButtonInNavigation = (item) => {
         setNavigationItem(item)

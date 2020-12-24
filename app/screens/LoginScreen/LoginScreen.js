@@ -63,6 +63,9 @@ function LoginScreen() {
                 darkMode: response.data.options[0][2],
                 nickName: response.data.options[0][3],
                 profileImage: response.data.options[0][4],
+                address: response.data.options[0][5],
+                addressUpdate: response.data.options[0][6],
+                id: response.data.options[0][7],
                 roles: response.data.roles
             })
         }).catch(function (error) {

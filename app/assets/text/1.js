@@ -55,6 +55,8 @@ export const text = {
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy",
-        questFinish: "Gratulujeme! Úspešne ste dokončili úlohu"
+        questFinish: "Gratulujeme! Úspešne ste dokončili úlohu",
+        reloadParty: "Prebehla aktualizácia dát na základe zmeny skupiny",
+        reloadQuest: "Prebehla aktualizácia dát na základe zmeny úlohy"
     }
 }

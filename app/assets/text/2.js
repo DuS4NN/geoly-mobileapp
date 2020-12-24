@@ -54,6 +54,8 @@ export const text = {
     },
     success: {
         signOff: "You have been signed out of quest",
-        questFinish: "Congratulations! You have successfully completed the quest"
+        questFinish: "Congratulations! You have successfully completed the quest",
+        reloadParty: "The data was updated based on the group change",
+        reloadQuest: "The data was updated based on the quest change"
     }
 }
