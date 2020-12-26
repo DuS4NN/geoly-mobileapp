@@ -5,10 +5,11 @@ export default StyleSheet.create({
     background: {
         flex: 1,
         alignItems: "center",
-        marginTop: 20
+    },
+    offset: {
+        height: 30,
     },
     itemContainer: {
-        alignSelf: "center",
         width: "90%",
         height: 90,
         flexDirection: "row",
@@ -44,44 +45,12 @@ export default StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
-    itemPartyNameText: {
+    itemDistanceText: {
         fontFamily: "OpenSansLight",
         paddingLeft: 10,
         paddingRight: 10,
         color: colors.gray,
         fontSize: 13,
-    },
-
-    itemDeleteContainer: {
-      backgroundColor: colors.lightGray
-    },
-    deleteText: {
-        fontFamily: "OpenSans",
-        fontWeight: "bold",
-        fontSize: 15,
-        alignSelf: "center",
-        color: colors.black,
-        paddingLeft: 10,
-        paddingRight: 10,
-        paddingBottom: 10
-    },
-    deleteButtonsContainers: {
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    deleteButton: {
-        height: 30,
-        width: 80,
-        justifyContent: "center",
-        borderRadius: 50,
-        marginLeft: 10,
-        marginRight: 10
-    },
-    deleteButtonText: {
-        fontFamily: "OpenSans",
-        color: colors.white,
-        fontSize: 15,
-        alignSelf: "center",
     },
 
     noDataContainer: {
@@ -100,5 +69,15 @@ export default StyleSheet.create({
         textAlign: "center",
         paddingLeft: 10,
         paddingRight: 10
-    }
+    },
+
+    loadingData: {
+        alignItems: "center",
+        marginBottom: 40,
+        marginTop: -15
+    },
+    loadingImage: {
+        height: "20%",
+        resizeMode: "contain"
+    },
 })

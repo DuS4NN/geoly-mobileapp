@@ -44,6 +44,11 @@ export const text = {
         wrongAnswer: "Odpoveď je nesprávna",
         scanQrCode: "Nájdite a oskenujte QR kód"
     },
+    nearScreen: {
+        near: "Neďaleko",
+        km: "km",
+        m: "m"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {View, Text, Image} from "react-native";
+import {View, Text, Image, ScrollView} from "react-native";
 import styles from "./QuestListStyleSheet";
 import QuestsItem from "./QuestItem";
 import {Snackbar} from "react-native-paper";
@@ -19,19 +19,25 @@ function QuestsList(props) {
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
     return (
-        <View style={styles.background}>
-            {questList.map((quest => (
-                <QuestsItem navigationItem={navigationItem} setSelectedQuest={setSelectedQuest} setTextSnack={setTextSnack} setShowSnack={setShowSnack} setTypeSnack={setTypeSnack} quest={quest} questList={questList} setQuestList={setQuestList} key={quest.id}/>
-            )))}
+        <View style={{flex:1}}>
 
-            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-
-            {questList.length === 0 && (
+            {questList.length === 0 ? (
                 <View style={styles.noDataContainer}>
                     <Image style={styles.noDataImage} source={require("../../assets/images/noData.png")} />
                     <Text style={styles.noDataText}>{text.questScreen.noActiveQuest}</Text>
                 </View>
+            ) : (
+                <View style={{flex:1, marginTop:20}}>
+                    <ScrollView style={{flex:1}}>
+                        {questList.map((quest => (
+                            <QuestsItem navigationItem={navigationItem} setSelectedQuest={setSelectedQuest} setTextSnack={setTextSnack} setShowSnack={setShowSnack} setTypeSnack={setTypeSnack} quest={quest} questList={questList} setQuestList={setQuestList} key={quest.id}/>
+                        )))}
+                    </ScrollView>
+                </View>
             )}
+
+            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
+
         </View>
     )
 }

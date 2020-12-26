@@ -3,6 +3,7 @@ import {View} from "react-native";
 import styles from "./MainScreenStyleSheet";
 import BottomNavigation from "./BottomNavigation";
 import QuestsScreen from "../QuestsScreen/QuestsScreen";
+import NearQuestsScreen from "../NearQuestsScreen/NearQuestsScreen";
 
 function MainScreen () {
 
@@ -16,7 +17,7 @@ function MainScreen () {
                     <QuestsScreen/>
                 )}
                 {navigationItem === "NEAR" && (
-                    <QuestsScreen/>
+                    <NearQuestsScreen/>
                 )}
                 {navigationItem === "CREATOR" && (
                     <QuestsScreen/>

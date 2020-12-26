@@ -44,6 +44,11 @@ export const text = {
         wrongAnswer: "The answer is incorrect",
         scanQrCode: "Find and scan the QR Code"
     },
+    nearScreen: {
+        near: "Near",
+        km: "km",
+        m: "m"
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",
