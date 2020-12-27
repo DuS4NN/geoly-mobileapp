@@ -10,8 +10,9 @@ import GPS from "../../components/GPS";
 import {Snackbar} from "react-native-paper";
 import mainStyles from "../../../AppStyleSheet";
 import NearQuestsList from "./NearQuestsList";
+import QuestDetailScreen from "../QuestDetailScreen/QuestDetailScreen";
 
-function NearQuestsScreen(props) {
+function NearQuestsScreen() {
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -27,6 +28,7 @@ function NearQuestsScreen(props) {
     const [stopLoading, setStopLoading] = useState(false)
     const [coordinates, setCoordinates] = useState(null)
     const [loadingNew, setLoadingNew] = useState(false)
+    const [selectedQuest, setSelectedQuest] = useState(null)
 
     useEffect(() => {
         loadData(1)
@@ -54,9 +56,11 @@ function NearQuestsScreen(props) {
     }
 
     const getData = (response, pageNumber) => {
+
         axios({
             method: "GET",
-            url: API_SERVER_URL+"/getNearQuests?coordinates="+response.latitude+","+response.longitude+"&page="+pageNumber
+            url: API_SERVER_URL+"/getNearQuests?coordinates="+response.latitude+","+response.longitude+"&page="+pageNumber,
+            withCredentials: true
         }).then(function (response) {
             let statusCode = response.data.responseEntity.statusCode
 
@@ -90,26 +94,35 @@ function NearQuestsScreen(props) {
         })
     }
 
+    const goBack = () => {
+        setSelectedQuest(null)
+    }
+
     return (
         <View style={styles.background}>
+            {selectedQuest === null ? (
+                <View style={{flex:1}}>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText} >{text.nearScreen.near}</Text>
+                        <Image style={styles.headerImage} source={require("../../assets/images/near.png")} />
+                    </View>
+                    <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
 
-            <View style={styles.header}>
-                <Text style={styles.headerText} >{text.nearScreen.near}</Text>
-                <Image style={styles.headerImage} source={require("../../assets/images/near.png")} />
-            </View>
-            <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
+                    {loading === true ? (
+                        <View style={styles.loading}>
+                            <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                        </View>
+                    ) : (
+                        <View style={styles.content}>
+                            <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} setSelectedQuest={setSelectedQuest} />
+                        </View>
+                    )}
 
-            {loading === true ? (
-                <View style={styles.loading}>
-                    <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                    <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
                 </View>
             ) : (
-                <View style={styles.content}>
-                    <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} />
-                </View>
+                <QuestDetailScreen goBack={goBack} quest={selectedQuest} />
             )}
-
-            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
         </View>
     )
 }

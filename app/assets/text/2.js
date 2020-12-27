@@ -49,6 +49,11 @@ export const text = {
         km: "km",
         m: "m"
     },
+    stageTypes: {
+        GO_TO_PLACE: 'Go to a place',
+        ANSWER_QUESTION: 'Answer a question',
+        SCAN_QR_CODE: 'Scan a QR code'
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",

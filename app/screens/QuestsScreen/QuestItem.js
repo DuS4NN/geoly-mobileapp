@@ -29,36 +29,79 @@ function QuestsItem(props) {
     })
 
     const signOutOfQuest = () => {
-        axios({
-            method: "GET",
-            url: API_SERVER_URL+"/quest/signout?questId="+quest.id,
-            withCredentials: true
-        }).then(function (response) {
-            let statusCode = response.data.responseEntity.statusCode
+        if(navigationItem === "CLASSIC"){
+            axios({
+                method: "GET",
+                url: API_SERVER_URL+"/quest/signout?questId="+quest.id,
+                withCredentials: true
+            }).then(function (response) {
+                let statusCode = response.data.responseEntity.statusCode
 
-            if(statusCode === "ACCEPTED"){
+                if(statusCode === "ACCEPTED"){
 
-                setQuestList(questList.filter((q => {
-                    return q.id !== quest.id
-                })))
+                    setQuestList(questList.filter((q => {
+                        return q.id !== quest.id
+                    })))
 
-                setTextSnack(text.success.signOff)
-                setTypeSnack("SUCCESS")
+                    setTextSnack(text.success.signOff)
+                    setTypeSnack("SUCCESS")
+                    setShowSnack(true)
+                }else{
+                    setTextSnack(text.error.somethingWentWrong)
+                    setTypeSnack("ERROR")
+                    setShowSnack(true)
+                }
+            }).catch(function (error) {
+                setDeleteView(false)
+
+                setTextSnack(text.error.somethingWentWrong)
+                setTypeSnack("ERROR")
                 setShowSnack(true)
-            }
-        }).catch(function (error) {
-            setDeleteView(false)
 
-            setTextSnack(text.error.somethingWentWrong)
-            setTypeSnack("ERROR")
-            setShowSnack(true)
+                handleError(error)
+            })
+        }else if(navigationItem === "PARTY"){
+            axios({
+                method: "GET",
+                url: API_SERVER_URL+"/group/signout?partyId="+quest.partyId+"&questId="+quest.id,
+                withCredentials: true
+            }).then(function (response) {
+                let statusCode = response.data.responseEntity.statusCode
 
-            handleError(error)
-        })
+                if(statusCode === "ACCEPTED"){
+
+                    setQuestList(questList.filter((q => {
+                        return q.id !== quest.id
+                    })))
+
+                    setTextSnack(text.success.signOff)
+                    setTypeSnack("SUCCESS")
+                    setShowSnack(true)
+                }else{
+                    setTextSnack(text.error.somethingWentWrong)
+                    setTypeSnack("ERROR")
+                    setShowSnack(true)
+                }
+            }).catch(function (error) {
+                setDeleteView(false)
+
+                setTextSnack(text.error.somethingWentWrong)
+                setTypeSnack("ERROR")
+                setShowSnack(true)
+
+                handleError(error)
+            })
+        }
+    }
+
+    const setView = () => {
+        if(navigationItem !== "DAILY"){
+            setDeleteView(true)
+        }
     }
 
     return (
-        <Pressable onPress={() => setSelectedQuest(quest)} onLongPress={() => setDeleteView(true)}>
+        <Pressable onPress={() => setSelectedQuest(quest)} onLongPress={() => setView()}>
             <View style={deleteView === true ? [styles.itemContainer, styles.itemDeleteContainer] : styles.itemContainer}>
                 <View style={styles.itemImageContainer}>
                     <Image style={styles.itemImage} source={categoryImages[quest.category]} />
@@ -73,7 +116,6 @@ function QuestsItem(props) {
                         <View style={styles.deleteButtonsContainers}>
                             <Pressable onPress={() => setDeleteView(false)}>
                                 <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-
                                     <Text style={styles.deleteButtonText}>{text.main.no}</Text>
                                 </LinearGradient>
                             </Pressable>

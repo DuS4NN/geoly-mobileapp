@@ -8,7 +8,7 @@ import { debounce } from "lodash";
 
 function NearQuestsList(props) {
 
-    const {questList, page, setPage, loadData, loadingNew, stopLoading} = props
+    const {questList, page, setPage, loadData, loadingNew, stopLoading, setSelectedQuest} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -40,14 +40,13 @@ function NearQuestsList(props) {
                     <ScrollView style={{flex:1}} onScroll={({nativeEvent}) => handleScroll(nativeEvent)}>
                         <View style={styles.background}>
                             {questList.map((quest => (
-                                <NearQuestsItem quest={quest} key={quest.id} />
+                                <NearQuestsItem quest={quest} key={quest.id} setSelectedQuest={setSelectedQuest} />
                             )))}
                             {loadingNew === true && (
                                 <View style={styles.loadingData}>
                                     <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
                                 </View>
                             )}
-
                         </View>
                     </ScrollView>
                 </View>

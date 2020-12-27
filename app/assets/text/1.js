@@ -49,6 +49,11 @@ export const text = {
         km: "km",
         m: "m"
     },
+    stageTypes: {
+        GO_TO_PLACE: 'Prísť na miesto',
+        ANSWER_QUESTION: 'Odpovedať na otázku',
+        SCAN_QR_CODE: 'Naskenovať QR kód'
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
@@ -56,12 +61,18 @@ export const text = {
         gpsIsDisabled: "GPS je vypnuté",
         somethingWentWrong: "Niečo sa pokazilo, skúste to znovu",
         cantLoadCode: "Nie je možné načítať obsah QR kódu",
-        wrongQrCode: "Potrebný QR kód sa nezhoduje s načítaním"
+        wrongQrCode: "Potrebný QR kód sa nezhoduje s načítaním",
+
+        USER_ALREADY_FINISHED_QUEST: 'Úlohu je možné dokončiť iba raz',
+        USER_HAS_ACTIVE_QUEST: 'Používateľ môže mať iba jednu aktívnu úlohu',
+        USER_CAN_NOT_PLAY_OWN_QUEST: 'Používateľ nemôže začať vlastnú úlohu',
+        USER_DOESNT_HAVE_PREMIUM: 'Na začatie tejto úlohy potrebujete prémiový účet',
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy",
         questFinish: "Gratulujeme! Úspešne ste dokončili úlohu",
         reloadParty: "Prebehla aktualizácia dát na základe zmeny skupiny",
-        reloadQuest: "Prebehla aktualizácia dát na základe zmeny úlohy"
+        reloadQuest: "Prebehla aktualizácia dát na základe zmeny úlohy",
+        user_signed_up_on_quest: 'Boli ste prihlásený na úlohu.',
     }
 }
