@@ -55,18 +55,52 @@ export const text = {
         ANSWER_QUESTION: 'Answer a question',
         SCAN_QR_CODE: 'Scan a QR code'
     },
+    creator: {
+        creator: "Create",
+        formTitle: "Details",
+        questName: "Name",
+        description: "Description",
+        category: "Category",
+        difficulty: "Difficulty",
+        private: "Private",
+        gps: "It is not possible to add a stage because we do not have access to your location",
+        addStage: "Add stage",
+        stages: "Stages",
+        stageType: "Stage type",
+        note: "Note",
+        qrCode: 'The QR code will be generated after saving the quest',
+        question: "Question",
+        advise: "Advise",
+        answer: "Answer",
+        answers: "Answers",
+        addAnswer: "Add answer",
+        addQuest: "Add quest"
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",
         unverifiedAccount: "Your account is unverified",
         gpsIsDisabled: "GPS is still disabled",
         somethingWentWrong: "Something went wrong, please try again",
-        cantLoadCode: "The required QR code does not match the load"
+        cantLoadCode: "The required QR code does not match the load",
+        wrongQrCode: "The required QR code does not match the load",
+
+
+        USER_ALREADY_FINISHED_QUEST: 'A quest can be completed only once',
+        USER_HAS_ACTIVE_QUEST: 'You have already signed up for this quest',
+        USER_CAN_NOT_PLAY_OWN_QUEST: 'A user cannot start their own quest',
+        USER_DOESNT_HAVE_PREMIUM: 'You need a premium account to start this task',
+
+        ANSWER_SYMBOL: 'The answer cannot contain a symbol ;',
+        ANSWER_LENGTH: 'Answer must be 1-100 characters long',
+        INVALID_ANSWER_COUNT: 'A stage can have a maximum of 5 answers',
+        ANSWER_ALREADY_EXISTS: 'The answer already exists',
     },
     success: {
         signOff: "You have been signed out of quest",
         questFinish: "Congratulations! You have successfully completed the quest",
         reloadParty: "The data was updated based on the group change",
-        reloadQuest: "The data was updated based on the quest change"
+        reloadQuest: "The data was updated based on the quest change",
+        user_signed_up_on_quest: 'Boli ste prihlásený na úlohu.',
     }
 }

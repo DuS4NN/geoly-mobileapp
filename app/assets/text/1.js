@@ -55,6 +55,27 @@ export const text = {
         ANSWER_QUESTION: 'Odpovedať na otázku',
         SCAN_QR_CODE: 'Naskenovať QR kód'
     },
+    creator: {
+        creator: "Vytvoriť",
+        formTitle: "Detaily",
+        questName: "Meno",
+        description: "Popis",
+        category: "Kategória",
+        difficulty: "Obtiažnosť",
+        private: "Súkromná",
+        gps: "Nie je možné pridať etapu pretože nemáme prístup k vašej polohe",
+        addStage: "Pridať etapu",
+        stages: "Etapy",
+        stageType: "Typ etapy",
+        note: "Poznámka",
+        qrCode: 'QR kód bude vygenerovaný po uložení úlohy',
+        question: "Otázka",
+        advise: "Pomôcka",
+        answer: "Odpoveď",
+        answers: "Odpovede",
+        addAnswer: "Pridať odpoveď",
+        addQuest: "Pridať úlohu"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
@@ -68,6 +89,11 @@ export const text = {
         USER_HAS_ACTIVE_QUEST: 'Používateľ môže mať iba jednu aktívnu úlohu',
         USER_CAN_NOT_PLAY_OWN_QUEST: 'Používateľ nemôže začať vlastnú úlohu',
         USER_DOESNT_HAVE_PREMIUM: 'Na začatie tejto úlohy potrebujete prémiový účet',
+
+        ANSWER_SYMBOL: 'Odpoveď nemôže obsahovať symbol ;',
+        ANSWER_LENGTH: 'Dĺžka odpovede musí byť 1-100 znakov',
+        INVALID_ANSWER_COUNT: 'Etapa môže mať maximálne 5 odpovedí',
+        ANSWER_ALREADY_EXISTS: 'Odpoveď už existuje',
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy",

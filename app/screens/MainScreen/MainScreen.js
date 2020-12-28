@@ -4,6 +4,7 @@ import styles from "./MainScreenStyleSheet";
 import BottomNavigation from "./BottomNavigation";
 import QuestsScreen from "../QuestsScreen/QuestsScreen";
 import NearQuestsScreen from "../NearQuestsScreen/NearQuestsScreen";
+import CreatorScreen from "../CreatorScreen/CreatorScreen";
 
 function MainScreen () {
 
@@ -20,7 +21,7 @@ function MainScreen () {
                     <NearQuestsScreen/>
                 )}
                 {navigationItem === "CREATOR" && (
-                    <QuestsScreen/>
+                    <CreatorScreen/>
                 )}
                 {navigationItem === "ME" && (
                     <QuestsScreen/>
