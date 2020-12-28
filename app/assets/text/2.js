@@ -47,7 +47,8 @@ export const text = {
     nearScreen: {
         near: "Near",
         km: "km",
-        m: "m"
+        m: "m",
+        noNearQuest: "No quests found nearby"
     },
     stageTypes: {
         GO_TO_PLACE: 'Go to a place',

@@ -29,7 +29,7 @@ function NearQuestsList(props) {
             {questList.length === 0 ? (
                 <View style={styles.noDataContainer}>
                     <Image style={styles.noDataImage} source={require("../../assets/images/noData.png")} />
-                    <Text style={styles.noDataText}>{text.questScreen.noActiveQuest}</Text>
+                    <Text style={styles.noDataText}>{text.nearScreen.noNearQuest}</Text>
                 </View>
             ) : (
                 <View style={{flex:1}}>

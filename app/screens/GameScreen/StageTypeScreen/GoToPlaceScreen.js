@@ -125,7 +125,7 @@ function GoToPlaceScreen(props) {
                             )}
                         </View>
                     ) : (
-                        <GpsActivationScreen setCoordinates={setCoordinates}/>
+                        <GpsActivationScreen setCoordinates={setCoordinates} />
                     )}
                 </View>
             ) : (

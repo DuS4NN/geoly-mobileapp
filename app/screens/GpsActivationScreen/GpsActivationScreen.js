@@ -31,7 +31,7 @@ function GpsActivationScreen(props) {
                 setShowSnack(true)
                 setLoading(false)
             }else{
-                setCoordinates(true)
+                setCoordinates(response)
             }
         })
     }

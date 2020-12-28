@@ -11,6 +11,7 @@ import {Snackbar} from "react-native-paper";
 import mainStyles from "../../../AppStyleSheet";
 import NearQuestsList from "./NearQuestsList";
 import QuestDetailScreen from "../QuestDetailScreen/QuestDetailScreen";
+import GpsActivationScreen from "../GpsActivationScreen/GpsActivationScreen";
 
 function NearQuestsScreen() {
 
@@ -33,6 +34,13 @@ function NearQuestsScreen() {
     useEffect(() => {
         loadData(1)
     }, [])
+
+    useEffect(() => {
+        if(coordinates !== null){
+            setLoading(true)
+            getData(coordinates, page)
+        }
+    }, [coordinates])
 
     const loadData = (pageNumber) => {
         if(stopLoading) return
@@ -114,7 +122,12 @@ function NearQuestsScreen() {
                         </View>
                     ) : (
                         <View style={styles.content}>
-                            <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} setSelectedQuest={setSelectedQuest} />
+                            {coordinates === null ? (
+                                <GpsActivationScreen setCoordinates={setCoordinates} />
+                            ) : (
+                                <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} setSelectedQuest={setSelectedQuest} />
+                            )}
+
                         </View>
                     )}
 

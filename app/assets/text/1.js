@@ -47,7 +47,8 @@ export const text = {
     nearScreen: {
         near: "Neďaleko",
         km: "km",
-        m: "m"
+        m: "m",
+        noNearQuest: "Nenašli sa žiadne úlohy v blízkosti"
     },
     stageTypes: {
         GO_TO_PLACE: 'Prísť na miesto',
