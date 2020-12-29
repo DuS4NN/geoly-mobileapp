@@ -51,8 +51,13 @@ export default StyleSheet.create({
     questionAdviseContainer: {
         marginTop: 15,
         textAlign: "left",
-        width: "85%",
-        flexDirection: "row",
+        alignSelf: "flex-start",
+        marginLeft: 30,
+        paddingTop: 7,
+        paddingBottom: 7,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 30
     },
     questionAdvise: {
         color: colors.gray,
@@ -62,27 +67,28 @@ export default StyleSheet.create({
     },
     questionAdviseLoading: {
         width: 20,
-        height: 20
+        height: 20,
+    },
+    questionAdviseView:{
+        flexDirection: "row",
     },
     answerListContainer: {
-    },
-    answerListItem: {
-        width: 200,
         marginTop: 7,
         marginBottom: 7,
+        width: 200,
+        borderRadius: 20,
+        borderColor: colors.lightGray,
+        borderWidth: 1
+    },
+    answerListItem: {
+        padding: 5,
         textAlign: "center",
         color: colors.black,
-        paddingLeft: 5,
-        paddingRight: 5,
-        borderColor: colors.lightGray,
-        borderWidth: 1,
-        paddingTop: 5,
-        paddingBottom: 5,
-        borderRadius: 20
     },
     answerListItemSelected: {
         backgroundColor: colors.backgroundGreen,
-        color: colors.darkGreen,
+        color: colors.white,
+        borderRadius: 20,
         borderColor: colors.black
     },
 

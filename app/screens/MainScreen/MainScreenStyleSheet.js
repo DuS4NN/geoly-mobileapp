@@ -18,6 +18,8 @@ export default StyleSheet.create({
     },
 
     bottomNavigation: {
+        borderTopWidth: 1,
+        borderTopColor: colors.lightBackgroundGray,
         backgroundColor: colors.white,
         flexDirection: "row",
         justifyContent: 'flex-end',
@@ -25,7 +27,8 @@ export default StyleSheet.create({
     bottomNavigationItem: {
         flex: 1,
         height: 55,
-        justifyContent: "center"
+        justifyContent: "center",
+        borderRadius: 5
     },
     bottomNavigationItemImage: {
         height: "45%",

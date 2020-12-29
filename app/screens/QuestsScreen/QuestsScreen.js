@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, Image, Dimensions, Pressable} from "react-native";
+import {Text, View, Image, Dimensions, TouchableHighlight} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL, PUSHER_KEY, PUSHER_CLUSTER} from "@env";
@@ -13,6 +13,7 @@ import QuestsList from "./QuestList";
 import GameScreen from "../GameScreen/GameScreen";
 import Pusher from "pusher-js/react-native";
 import { debounce } from "lodash";
+import colors from "../../../AppColors";
 
 function QuestsScreen() {
 
@@ -214,33 +215,28 @@ function QuestsScreen() {
 
                                 <View style={styles.contentNavigation}>
 
-                                    <Pressable onPress={() => switchButtonInNavigation("DAILY")}>
+                                    <TouchableHighlight style={styles.contentHighlightItem} underlayColor={colors.gray} onPress={() => switchButtonInNavigation("DAILY")}>
                                         <View style={[styles.contentNavigationItem, styles.contentNavigationLeftItem]}>
-
                                             <View style={navigationItem === "DAILY" ? styles.contentNavigationItemBackgroundSelectedLeft : styles.contentNavigationItemBackgroundLeft}>
                                                 <Text style={navigationItem === "DAILY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.daily}</Text>
                                             </View>
-
                                         </View>
-                                    </Pressable>
-                                    <Pressable onPress={() => switchButtonInNavigation("CLASSIC")}>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.contentHighlightItem}  underlayColor={colors.gray} onPress={() => switchButtonInNavigation("CLASSIC")}>
                                         <View style={styles.contentNavigationItem }>
-
                                             <View style={navigationItem === "CLASSIC" ? styles.contentNavigationItemBackgroundSelectedCenter : styles.contentNavigationItemBackgroundCenter}>
                                                 <Text style={navigationItem === "CLASSIC" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.classic}</Text>
                                             </View>
 
                                         </View>
-                                    </Pressable>
-                                    <Pressable onPress={() => switchButtonInNavigation("PARTY")}>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={styles.contentHighlightItem} underlayColor={colors.gray} onPress={() => switchButtonInNavigation("PARTY")}>
                                         <View style={[styles.contentNavigationItem, styles.contentNavigationRightItem]}>
-
                                             <View style={navigationItem === "PARTY" ? styles.contentNavigationItemBackgroundSelectedRight : styles.contentNavigationItemBackgroundRight}>
                                                 <Text style={navigationItem === "PARTY" ? [styles.contentNavigationItemText, styles.contentNavigationItemTextSelected] : styles.contentNavigationItemText}>{text.questScreen.party}</Text>
                                             </View>
-
                                         </View>
-                                    </Pressable>
+                                    </TouchableHighlight>
 
                                 </View>
 

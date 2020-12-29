@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {View, Image, Text, Pressable} from "react-native";
+import {View, Image, Text, TouchableOpacity} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -49,14 +49,14 @@ function QuestDetailButton (props) {
     return (
         <View style={{marginBottom: 30}}>
 
-            <Pressable onPress={handleSignOnQuest}>
+            <TouchableOpacity activeOpacity={.8} onPress={handleSignOnQuest}>
                 <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                     {loading === true && (
                         <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
                     )}
                     <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
                 </LinearGradient>
-            </Pressable>
+            </TouchableOpacity>
 
         </View>
     )

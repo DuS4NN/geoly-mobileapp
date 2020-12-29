@@ -16,6 +16,9 @@ export default {
     black: "#000000",
 
     snackBarError: "#FF4444",
-    snackBarSuccess: "#00C851"
+    snackBarSuccess: "#00C851",
+
+    highlightBackgroundGreen: "#D2E1DA",
+    highlightWhite: "#EBEBEB",
 }
 

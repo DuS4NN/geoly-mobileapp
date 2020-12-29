@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, Pressable} from "react-native";
+import {Text, View, Image, TouchableHighlight, TouchableOpacity} from "react-native";
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -101,7 +101,7 @@ function QuestsItem(props) {
     }
 
     return (
-        <Pressable onPress={() => setSelectedQuest(quest)} onLongPress={() => setView()}>
+        <TouchableHighlight underlayColor={colors.lightGray} style={styles.highlightItemContainer} onPress={() => setSelectedQuest(quest)} onLongPress={() => setView()}>
             <View style={deleteView === true ? [styles.itemContainer, styles.itemDeleteContainer] : styles.itemContainer}>
                 <View style={styles.itemImageContainer}>
                     <Image style={styles.itemImage} source={categoryImages[quest.category]} />
@@ -114,17 +114,17 @@ function QuestsItem(props) {
                         <Text style={styles.deleteText}>{text.questScreen.signOff}</Text>
 
                         <View style={styles.deleteButtonsContainers}>
-                            <Pressable onPress={() => setDeleteView(false)}>
+                            <TouchableOpacity activeOpacity={.8} onPress={() => setDeleteView(false)}>
                                 <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                                     <Text style={styles.deleteButtonText}>{text.main.no}</Text>
                                 </LinearGradient>
-                            </Pressable>
+                            </TouchableOpacity>
 
-                            <Pressable onPress={signOutOfQuest}>
+                            <TouchableOpacity activeOpacity={.8} onPress={signOutOfQuest}>
                                 <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightRed, colors.darkRed]}>
                                     <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
                                 </LinearGradient>
-                            </Pressable>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 ) : (
@@ -141,7 +141,7 @@ function QuestsItem(props) {
                 )}
             </View>
 
-        </Pressable>
+        </TouchableHighlight>
     )
 }
 

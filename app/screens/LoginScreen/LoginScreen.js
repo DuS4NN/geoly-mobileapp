@@ -1,11 +1,10 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, TextInput, Dimensions, Linking, Pressable} from "react-native";
+import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {LinearGradient} from "expo-linear-gradient";
 import {FRONTEND_SERVER_URL, API_SERVER_URL} from "@env";
 import axios from "axios";
-
 import getText from "../../assets/text/Text";
 import colors from "../../../AppColors"
 import styles from "./LoginScreenStyleSheet";
@@ -109,14 +108,14 @@ function LoginScreen() {
 
                 <Text onPress={redirectToRegisterPage} style={styles.register}>{text.loginScreen.register}</Text>
 
-                <Pressable onPress={handleLogin}>
+                <TouchableOpacity activeOpacity={.8} onPress={handleLogin}>
                     <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                         {loading === true && (
                             <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
                         )}
                         <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
                     </LinearGradient>
-                </Pressable>
+                </TouchableOpacity>
 
             </View>
 

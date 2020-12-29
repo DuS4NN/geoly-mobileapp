@@ -1,8 +1,9 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, Pressable} from "react-native";
+import {Text, View, Image, TouchableHighlight} from "react-native";
 import {UserContext} from "../../../UserContext";
 import getText from "../../assets/text/Text";
 import styles from "./NearQuestsListStyleSheet";
+import colors from "../../../AppColors";
 
 function NearQuestsItem(props) {
 
@@ -22,7 +23,7 @@ function NearQuestsItem(props) {
     })
 
     return (
-        <Pressable onPress={() => setSelectedQuest(quest)}>
+        <TouchableHighlight underlayColor={colors.lightGray} style={styles.highlightItemContainer} onPress={() => setSelectedQuest(quest)}>
             <View style={styles.itemContainer}>
 
                 <View style={styles.itemImageContainer}>
@@ -37,7 +38,7 @@ function NearQuestsItem(props) {
                 </View>
 
             </View>
-        </Pressable>
+        </TouchableHighlight>
     )
 }
 

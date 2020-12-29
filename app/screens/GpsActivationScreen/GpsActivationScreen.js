@@ -1,6 +1,6 @@
 import React, {useContext, useState} from "react";
 import {UserContext} from "../../../UserContext";
-import {View, Image, Text, Pressable} from "react-native";
+import {View, Image, Text, TouchableOpacity} from "react-native";
 import getText from "../../assets/text/Text";
 import styles from "./GpsActivationScreenStyleSheet";
 import {LinearGradient} from "expo-linear-gradient";
@@ -42,14 +42,14 @@ function GpsActivationScreen(props) {
 
             <Text style={styles.text}>{text.gpsActivationScreen.gps}</Text>
 
-            <Pressable onPress={() => reloadPosition()}>
+            <TouchableOpacity activeOpacity={.8} onPress={() => reloadPosition()}>
                 <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                     {loading === true && (
                         <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
                     )}
                     <Text style={styles.buttonText}>{text.gpsActivationScreen.reload}</Text>
                 </LinearGradient>
-            </Pressable>
+            </TouchableOpacity>
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
         </View>

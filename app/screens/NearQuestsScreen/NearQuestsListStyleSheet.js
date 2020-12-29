@@ -9,8 +9,15 @@ export default StyleSheet.create({
     offset: {
         height: 30,
     },
-    itemContainer: {
+    highlightItemContainer: {
         width: "90%",
+        height: 90,
+        alignSelf: "center",
+        borderRadius: 15,
+        marginBottom: 20
+    },
+    itemContainer: {
+        width: "100%",
         height: 90,
         flexDirection: "row",
         backgroundColor: colors.white,

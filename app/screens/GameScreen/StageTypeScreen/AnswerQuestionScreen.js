@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, TextInput, Image, Pressable, Alert} from "react-native";
+import {Text, View, TextInput, Image, TouchableOpacity, Alert, TouchableHighlight} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -169,29 +169,31 @@ function AnswerQuestionScreen(props) {
                         ) : (
                             <View>
                                 {answerList.map(answer => (
-                                    <Pressable onPress={() => setSelectedAnswer(answer)} key={answer} style={styles.answerListContainer}>
-                                        <Text style={selectedAnswer === answer ? [styles.answerListItem, styles.answerListItemSelected] : styles.answerListItem}>{answer}</Text>
-                                    </Pressable>
+                                    <TouchableHighlight underlayColor={colors.highlightWhite} onPress={() => setSelectedAnswer(answer)} key={answer} style={styles.answerListContainer}>
+                                        <Text style={selectedAnswer === answer ? [styles.answerListItemSelected, styles.answerListItem] : styles.answerListItem}>{answer}</Text>
+                                    </TouchableHighlight>
                                 ))}
                             </View>
                         )}
                         {stage.advise !== null && (
-                            <Pressable style={styles.questionAdviseContainer} onPress={handleGetAdvise}>
-                                <Text style={styles.questionAdvise}>{text.gameScreen.advise}</Text>
-                                {adviseLoading === true && (
-                                    <Image style={styles.questionAdviseLoading} source={require("../../../assets/images/loading.gif")} />
-                                )}
-                            </Pressable>
+                            <TouchableHighlight underlayColor={colors.lightGray} style={styles.questionAdviseContainer} onPress={handleGetAdvise}>
+                                <View style={styles.questionAdviseView}>
+                                    <Text style={styles.questionAdvise}>{text.gameScreen.advise}</Text>
+                                    {adviseLoading === true && (
+                                        <Image style={styles.questionAdviseLoading} source={require("../../../assets/images/loading.gif")} />
+                                    )}
+                                </View>
+                            </TouchableHighlight>
                         )}
 
-                        <Pressable onPress={handleSubmitAnswer}>
+                        <TouchableOpacity activeOpacity={.8} onPress={handleSubmitAnswer}>
                             <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                                 {answerLoading === true && (
                                     <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
                                 )}
                                 <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
                             </LinearGradient>
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
 
                     <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>

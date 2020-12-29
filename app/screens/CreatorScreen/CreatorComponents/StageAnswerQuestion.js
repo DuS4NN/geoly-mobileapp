@@ -1,5 +1,5 @@
-import React, {useContext, useState, useEffect, useRef} from "react";
-import {Text, View, TextInput, Pressable} from "react-native";
+import React, {useContext, useState, useEffect} from "react";
+import {Text, View, TextInput, TouchableOpacity, TouchableHighlight} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import colors from "../../../../AppColors"
 import getText from "../../../assets/text/Text";
@@ -89,9 +89,9 @@ function StageAnswerQuestion (props) {
 
     return (
         <View style={styles.stageContainer}>
-            <Pressable onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
+            <TouchableHighlight underlayColor={colors.highlightWhite} onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
                 <Text style={styles.deleteButtonText}>X</Text>
-            </Pressable>
+            </TouchableHighlight>
 
             <View style={styles.formItem}>
                 <Text style={styles.formLabel}>{text.creator.question}</Text>
@@ -123,20 +123,20 @@ function StageAnswerQuestion (props) {
                 {answerList.map(a => (
                     <View style={styles.answerListItem} key={a}>
                         <Text style={styles.answerListItemText}>{a}</Text>
-                        <Pressable onPress={() => handleDeleteAnswer(a)}>
-                            <Text style={styles.answerListItemDelete}>X</Text>
-                        </Pressable>
+                        <TouchableHighlight style={styles.answerListItemDeleteContainer} underlayColor={colors.highlightWhite} onPress={() => handleDeleteAnswer(a)}>
+                            <Text style={styles.answerListItemDeleteText}>X</Text>
+                        </TouchableHighlight>
                     </View>
                 ))}
 
                 <View>
                     <TextInput maxLength={100} style={styles.formInput} onChangeText={text => setAddAnswerValue(text)} value={addAnswerValue} placeholder={text.creator.addAnswer} />
 
-                    <Pressable onPress={handleAddAnswer}>
+                    <TouchableOpacity activeOpacity={.8} onPress={handleAddAnswer}>
                         <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                             <Text style={styles.buttonText}>{text.creator.addAnswer}</Text>
                         </LinearGradient>
-                    </Pressable>
+                    </TouchableOpacity>
 
                 </View>
             </View>

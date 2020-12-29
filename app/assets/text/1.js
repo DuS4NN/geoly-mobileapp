@@ -95,11 +95,9 @@ export const text = {
         INVALID_ANSWER_COUNT: 'Etapa môže mať maximálne 5 odpovedí',
         ANSWER_ALREADY_EXISTS: 'Odpoveď už existuje',
 
-
         INVALID_NAME_LENGTH_SIZE: "Názov úlohy musí mať 1 - 50 znakov",
         INVALID_DESCRIPTION: "Popis úlohy musí mať 1 - 500 znakov",
         INVALID_COORDINATES: "Súradnice etapy sú neplatné",
-
         INVALID_DIFFICULTY: "Neplatná obtiažnosť",
         CATEGORY_NOT_FOUND: "Neplatná kategória",
         INVALID_QUESTION: "Otázka musí mať 1 - 200 znakov",

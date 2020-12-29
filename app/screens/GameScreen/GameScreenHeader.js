@@ -1,8 +1,9 @@
 import React, {useContext} from "react";
-import {View, Text, Image, Pressable} from "react-native";
+import {View, Text, Image, TouchableHighlight} from "react-native";
 import styles from "./GameScreenStyleSheet";
 import {UserContext} from "../../../UserContext";
 import getText from "../../assets/text/Text";
+import colors from "../../../AppColors";
 
 function GameScreenHeader (props) {
 
@@ -13,9 +14,9 @@ function GameScreenHeader (props) {
 
     return (
         <View style={styles.gameHeaderContainer}>
-            <Pressable onPress={() => goBack()} >
-                <Image style={styles.backArrow} source={require("../../assets/icons/arrowLeft.png")} />
-            </Pressable>
+            <TouchableHighlight underlayColor={colors.highlightBackgroundGreen} onPress={() => goBack()} style={styles.backArrowContainer}>
+                    <Image style={styles.backArrow} source={require("../../assets/icons/arrowLeft.png")} />
+            </TouchableHighlight>
             <View style={styles.headerContent}>
                 {type === "DAILY" ? (
                     <Text  numberOfLines={1} style={styles.headerText}>{text.gameScreen.daily}</Text>

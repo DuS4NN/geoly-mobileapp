@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Text, View, Image, Pressable} from "react-native";
+import {Text, View, Image, TouchableOpacity} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import getText from "../../../assets/text/Text";
 import styles from "./StageTypeScreenStyleSheet";
@@ -26,14 +26,14 @@ function FinishScreen(props) {
                 </View>
             )}
 
-            <Pressable onPress={handleFinishStage}>
+            <TouchableOpacity activeOpacity={.8} onPress={handleFinishStage}>
                 <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                     {finishLoading === true && (
                         <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
                     )}
                     <Text style={styles.buttonText}>{text.gameScreen.continue}</Text>
                 </LinearGradient>
-            </Pressable>
+            </TouchableOpacity>
 
         </View>
     )

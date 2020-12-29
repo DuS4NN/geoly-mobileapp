@@ -65,6 +65,13 @@ export default StyleSheet.create({
         marginBottom: 10,
         justifyContent: "center",
     },
+    contentHighlightItem: {
+        borderBottomLeftRadius: 50,
+        borderTopLeftRadius: 50,
+        borderBottomRightRadius: 50,
+        borderTopRightRadius: 50
+    },
+
     contentNavigationItem: {
         width: 110,
         borderTopColor: "black",

@@ -7,15 +7,21 @@ export default StyleSheet.create({
         alignItems: "center",
         marginTop: 20
     },
+    highlightItemContainer: {
+        width: "90%",
+        height: 90,
+        alignSelf: "center",
+        borderRadius: 15,
+        marginBottom: 20
+    },
     itemContainer: {
         alignSelf: "center",
-        width: "90%",
+        width: "100%",
         height: 90,
         flexDirection: "row",
         backgroundColor: colors.white,
         borderRadius: 15,
         marginBottom: 20
-
     },
     itemImageContainer: {
         width: "25%",

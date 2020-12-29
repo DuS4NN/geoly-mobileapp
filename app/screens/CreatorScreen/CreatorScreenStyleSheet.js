@@ -128,8 +128,10 @@ export default StyleSheet.create({
     deleteButtonContainer: {
         alignSelf: "flex-end",
         alignItems: "flex-end",
-        paddingRight: 10,
-        width: 50
+        marginRight: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 30
     },
     deleteButtonText: {
         fontFamily: "OpenSans",
@@ -168,8 +170,13 @@ export default StyleSheet.create({
         fontSize: 14,
         paddingLeft: 5,
     },
-    answerListItemDelete: {
-        paddingRight: 5,
+    answerListItemDeleteContainer: {
+        marginRight: 5,
+        paddingLeft: 7,
+        paddingRight: 7,
+        borderRadius: 10
+    },
+    answerListItemDeleteText: {
         fontFamily: "OpenSans",
         fontWeight: "bold",
         fontSize: 15

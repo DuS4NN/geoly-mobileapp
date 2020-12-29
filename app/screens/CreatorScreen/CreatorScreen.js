@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, Image, Dimensions, ScrollView, Pressable} from "react-native";
+import {Text, View, Image, Dimensions, ScrollView, TouchableOpacity} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
@@ -209,14 +209,14 @@ function CreatorScreen () {
 
                                 <View style={styles.formContainer}>
                                     <Text style={styles.formTitle}>{text.creator.addQuest}</Text>
-                                    <Pressable onPress={handleAddQuest}>
+                                    <TouchableOpacity activeOpacity={.8} onPress={handleAddQuest}>
                                         <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
                                             {addQuestLoading === true && (
                                                 <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
                                             )}
                                             <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
                                         </LinearGradient>
-                                    </Pressable>
+                                    </TouchableOpacity>
                                 </View>
 
                             </ScrollView>

@@ -1,10 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Text, View, TextInput, Image, Pressable} from "react-native";
+import {Text, View, TextInput, Image, TouchableHighlight} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import getText from "../../../assets/text/Text";
 import styles from "../CreatorScreenStyleSheet";
 import MapView, {Marker} from "react-native-maps";
 import getMapTheme from "../../../assets/mapStyles/MapTheme";
+import colors from "../../../../AppColors";
 
 function StageGoToPlace (props) {
 
@@ -42,9 +43,9 @@ function StageGoToPlace (props) {
     return (
         <View style={styles.stageContainer}>
             {stage.id !== 0 && (
-                <Pressable onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
+                <TouchableHighlight underlayColor={colors.highlightWhite} onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
                     <Text style={styles.deleteButtonText}>X</Text>
-                </Pressable>
+                </TouchableHighlight>
             )}
             <View style={styles.formItem}>
                 <Text style={styles.formLabel}>{text.creator.note}</Text>

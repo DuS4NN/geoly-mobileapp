@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Text, View, TextInput,  Pressable} from "react-native";
+import {Text, View, TextInput, TouchableHighlight} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import getText from "../../../assets/text/Text";
 import styles from "../CreatorScreenStyleSheet";
+import colors from "../../../../AppColors";
 
 function StageScanQrCode (props) {
 
@@ -37,9 +38,9 @@ function StageScanQrCode (props) {
     }
     return (
         <View style={styles.stageContainer}>
-            <Pressable onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
+            <TouchableHighlight underlayColor={colors.highlightWhite} onPress={handleDeleteStage} style={styles.deleteButtonContainer}>
                 <Text style={styles.deleteButtonText}>X</Text>
-            </Pressable>
+            </TouchableHighlight>
 
             <View style={styles.formItem}>
                 <Text style={styles.formLabel}>{text.creator.note}</Text>

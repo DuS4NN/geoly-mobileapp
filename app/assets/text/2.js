@@ -99,7 +99,6 @@ export const text = {
         INVALID_NAME_LENGTH_SIZE: "The quest name must be 1 - 50 characters",
         INVALID_DESCRIPTION: "The quest description must be 1 - 500 characters",
         INVALID_COORDINATES: "The coordinates are invalid",
-
         INVALID_DIFFICULTY: "Invalid difficulty",
         CATEGORY_NOT_FOUND: "Invalid category",
         INVALID_QUESTION: "The question must be 1 - 200 characters",

@@ -38,12 +38,17 @@ export default StyleSheet.create({
         color: colors.gray,
         fontSize: 13,
     },
+    backArrowContainer: {
+        justifyContent: "center",
+        width: 40,
+        marginLeft: 10,
+        borderRadius: 30,
+        height: 40
+    },
     backArrow: {
         height: 20,
         width: 20,
-        marginLeft: 20,
-        marginTop: 10,
-        alignSelf: "flex-start"
+        alignSelf: "center"
     },
 
 
