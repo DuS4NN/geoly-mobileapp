@@ -95,12 +95,25 @@ export const text = {
         ANSWER_LENGTH: 'Answer must be 1-100 characters long',
         INVALID_ANSWER_COUNT: 'A stage can have a maximum of 5 answers',
         ANSWER_ALREADY_EXISTS: 'The answer already exists',
+
+        INVALID_NAME_LENGTH_SIZE: "The quest name must be 1 - 50 characters",
+        INVALID_DESCRIPTION: "The quest description must be 1 - 500 characters",
+        INVALID_COORDINATES: "The coordinates are invalid",
+
+        INVALID_DIFFICULTY: "Invalid difficulty",
+        CATEGORY_NOT_FOUND: "Invalid category",
+        INVALID_QUESTION: "The question must be 1 - 200 characters",
+        INVALID_ANSWER: "The answer must be 1 - 200 characters",
+        INVALID_ADVISE: "The advise must be 0 - 200 characters",
+        INVALID_NOTE: "The note must be 0 - 200 characters",
+        INVALID_ANSWERS_LIST: "Invalid answer list"
     },
     success: {
         signOff: "You have been signed out of quest",
         questFinish: "Congratulations! You have successfully completed the quest",
         reloadParty: "The data was updated based on the group change",
         reloadQuest: "The data was updated based on the quest change",
-        user_signed_up_on_quest: 'Boli ste prihlásený na úlohu.',
+        user_signed_up_on_quest: 'You have been signed up on quest',
+        questCreated: "The quest has been created"
     }
 }

@@ -8,7 +8,7 @@ import styles from "../CreatorScreenStyleSheet";
 
 function CreatorForm (props) {
 
-    const {categories, details, setDetails, nameRef, descriptionRef} = props
+    const {categories, details, setDetails, name, setName, description, setDescription} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -56,6 +56,20 @@ function CreatorForm (props) {
         })
     }
 
+    const changeName = (text) => {
+        setDetails({
+            ...details,
+            name: text
+        })
+    }
+
+    const changeDescription = (text) => {
+        setDetails({
+            ...details,
+            description: text
+        })
+    }
+
     return (
         <View style={styles.formContainer}>
 
@@ -63,12 +77,7 @@ function CreatorForm (props) {
 
             <View style={styles.formItem}>
                 <Text style={styles.formLabel}>{text.creator.questName}</Text>
-                <TextInput maxLength={50} placeholder={text.creator.questName} style={styles.formInput} ref={nameRef} />
-            </View>
-
-            <View style={styles.formItem}>
-                <Text style={styles.formLabel}>{text.creator.description}</Text>
-                <TextInput maxLength={500} placeholder={text.creator.description} style={styles.formInput} ref={descriptionRef} />
+                <TextInput maxLength={50} placeholder={text.creator.questName} style={styles.formInput} value={name} onChangeText={text => changeName(text)}/>
             </View>
 
             <View style={styles.formItem}>
@@ -108,6 +117,11 @@ function CreatorForm (props) {
                     }}
                     onChangeItem={item => changeDifficulty(item)}
                 />
+            </View>
+
+            <View style={styles.formItem}>
+                <Text style={styles.formLabel}>{text.creator.description}</Text>
+                <TextInput maxLength={500} placeholder={text.creator.description} style={styles.formInput} value={description} onChangeText={text => changeDescription(text)} />
             </View>
 
             <View style={styles.formItem}>

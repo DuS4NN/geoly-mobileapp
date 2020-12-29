@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Text, View, TextInput, Image, Pressable} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import getText from "../../../assets/text/Text";
@@ -14,25 +14,23 @@ function StageGoToPlace (props) {
     const text = getText(userContext["languageId"])
     const mapTheme = getMapTheme(userContext["mapTheme"])
 
-    const noteRef = useRef(null)
+    const [note, setNote] = useState("")
 
     useEffect(() => {
-        if(noteRef !== null){
-            let newStages = []
+        let newStages = []
 
-            stages.map((s:any) => {
-                if(s.id !== stage.id){
-                    newStages.push(s)
-                }else{
-                    newStages.push({
-                        ...stage,
-                        note: noteRef
-                    })
-                }
-            })
-            setStages(newStages)
-        }
-    }, [noteRef])
+        stages.map(s => {
+            if(s.id !== stage.id){
+                newStages.push(s)
+            }else{
+                newStages.push({
+                    ...stage,
+                    note: note
+                })
+            }
+        })
+        setStages(newStages)
+    }, [note])
 
     const handleDeleteStage = () => {
         if(stage.id === 0) return
@@ -50,7 +48,7 @@ function StageGoToPlace (props) {
             )}
             <View style={styles.formItem}>
                 <Text style={styles.formLabel}>{text.creator.note}</Text>
-                <TextInput maxLength={200} placeholder={text.creator.note} style={styles.formInput} ref={noteRef} />
+                <TextInput maxLength={200} placeholder={text.creator.note} style={styles.formInput} value={note} onChangeText={text => setNote(text)} />
             </View>
 
             <MapView

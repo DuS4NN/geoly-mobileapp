@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, useRef} from "react";
+import React, {useContext, useState, useEffect} from "react";
 import {Text, View, Image, Dimensions, ScrollView, Pressable} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
@@ -14,7 +14,6 @@ import GPS from "../../components/GPS";
 import GpsActivationScreen from "../GpsActivationScreen/GpsActivationScreen";
 import {LinearGradient} from "expo-linear-gradient";
 import colors from "../../../AppColors";
-import {API} from "react-native-web/dist/vendor/react-native/Animated/NativeAnimatedHelper";
 
 function CreatorScreen () {
 
@@ -34,11 +33,11 @@ function CreatorScreen () {
     const [showSnack, setShowSnack] = useState(false)
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
-    const nameRef = useRef(null)
-    const descriptionRef = useRef(null)
 
     useEffect(() => {
         setDetails({
+            name: "",
+            description: "",
             category: 1,
             difficulty: 1,
             active: true,
@@ -104,23 +103,49 @@ function CreatorScreen () {
     const handleAddQuest = () => {
         setAddQuestLoading(true)
 
+        if(details.name.replace(/ /g, "").length === 0 || details.name.length > 50){
+            showSnackBar(text.error.INVALID_NAME_LENGTH_SIZE,"ERROR")
+            return
+        }
+
+        if(details.description.replace(/ /g, "").length === 0 || details.description.length > 500){
+            showSnackBar(text.error.INVALID_DESCRIPTION,"ERROR")
+            return
+        }
+
         let finalStages = []
 
-        console.log(nameRef)
 
-        /*stages.map(s => {
+        stages.map(s => {
+
+            if(s.type === "GO_TO_PLACE" && (s.latitude === null || s.longitude === null)){
+                showSnackBar(text.error.INVALID_COORDINATES,"ERROR")
+                return
+            }
+
+            if(s.type === "ANSWER_QUESTION"){
+                if(s.question.replace(/ /g, "").length === 0 || s.question.length > 200){
+                    showSnackBar(text.error.INVALID_QUESTION,"ERROR")
+                    return
+                }
+                if(s.answer.replace(/ /g, "").length === 0 || s.answer.length > 200){
+                    showSnackBar(text.error.INVALID_ANSWER,"ERROR")
+                    return
+                }
+            }
 
             finalStages.push({
                 type: s.type,
-                answer: s.answer === null ? null : s.answer.current?.value,
-                question: s.question === null ? null : s.question.current?.value,
-                advise: s.advise === null ? null : s.advise.current?.value === '' ? null : s.advise.current?.value,
+                answer: s.answer,
+                question: s.question,
+                advise: s.advise === null ? null : s.advise.replace(/ /g, "").length === 0 ? null : s.advise,
                 answersList: s.answerList === null ? null : s.answerList.length === 0 ? null : s.answerList.join(";"),
                 latitude: s.latitude,
                 longitude: s.longitude,
                 qrCodeUrl: null,
-                note: s.note === null ? null : s.note.current?.value === '' ? null : s.note.current?.value
+                note: s.note === null ? null : s.note.replace(/ /g, "").length === 0 ? null : s.note,
             })
+
         })
 
         axios({
@@ -128,8 +153,8 @@ function CreatorScreen () {
             url: API_SERVER_URL+"/addQuest",
             withCredentials: true,
             data: {
-                name: nameRef.current?.value,
-                description: descriptionRef.current?.value,
+                name: details.name,
+                description: details.description,
                 categoryId: details.category,
                 difficulty: details.difficulty,
                 active: details.active,
@@ -137,7 +162,28 @@ function CreatorScreen () {
                 privateQuest: details.private,
                 stages: finalStages
             }
-        })*/
+        }).then(function (response) {
+            let serverResponse = response.data.responseEntity.body
+            let statusCode = response.data.responseEntity.statusCode
+
+            if(statusCode === "ACCEPTED"){
+                showSnackBar(text.success.questCreated, "SUCCESS")
+
+                setStages(stages.filter(s => {
+                    return s.id === 0
+                }))
+
+
+            }else if(statusCode === "BAD_REQUEST"){
+                showSnackBar(text.error[serverResponse], "ERROR")
+            }else{
+                showSnackBar(text.error.somethingWentWrong, "ERROR")
+            }
+
+        }).catch(function (error) {
+            handleError(error)
+            showSnackBar(text.error.somethingWentWrong, "ERROR")
+        })
 
     }
 
@@ -158,17 +204,20 @@ function CreatorScreen () {
                     <View style={{flex:1}}>
                         {gpsEnable === true ? (
                             <ScrollView style={{flex:1}}>
-                                <CreatorForm categories={categories} details={details} setDetails={setDetails} nameRef={nameRef} descriptionRef={descriptionRef} />
+                                <CreatorForm categories={categories} details={details} setDetails={setDetails} />
                                 <CreatorStages stages={stages} setStages={setStages} showSnackBar={showSnackBar} addStage={addStage} addStageLoading={addStageLoading} setAddStageLoading={setAddStageLoading}/>
 
-                                <Pressable onPress={handleAddQuest}>
-                                    <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                                        {addQuestLoading === true && (
-                                            <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                                        )}
-                                        <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
-                                    </LinearGradient>
-                                </Pressable>
+                                <View style={styles.formContainer}>
+                                    <Text style={styles.formTitle}>{text.creator.addQuest}</Text>
+                                    <Pressable onPress={handleAddQuest}>
+                                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                            {addQuestLoading === true && (
+                                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                                            )}
+                                            <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
+                                        </LinearGradient>
+                                    </Pressable>
+                                </View>
 
                             </ScrollView>
                         ) : (

@@ -94,12 +94,26 @@ export const text = {
         ANSWER_LENGTH: 'Dĺžka odpovede musí byť 1-100 znakov',
         INVALID_ANSWER_COUNT: 'Etapa môže mať maximálne 5 odpovedí',
         ANSWER_ALREADY_EXISTS: 'Odpoveď už existuje',
+
+
+        INVALID_NAME_LENGTH_SIZE: "Názov úlohy musí mať 1 - 50 znakov",
+        INVALID_DESCRIPTION: "Popis úlohy musí mať 1 - 500 znakov",
+        INVALID_COORDINATES: "Súradnice etapy sú neplatné",
+
+        INVALID_DIFFICULTY: "Neplatná obtiažnosť",
+        CATEGORY_NOT_FOUND: "Neplatná kategória",
+        INVALID_QUESTION: "Otázka musí mať 1 - 200 znakov",
+        INVALID_ANSWER: "Odpoveď musí mať 1 - 200 znakov",
+        INVALID_ADVISE: "Rada musí mať 0 - 200 znakov",
+        INVALID_NOTE: "Poznámka musí mať 0 - 200 znakov",
+        INVALID_ANSWERS_LIST: "Neplatný zoznam odpovedí"
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy",
         questFinish: "Gratulujeme! Úspešne ste dokončili úlohu",
         reloadParty: "Prebehla aktualizácia dát na základe zmeny skupiny",
         reloadQuest: "Prebehla aktualizácia dát na základe zmeny úlohy",
-        user_signed_up_on_quest: 'Boli ste prihlásený na úlohu.',
+        user_signed_up_on_quest: 'Boli ste prihlásený na úlohu',
+        questCreated: "Úloha bola vytvorená"
     }
 }
