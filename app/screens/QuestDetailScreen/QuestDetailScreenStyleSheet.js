@@ -20,7 +20,15 @@ export default StyleSheet.create({
         height: "20%",
         resizeMode: "contain"
     },
-
+    contentInfoContainer: {
+        alignSelf: "center",
+        width: "85%",
+        marginTop: 20,
+        backgroundColor: colors.white,
+        paddingTop: 30,
+        paddingBottom: 30,
+        borderRadius: 30
+    },
 
     mapContainer: {
         height: 200,
@@ -28,7 +36,8 @@ export default StyleSheet.create({
     },
     map: {
         flex: 1,
-        width: "100%",
+        width: "86%",
+        alignSelf: "center"
     },
 
     contentHeader: {
@@ -68,11 +77,11 @@ export default StyleSheet.create({
     },
 
     description: {
+        width: "86%",
         backgroundColor: colors.white,
         paddingTop: 10,
+        alignSelf: "center",
         paddingBottom: 10,
-        paddingLeft: 15,
-        paddingRight: 15
     },
     descriptionText: {
         fontFamily: "OpenSansLight",

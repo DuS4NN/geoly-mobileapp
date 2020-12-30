@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {View, Image, BackHandler, ScrollView} from "react-native";
+import {View, Image, BackHandler, ScrollView, Text} from "react-native";
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -124,8 +124,16 @@ function QuestDetailScreen(props) {
                     </View>
                 ) : (
                     <ScrollView style={{flex:1}}>
+
                         <QuestDetailInfo details={details} />
-                        <QuestDetailMap stages={stages} />
+
+                        <View style={styles.contentInfoContainer}>
+                            <View style={styles.description}>
+                                <Text style={styles.descriptionText}>{details.description}</Text>
+                            </View>
+                            <QuestDetailMap stages={stages} />
+                        </View>
+
                         <QuestDetailStages stages={stages} />
                         <QuestDetailButton questId={details.id} showSnackBar={showSnackBar} />
                     </ScrollView>

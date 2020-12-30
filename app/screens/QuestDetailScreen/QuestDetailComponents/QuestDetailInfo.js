@@ -19,10 +19,6 @@ function QuestDetailInfo(props) {
                     <Text numberOfLines={1} style={styles.userText}>{details.nick}</Text>
                 </View>
             </View>
-
-            <View style={styles.description}>
-                <Text style={styles.descriptionText}>{details.description}</Text>
-            </View>
         </View>
     )
 }
