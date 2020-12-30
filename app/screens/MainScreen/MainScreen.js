@@ -5,6 +5,7 @@ import BottomNavigation from "./BottomNavigation";
 import QuestsScreen from "../QuestsScreen/QuestsScreen";
 import NearQuestsScreen from "../NearQuestsScreen/NearQuestsScreen";
 import CreatorScreen from "../CreatorScreen/CreatorScreen";
+import MeScreen from "../Me/MeScreen";
 
 function MainScreen () {
 
@@ -24,7 +25,7 @@ function MainScreen () {
                     <CreatorScreen/>
                 )}
                 {navigationItem === "ME" && (
-                    <QuestsScreen/>
+                    <MeScreen/>
                 )}
             </View>
 

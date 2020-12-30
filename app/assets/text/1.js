@@ -76,6 +76,11 @@ export const text = {
         addAnswer: "Pridať odpoveď",
         addQuest: "Pridať úlohu"
     },
+    profile: {
+        profile: "Profil",
+        daily: "Prihlásiť sa na dennú úlohu",
+        logout: "Odhlásiť sa"
+    },
     error: {
         badCredentials: "Email alebo heslo sú nesprávne",
         inactiveAccount: "Váš účet nie je aktívny",
@@ -104,7 +109,11 @@ export const text = {
         INVALID_ANSWER: "Odpoveď musí mať 1 - 200 znakov",
         INVALID_ADVISE: "Rada musí mať 0 - 200 znakov",
         INVALID_NOTE: "Poznámka musí mať 0 - 200 znakov",
-        INVALID_ANSWERS_LIST: "Neplatný zoznam odpovedí"
+        INVALID_ANSWERS_LIST: "Neplatný zoznam odpovedí",
+
+        USER_HAS_ACTIVE_DAILY_QUEST: "Denná úloha je už aktívna",
+        USER_ADDRESS_NULL: 'Nemôžeme vytvoriť dennú úlohu, pretože nemáme záznam o Vašej polohe',
+        USER_ADDRESS_OLD: 'Nemôžeme vytvoriť dennú úlohu, pretože záznam o Vašej polohe nie je aktuálny. Zapnutím Geoly aplikácie sa poloha aktualizuje.'
     },
     success: {
         signOff: "Boli ste odhlásený z úlohy",
@@ -112,6 +121,7 @@ export const text = {
         reloadParty: "Prebehla aktualizácia dát na základe zmeny skupiny",
         reloadQuest: "Prebehla aktualizácia dát na základe zmeny úlohy",
         user_signed_up_on_quest: 'Boli ste prihlásený na úlohu',
-        questCreated: "Úloha bola vytvorená"
+        questCreated: "Úloha bola vytvorená",
+        signOnDaily: "Boli ste prihlásený na dennú úlohu"
     }
 }

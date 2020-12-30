@@ -76,6 +76,11 @@ export const text = {
         addAnswer: "Add answer",
         addQuest: "Add quest"
     },
+    profile: {
+        profile: "Profile",
+        daily: "Sign on Daily quest",
+        logout: "Log out"
+    },
     error: {
         badCredentials: "Email or password is incorrect",
         inactiveAccount: "Your account is inactive",
@@ -105,7 +110,11 @@ export const text = {
         INVALID_ANSWER: "The answer must be 1 - 200 characters",
         INVALID_ADVISE: "The advise must be 0 - 200 characters",
         INVALID_NOTE: "The note must be 0 - 200 characters",
-        INVALID_ANSWERS_LIST: "Invalid answer list"
+        INVALID_ANSWERS_LIST: "Invalid answer list",
+
+        USER_HAS_ACTIVE_DAILY_QUEST: "The daily quest is already active",
+        USER_ADDRESS_NULL: 'We can\'t create a daily quest because we don\'t have a record of your location',
+        USER_ADDRESS_OLD: 'We can\'t create a daily quest because your location record is out of date. Please turn on the Geoly application to update your location'
     },
     success: {
         signOff: "You have been signed out of quest",
@@ -113,6 +122,7 @@ export const text = {
         reloadParty: "The data was updated based on the group change",
         reloadQuest: "The data was updated based on the quest change",
         user_signed_up_on_quest: 'You have been signed up on quest',
-        questCreated: "The quest has been created"
+        questCreated: "The quest has been created",
+        signOnDaily: "You have been signed up on daily quest"
     }
 }
