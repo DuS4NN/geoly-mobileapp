@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {SafeAreaView, LogBox} from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
 import {API_SERVER_URL} from "@env";
+import * as Sentry from "@sentry/react-native";
 import * as Font from "expo-font";
 import axios from "axios";
 import handleError from "./ErrorHandler";
@@ -18,6 +19,11 @@ export default function App () {
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
+
+        Sentry.init({
+            dsn: "https://5e6de740c813439ca7dee24dbba7afa8@o421143.ingest.sentry.io/5547733",
+            enableNative: false
+        });
 
         loadFonts(setFontLoaded)
         checkUser()
