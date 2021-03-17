@@ -28,7 +28,8 @@
         "googleMaps": {
           "apiKey": "AIzaSyC4OeJ9LmgWvXBeGXwy1rUjj4zPxcEAqe8"
         }
-      }
+      },
+      "package": "com.geoly.app"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
