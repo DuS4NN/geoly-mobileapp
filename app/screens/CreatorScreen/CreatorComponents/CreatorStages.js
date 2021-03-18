@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, TouchableOpacity} from "react-native";
+import {Text, View, Image, TouchableOpacity, Platform} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import DropDownPicker from 'react-native-dropdown-picker';
 import colors from "../../../../AppColors"
@@ -82,12 +82,21 @@ function CreatorStages (props) {
                     />
 
                     <TouchableOpacity activeOpacity={.8} onPress={handleAddStage}>
-                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                            {addStageLoading && (
-                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
-                            )}
-                            <Text style={styles.buttonText}>{text.creator.addStage}</Text>
-                        </LinearGradient>
+                        {Platform.OS === "ios" ? (
+                            <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                                {addStageLoading && (
+                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                                )}
+                                <Text style={styles.buttonText}>{text.creator.addStage}</Text>
+                            </View>
+                        ) : (
+                            <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                {addStageLoading && (
+                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                                )}
+                                <Text style={styles.buttonText}>{text.creator.addStage}</Text>
+                            </LinearGradient>
+                        )}
                     </TouchableOpacity>
                 </View>
             )}

@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, TextInput, Image, TouchableOpacity, Alert, TouchableHighlight} from "react-native";
+import {Text, View, TextInput, Image, TouchableOpacity, Alert, TouchableHighlight, Platform} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -187,12 +187,21 @@ function AnswerQuestionScreen(props) {
                         )}
 
                         <TouchableOpacity activeOpacity={.8} onPress={handleSubmitAnswer}>
-                            <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                                {answerLoading === true && (
-                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
-                                )}
-                                <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
-                            </LinearGradient>
+                            {Platform.OS === "ios" ? (
+                                <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                                    {answerLoading === true && (
+                                        <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                                    )}
+                                    <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
+                                </View>
+                            ) : (
+                                <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                    {answerLoading === true && (
+                                        <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                                    )}
+                                    <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
+                                </LinearGradient>
+                            )}
                         </TouchableOpacity>
                     </View>
 

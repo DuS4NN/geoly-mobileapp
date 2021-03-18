@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {View, Image, Text, TouchableOpacity} from "react-native";
+import {View, Image, Text, TouchableOpacity, Platform} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -50,12 +50,21 @@ function QuestDetailButton (props) {
         <View style={{marginBottom: 30}}>
 
             <TouchableOpacity activeOpacity={.8} onPress={handleSignOnQuest}>
-                <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                    {loading === true && (
-                        <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
-                    )}
-                    <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
-                </LinearGradient>
+                {Platform.OS === "ios" ? (
+                    <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                        {loading === true && (
+                            <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                        )}
+                        <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                    </View>
+                ) : (
+                    <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                        {loading === true && (
+                            <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                        )}
+                        <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                    </LinearGradient>
+                )}
             </TouchableOpacity>
 
         </View>

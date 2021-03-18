@@ -5,7 +5,7 @@ export default StyleSheet.create({
     background: {
         flex: 1,
         width: "100%",
-        backgroundColor: colors.lightBackgroundGray
+        backgroundColor: colors.white
     },
     loading: {
         height: "20%",
@@ -39,9 +39,6 @@ export default StyleSheet.create({
         textAlign: "center",
         fontFamily: "OpenSans",
         fontWeight: "bold",
-        fontSize: 0
-    },
-    bottomNavigationItemTextSelected: {
         color: colors.black,
         fontSize: 12
     }

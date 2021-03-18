@@ -27,28 +27,28 @@ function BottomNavigation (props) {
             <TouchableHighlight underlayColor={colors.highlightWhite} style={styles.bottomNavigationItem} onPress={() => setNavigationItem("QUESTS")}>
                <View style={styles.bottomNavigationItem}>
                    <Image style={styles.bottomNavigationItemImage} source={navigationItem === "QUESTS" ? questsSelectedIcon : questsIcon} />
-                   <Text style={navigationItem === "QUESTS" ? [styles.bottomNavigationItemText, styles.bottomNavigationItemTextSelected] : styles.bottomNavigationItemText}>{text.navigation.quests}</Text>
+                   {navigationItem === "QUESTS" && (<Text style={styles.bottomNavigationItemText}>{text.navigation.quests}</Text>)}
                </View>
             </TouchableHighlight>
 
            <TouchableHighlight underlayColor={colors.highlightWhite} style={styles.bottomNavigationItem} onPress={() => setNavigationItem("NEAR")}>
                <View style={styles.bottomNavigationItem}>
                   <Image style={styles.bottomNavigationItemImage} source= {navigationItem === "NEAR" ? nearSelectedIcon : nearIcon} />
-                  <Text style={navigationItem === "NEAR" ? [styles.bottomNavigationItemText, styles.bottomNavigationItemTextSelected] : styles.bottomNavigationItemText}>{text.navigation.near}</Text>
+                   {navigationItem === "NEAR" && (<Text style={styles.bottomNavigationItemText}>{text.navigation.near}</Text>)}
               </View>
            </TouchableHighlight>
 
             <TouchableHighlight underlayColor={colors.highlightWhite} style={styles.bottomNavigationItem} onPress={() => setNavigationItem("CREATOR")}>
                 <View style={styles.bottomNavigationItem}>
                     <Image style={styles.bottomNavigationItemImage} source={navigationItem === "CREATOR" ? creatorSelectedIcon : creatorIcon} />
-                    <Text style={navigationItem === "CREATOR" ? [styles.bottomNavigationItemText, styles.bottomNavigationItemTextSelected] : styles.bottomNavigationItemText}>{text.navigation.creator}</Text>
+                    {navigationItem === "CREATOR" && (<Text style={styles.bottomNavigationItemText}>{text.navigation.creator}</Text>)}
                 </View>
             </TouchableHighlight>
 
             <TouchableHighlight underlayColor={colors.highlightWhite} style={styles.bottomNavigationItem} onPress={() => setNavigationItem("ME")}>
                 <View style={styles.bottomNavigationItem}>
                     <Image style={styles.bottomNavigationItemImage} source= {navigationItem === "ME" ? meSelectedIcon : meIcon} />
-                    <Text style={navigationItem === "ME" ? [styles.bottomNavigationItemText, styles.bottomNavigationItemTextSelected] : styles.bottomNavigationItemText}>{text.navigation.me}</Text>
+                    {navigationItem === "ME" && (<Text style={styles.bottomNavigationItemText}>{text.navigation.me}</Text>)}
                 </View>
             </TouchableHighlight>
 

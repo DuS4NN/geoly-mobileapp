@@ -4,7 +4,7 @@ import colors from "./AppColors";
 export default StyleSheet.create({
     mainSafeAreaView: {
         flex: 1,
-        backgroundColor: colors.backgroundGreen,
+        backgroundColor: Platform.OS === "android" ? colors.backgroundGreen : colors.white,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
     },
     snackBarError: {

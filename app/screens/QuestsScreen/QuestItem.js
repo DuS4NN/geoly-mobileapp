@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, TouchableHighlight, TouchableOpacity} from "react-native";
+import {Text, View, Image, TouchableHighlight, TouchableOpacity, Platform} from "react-native";
 import {UserContext} from "../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -114,16 +114,29 @@ function QuestsItem(props) {
                         <Text style={styles.deleteText}>{text.questScreen.signOff}</Text>
 
                         <View style={styles.deleteButtonsContainers}>
+
                             <TouchableOpacity activeOpacity={.8} onPress={() => setDeleteView(false)}>
-                                <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                                    <Text style={styles.deleteButtonText}>{text.main.no}</Text>
-                                </LinearGradient>
+                                {Platform.OS === "ios" ? (
+                                    <View style={{...styles.deleteButton, backgroundColor: colors.lightGreen}}>
+                                        <Text style={styles.deleteButtonText}>{text.main.no}</Text>
+                                    </View>
+                                ) : (
+                                    <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                        <Text style={styles.deleteButtonText}>{text.main.no}</Text>
+                                    </LinearGradient>
+                                )}
                             </TouchableOpacity>
 
                             <TouchableOpacity activeOpacity={.8} onPress={signOutOfQuest}>
-                                <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightRed, colors.darkRed]}>
-                                    <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
-                                </LinearGradient>
+                                {Platform.OS === "ios" ? (
+                                    <View style={{...styles.deleteButton, backgroundColor: colors.lightRed}}>
+                                        <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
+                                    </View>
+                                ) : (
+                                    <LinearGradient style={styles.deleteButton} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightRed, colors.darkRed]}>
+                                        <Text style={styles.deleteButtonText}>{text.main.yes}</Text>
+                                    </LinearGradient>
+                                )}
                             </TouchableOpacity>
                         </View>
                     </View>

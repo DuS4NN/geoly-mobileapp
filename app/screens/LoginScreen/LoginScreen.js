@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity} from "react-native";
+import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity, Platform} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {LinearGradient} from "expo-linear-gradient";
@@ -109,12 +109,21 @@ function LoginScreen() {
                 <Text onPress={redirectToRegisterPage} style={styles.register}>{text.loginScreen.register}</Text>
 
                 <TouchableOpacity activeOpacity={.8} onPress={handleLogin}>
-                    <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                        {loading === true && (
-                            <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                        )}
-                        <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
-                    </LinearGradient>
+                    {Platform.OS === "ios" ? (
+                        <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                            {loading === true && (
+                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                            )}
+                            <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                        </View>
+                    ) : (
+                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                            {loading === true && (
+                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                            )}
+                            <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                        </LinearGradient>
+                    )}
                 </TouchableOpacity>
 
             </View>

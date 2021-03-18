@@ -1,10 +1,11 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, TextInput, TouchableOpacity, TouchableHighlight} from "react-native";
+import {Text, View, TextInput, TouchableOpacity, TouchableHighlight, Platform, Image} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import colors from "../../../../AppColors"
 import getText from "../../../assets/text/Text";
 import styles from "../CreatorScreenStyleSheet";
 import {LinearGradient} from "expo-linear-gradient";
+import mainStyles from "../../../../AppStyleSheet";
 
 function StageAnswerQuestion (props) {
 
@@ -133,9 +134,15 @@ function StageAnswerQuestion (props) {
                     <TextInput maxLength={100} style={styles.formInput} onChangeText={text => setAddAnswerValue(text)} value={addAnswerValue} placeholder={text.creator.addAnswer} />
 
                     <TouchableOpacity activeOpacity={.8} onPress={handleAddAnswer}>
-                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                            <Text style={styles.buttonText}>{text.creator.addAnswer}</Text>
-                        </LinearGradient>
+                        {Platform.OS === "ios" ? (
+                            <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                                <Text style={styles.buttonText}>{text.creator.addAnswer}</Text>
+                            </View>
+                        ) : (
+                            <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                <Text style={styles.buttonText}>{text.creator.addAnswer}</Text>
+                            </LinearGradient>
+                        )}
                     </TouchableOpacity>
 
                 </View>
