@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {SafeAreaView, LogBox} from 'react-native';
 import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
-import {API_SERVER_URL} from "@env";
 import * as Sentry from "@sentry/react-native";
 import * as Font from "expo-font";
 import axios from "axios";
+import {API_SERVER_URL} from "@env";
 import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
 import styles from "./AppStyleSheet";
 import MainScreen from "./app/screens/MainScreen/MainScreen";
-import GPS from "./app/components/GPS";
 
 export default function App () {
 
@@ -29,16 +28,6 @@ export default function App () {
         checkUser()
 
     }, [])
-
-    const setAddress = (address) => {
-        axios({
-            method: "GET",
-            url: API_SERVER_URL+"/setAddress?address="+address.latitude+","+address.longitude,
-            withCredentials: true
-        }).catch(function (error) {
-            handleError(error)
-        })
-    }
 
     const checkUser = async () => {
         axios({
@@ -62,18 +51,6 @@ export default function App () {
                     id: options[7],
                     roles: roles
                 })
-
-                let lastUpdate = new Date(options[6])
-                let now = new Date()
-
-                if(options[6] === null || options[5] === null || now.getMonth() !== lastUpdate.getMonth() || now.getDate() !== lastUpdate.getDate() || now.getFullYear() !== lastUpdate.getFullYear() ){
-                    GPS().then(response => {
-                        if(response !== null){
-                            setAddress(response)
-                        }
-                    })
-                }
-
             }else{
                 setUserContext({
                     nickName: null,
@@ -108,7 +85,7 @@ export default function App () {
             <UserContext.Provider value={{userContext, setUserContext}}>
 
                 {userContext["nickName"] !== null && (
-                    <MainScreen/>
+                    <MainScreen />
                 )}
 
                 {userContext["nickName"] === null && (

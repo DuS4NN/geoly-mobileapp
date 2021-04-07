@@ -75,7 +75,6 @@ function MeScreen () {
         })
     }
 
-
     return (
         <View style={styles.background}>
             <View style={styles.header}>
@@ -87,7 +86,8 @@ function MeScreen () {
             <View style={styles.content}>
 
                <View style={styles.contentContainer}>
-                   <Image style={styles.profileImage} source={{uri: IMAGE_SERVER_URL+userContext["profileImage"]}}/>
+                   <Image style={styles.profileImage} source={{uri: IMAGE_SERVER_URL+userContext["profileImage"]+"&timestamp="+Date.now()}}/>
+
                    <Text style={styles.nickName}>{userContext["nickName"]}</Text>
 
                    <TouchableHighlight style={styles.highlightItemContainer} underlayColor={colors.highlightWhite} onPress={signOnDaily}>
