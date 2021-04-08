@@ -105,11 +105,13 @@ function CreatorScreen () {
 
         if(details.name.replace(/ /g, "").length === 0 || details.name.length > 50){
             showSnackBar(text.error.INVALID_NAME_LENGTH_SIZE,"ERROR")
+            setAddQuestLoading(false)
             return
         }
 
         if(details.description.replace(/ /g, "").length === 0 || details.description.length > 500){
             showSnackBar(text.error.INVALID_DESCRIPTION,"ERROR")
+            setAddQuestLoading(false)
             return
         }
 
@@ -120,16 +122,19 @@ function CreatorScreen () {
 
             if(s.type === "GO_TO_PLACE" && (s.latitude === null || s.longitude === null)){
                 showSnackBar(text.error.INVALID_COORDINATES,"ERROR")
+                setAddQuestLoading(false)
                 return
             }
 
             if(s.type === "ANSWER_QUESTION"){
                 if(s.question.replace(/ /g, "").length === 0 || s.question.length > 200){
                     showSnackBar(text.error.INVALID_QUESTION,"ERROR")
+                    setAddQuestLoading(false)
                     return
                 }
                 if(s.answer.replace(/ /g, "").length === 0 || s.answer.length > 200){
                     showSnackBar(text.error.INVALID_ANSWER,"ERROR")
+                    setAddQuestLoading(false)
                     return
                 }
             }
@@ -179,6 +184,8 @@ function CreatorScreen () {
             }else{
                 showSnackBar(text.error.somethingWentWrong, "ERROR")
             }
+
+            setAddQuestLoading(false)
 
         }).catch(function (error) {
             handleError(error)

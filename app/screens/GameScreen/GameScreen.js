@@ -139,15 +139,17 @@ function GameScreen (props) {
                 let statusCode = response.data.responseEntity.statusCode
 
                 if(statusCode === "ACCEPTED"){
+
                     setFinishScreen(false)
+
                     let newStageList = []
 
-                    if(stageList.length > 2){
-                        newStageList = stageList.pop()
-                    }else{
-                        newStageList = [stageList.pop()]
+                    for(let i=1; i<stageList.length; i++){
+                        newStageList.push(stageList[i])
                     }
+
                     setStageList(newStageList)
+
                 }else{
                     setTypeSnack("ERROR")
                     setShowSnack(true)
@@ -181,7 +183,7 @@ function GameScreen (props) {
                         </View>
 
                         {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
-                            <GoToPlaceScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
+                            <GoToPlaceScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage} stageList={stageList}/>
                         )}
                         {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
                             <AnswerQuestionScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>

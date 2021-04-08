@@ -25,11 +25,13 @@ function ScanQrCodeScreen(props) {
 
     useEffect(() => {
         getCameraPermission()
+    }, [])
 
+    useEffect(() => {
         BarCodeScanner.scanFromURLAsync(IMAGE_SERVER_URL+stage.qrCodeUrl).then(function (response) {
             setCodeData(response[0].data)
         })
-    }, [])
+    }, [stage.qrCodeUrl])
 
     const getCameraPermission = async () => {
         let { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -49,7 +51,7 @@ function ScanQrCodeScreen(props) {
         if(data === codeData){
             setFinishScreen(true)
         }else{
-            setTextSnack(text.gameScreen.wrongQrCode)
+            setTextSnack(text.error.wrongQrCode)
             setShowSnack(true)
             setTypeSnack("ERROR")
         }

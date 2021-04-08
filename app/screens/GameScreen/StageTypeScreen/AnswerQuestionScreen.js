@@ -36,12 +36,12 @@ function AnswerQuestionScreen(props) {
 
         let list = stage.answerList.split(";")
         list.push(stage.answer)
+
         setAnswerList(shuffleArray(list))
-    }, [])
+    }, [stage.answerList])
 
     const shuffleArray = (array) => {
         let currentIndex = array.length, temporaryValue, randomIndex;
-
         // While there remain elements to shuffle...
         while (0 !== currentIndex) {
 
@@ -106,6 +106,8 @@ function AnswerQuestionScreen(props) {
 
         if(finalAnswer === stage.answer.toLowerCase()){
             setFinishScreen(true)
+            setAnswer("")
+            setSelectedAnswer("")
             return
         }
 

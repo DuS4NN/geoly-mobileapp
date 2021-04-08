@@ -15,7 +15,7 @@ import FinishScreen from "./FinishScreen";
 
 function GoToPlaceScreen(props) {
 
-    const {finishScreen, setFinishScreen, finishLoading, handleFinishStage, stage} = props
+    const {finishScreen, setFinishScreen, finishLoading, handleFinishStage, stage, stageList} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -33,6 +33,7 @@ function GoToPlaceScreen(props) {
         getPosition()
     }, [])
 
+
     const getPosition = async () => {
         setLoading(true)
         GPS().then(response => {
@@ -47,11 +48,15 @@ function GoToPlaceScreen(props) {
             }
         })
 
-        await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, distanceInterval: 0.1 }, loc => {
+        const locationWatch = await Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced, distanceInterval: 1 }, loc => {
             let distance = positionChangeHandler(loc.coords.latitude, loc.coords.longitude, stage.latitude, stage.longitude)*1000
             if(distance <= DISTANCE_DIFFERENCE){
                 setFinishScreen(true)
+                if(stageList.length === 1 || stageList[1].type !== "GO_TO_PLACE"){
+                    locationWatch.remove()
+                }
             }else{
+
                 setCoordinates({latitude: loc.coords.latitude, longitude: loc.coords.longitude})
             }
         })
