@@ -10,13 +10,17 @@ import mainStyles from "../../../../AppStyleSheet";
 
 function FinishScreen(props) {
 
-    const {finishLoading, note, handleFinishStage} = props
+    const {finishLoading, note, handleFinishStage, stageListLength} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
 
     return (
         <View style={styles.finishedContainer}>
+            <View style={styles.leftStagesContainer}>
+                <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageListLength}</Text>
+            </View>
+
             <Text style={styles.finishedTitle}>{text.gameScreen.finishedScreenTitle}</Text>
             <Image style={styles.finishImage} source={require("../../../assets/images/celebration.png")} />
             {note !== "" && note !== null && (

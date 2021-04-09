@@ -10,11 +10,10 @@ import {LinearGradient} from "expo-linear-gradient";
 import colors from "../../../../AppColors";
 import mainStyles from "../../../../AppStyleSheet";
 import {Snackbar} from "react-native-paper";
-import FinishScreen from "./FinishScreen";
 
 function AnswerQuestionScreen(props) {
 
-    const {finishScreen, setFinishScreen, finishLoading, stage, handleFinishStage} = props
+    const {setFinishScreen, stage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -38,7 +37,7 @@ function AnswerQuestionScreen(props) {
         list.push(stage.answer)
 
         setAnswerList(shuffleArray(list))
-    }, [stage.answerList])
+    },[stage.answerList])
 
     const shuffleArray = (array) => {
         let currentIndex = array.length, temporaryValue, randomIndex;
@@ -155,63 +154,53 @@ function AnswerQuestionScreen(props) {
 
     return (
         <View style={{flex: 1}}>
+            <View style={styles.questionContainer}>
+                <Text style={styles.questionText}>{stage.question}</Text>
 
-            {finishScreen === true ? (
-                <FinishScreen finishLoading={finishLoading} note={stage.note} handleFinishStage={handleFinishStage}/>
-            ) : (
-                <View style={{flex: 1}}>
-
-                    <View style={styles.questionContainer}>
-                        <Text style={styles.questionText}>{stage.question}</Text>
-
-                        {(stage.answerList === null || stage.answerList === "") ? (
-                            <View>
-                                <TextInput style={styles.questionInput} placeholder={text.gameScreen.answerPlaceholder} value={answer} onChangeText={answer => onChangeText(answer)} />
-                            </View>
-                        ) : (
-                            <View>
-                                {answerList.map(answer => (
-                                    <TouchableHighlight underlayColor={colors.highlightWhite} onPress={() => setSelectedAnswer(answer)} key={answer} style={styles.answerListContainer}>
-                                        <Text style={selectedAnswer === answer ? [styles.answerListItemSelected, styles.answerListItem] : styles.answerListItem}>{answer}</Text>
-                                    </TouchableHighlight>
-                                ))}
-                            </View>
-                        )}
-                        {stage.advise !== null && (
-                            <TouchableHighlight underlayColor={colors.lightGray} style={styles.questionAdviseContainer} onPress={handleGetAdvise}>
-                                <View style={styles.questionAdviseView}>
-                                    <Text style={styles.questionAdvise}>{text.gameScreen.advise}</Text>
-                                    {adviseLoading === true && (
-                                        <Image style={styles.questionAdviseLoading} source={require("../../../assets/images/loading.gif")} />
-                                    )}
-                                </View>
-                            </TouchableHighlight>
-                        )}
-
-                        <TouchableOpacity activeOpacity={.8} onPress={handleSubmitAnswer}>
-                            {Platform.OS === "ios" ? (
-                                <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
-                                    {answerLoading === true && (
-                                        <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
-                                    )}
-                                    <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
-                                </View>
-                            ) : (
-                                <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                                    {answerLoading === true && (
-                                        <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
-                                    )}
-                                    <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
-                                </LinearGradient>
-                            )}
-                        </TouchableOpacity>
+                {(stage.answerList === null || stage.answerList === "") ? (
+                    <View>
+                        <TextInput style={styles.questionInput} placeholder={text.gameScreen.answerPlaceholder} value={answer} onChangeText={answer => onChangeText(answer)} />
                     </View>
+                ) : (
+                    <View>
+                        {answerList.map(answer => (
+                            <TouchableHighlight underlayColor={colors.highlightWhite} onPress={() => setSelectedAnswer(answer)} key={answer} style={styles.answerListContainer}>
+                                <Text style={selectedAnswer === answer ? [styles.answerListItemSelected, styles.answerListItem] : styles.answerListItem}>{answer}</Text>
+                            </TouchableHighlight>
+                        ))}
+                    </View>
+                )}
+                {stage.advise !== null && (
+                    <TouchableHighlight underlayColor={colors.lightGray} style={styles.questionAdviseContainer} onPress={handleGetAdvise}>
+                        <View style={styles.questionAdviseView}>
+                            <Text style={styles.questionAdvise}>{text.gameScreen.advise}</Text>
+                            {adviseLoading === true && (
+                                <Image style={styles.questionAdviseLoading} source={require("../../../assets/images/loading.gif")} />
+                            )}
+                        </View>
+                    </TouchableHighlight>
+                )}
 
-                    <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
+                <TouchableOpacity activeOpacity={.8} onPress={handleSubmitAnswer}>
+                    {Platform.OS === "ios" ? (
+                        <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                            {answerLoading === true && (
+                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                            )}
+                            <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
+                        </View>
+                    ) : (
+                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                            {answerLoading === true && (
+                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../../assets/images/loading.gif")} />
+                            )}
+                            <Text style={styles.buttonText}>{text.gameScreen.submit}</Text>
+                        </LinearGradient>
+                    )}
+                </TouchableOpacity>
+            </View>
 
-                </View>
-            )}
-
+            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
         </View>
     )
 }

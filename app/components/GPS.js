@@ -12,7 +12,7 @@ export default async () => {
     let enabled = await Location.hasServicesEnabledAsync()
     if(enabled === true){
         try{
-            let location = await Location.getCurrentPositionAsync({});
+            let location = await Location.getCurrentPositionAsync({accuracy: Location.Accuracy.Highest});
             return {
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude

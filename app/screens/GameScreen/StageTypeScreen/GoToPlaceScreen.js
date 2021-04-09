@@ -11,11 +11,10 @@ import colors from "../../../../AppColors";
 import GPS from "../../../components/GPS"
 import GpsActivationScreen from "../../GpsActivationScreen/GpsActivationScreen";
 import getMapTheme from "../../../assets/mapStyles/MapTheme";
-import FinishScreen from "./FinishScreen";
 
 function GoToPlaceScreen(props) {
 
-    const {finishScreen, setFinishScreen, finishLoading, handleFinishStage, stage, stageList} = props
+    const {setFinishScreen, stage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -30,9 +29,14 @@ function GoToPlaceScreen(props) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getPosition()
-    }, [])
+        const locationWatch = getPosition()
 
+        return function cleanup() {
+           locationWatch.then(locationWatch => {
+               locationWatch.remove()
+           })
+        }
+    }, [stage])
 
     const getPosition = async () => {
         setLoading(true)
@@ -48,19 +52,18 @@ function GoToPlaceScreen(props) {
             }
         })
 
-        const locationWatch = await Location.watchPositionAsync({ accuracy: Location.Accuracy.Balanced, distanceInterval: 1 }, loc => {
+         return await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, distanceInterval: 1 }, loc => {
             let distance = positionChangeHandler(loc.coords.latitude, loc.coords.longitude, stage.latitude, stage.longitude)*1000
             if(distance <= DISTANCE_DIFFERENCE){
                 setFinishScreen(true)
-                if(stageList.length === 1 || stageList[1].type !== "GO_TO_PLACE"){
-                    locationWatch.remove()
-                }
             }else{
-
                 setCoordinates({latitude: loc.coords.latitude, longitude: loc.coords.longitude})
             }
         })
     }
+
+
+
 
     const positionChangeHandler = (lat1, lon1, lat2, lon2) => {
         const p = 0.017453292519943295;    // Math.PI / 180
@@ -90,44 +93,40 @@ function GoToPlaceScreen(props) {
                 <View style={{flex:1, width: "100%"}}>
                     {coordinates !== null ? (
                         <View style={{flex:1, width: "100%"}}>
-                            {finishScreen === true ? (
-                                <FinishScreen finishLoading={finishLoading} note={stage.note} handleFinishStage={handleFinishStage}/>
-                            ) : (
-                                <MapView
-                                    style={styles.map}
-                                    customMapStyle={mapTheme}
-                                    ref={mapRef}
-                                    onMapReady={onMapReadyHandler}
-                                    initialRegion={{
-                                        latitude: coordinates.latitude,
-                                        longitude: coordinates.longitude,
-                                        latitudeDelta: 0.1922,
-                                        longitudeDelta: 0.1421,
-                                    }}>
+                            <MapView
+                                style={styles.map}
+                                customMapStyle={mapTheme}
+                                ref={mapRef}
+                                onMapReady={onMapReadyHandler}
+                                initialRegion={{
+                                    latitude: coordinates.latitude,
+                                    longitude: coordinates.longitude,
+                                    latitudeDelta: 0.1922,
+                                    longitudeDelta: 0.1421,
+                                }}>
 
-                                    <Marker coordinate={coordinates} identifier={"location"} title={text.gameScreen.location}>
-                                        <Image
-                                            source={require("../../../assets/mapIcons/location.png")}
-                                            style={{width: 40, height: 40}}
-                                        />
-                                    </Marker>
-                                    <Marker coordinate={{latitude: stage.latitude, longitude: stage.longitude}} identifier={"destination"} title={text.gameScreen.destination}>
-                                        <Image
-                                            source={require("../../../assets/mapIcons/destination.png")}
-                                            style={{width: 40, height: 40}}
-                                        />
-                                    </Marker>
-
-                                    <MapViewDirections
-                                        origin={coordinates}
-                                        destination={{latitude: stage.latitude, longitude: stage.longitude}}
-                                        apikey={GOOGLE_API_KEY}
-                                        mode={"DRIVING"}
-                                        strokeColor={strokeColor[userContext["mapTheme"]-1]}
-                                        strokeWidth={3}
+                                <Marker coordinate={coordinates} identifier={"location"} title={text.gameScreen.location}>
+                                    <Image
+                                        source={require("../../../assets/mapIcons/location.png")}
+                                        style={{width: 40, height: 40}}
                                     />
-                                </MapView>
-                            )}
+                                </Marker>
+                                <Marker coordinate={{latitude: stage.latitude, longitude: stage.longitude}} identifier={"destination"} title={text.gameScreen.destination}>
+                                    <Image
+                                        source={require("../../../assets/mapIcons/destination.png")}
+                                        style={{width: 40, height: 40}}
+                                    />
+                                </Marker>
+
+                                <MapViewDirections
+                                    origin={coordinates}
+                                    destination={{latitude: stage.latitude, longitude: stage.longitude}}
+                                    apikey={GOOGLE_API_KEY}
+                                    mode={"DRIVING"}
+                                    strokeColor={strokeColor[userContext["mapTheme"]-1]}
+                                    strokeWidth={3}
+                                />
+                            </MapView>
                         </View>
                     ) : (
                         <GpsActivationScreen setCoordinates={setCoordinates} />

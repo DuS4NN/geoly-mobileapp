@@ -12,6 +12,7 @@ import mainStyles from "../../../AppStyleSheet";
 import GoToPlaceScreen from "./StageTypeScreen/GoToPlaceScreen";
 import ScanQrCodeScreen from "./StageTypeScreen/ScanQrCodeScreen";
 import AnswerQuestionScreen from "./StageTypeScreen/AnswerQuestionScreen";
+import FinishScreen from "./StageTypeScreen/FinishScreen";
 
 function GameScreen (props) {
 
@@ -170,31 +171,35 @@ function GameScreen (props) {
         <View style={styles.background}>
             <GameScreenHeader quest={quest} type={type} goBack={goBack}/>
 
-            <View style={styles.gameContent}>
-                {loading === true ? (
-                    <View style={styles.loading}>
-                        <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                    </View>
-                ) : (
-                    <View style={{flex: 1}}>
-
-                        <View style={styles.leftStagesContainer}>
-                            <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageList.length}</Text>
+            {finishScreen ? (
+                <FinishScreen finishLoading={finishLoading} note={stageList[0].note} handleFinishStage={handleFinishStage} stageListLength={stageList.length}/>
+            ) : (
+                <View style={styles.gameContent}>
+                    {loading === true ? (
+                        <View style={styles.loading}>
+                            <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
                         </View>
+                    ) : (
+                        <View style={{flex: 1}}>
 
-                        {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
-                            <GoToPlaceScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage} stageList={stageList}/>
-                        )}
-                        {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
-                            <AnswerQuestionScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
-                        )}
-                        {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
-                            <ScanQrCodeScreen finishScreen={finishScreen} setFinishScreen={setFinishScreen} finishLoading={finishLoading} stage={stageList[0]} handleFinishStage={handleFinishStage}/>
-                        )}
+                            <View style={styles.leftStagesContainer}>
+                                <Text style={styles.leftStagesText}>{text.gameScreen.leftStages+stageList.length}</Text>
+                            </View>
 
-                    </View>
-                )}
-            </View>
+                            {stageList.length > 0 && stageList[0].type === "GO_TO_PLACE" && (
+                                <GoToPlaceScreen setFinishScreen={setFinishScreen} stage={stageList[0]}/>
+                            )}
+                            {stageList.length > 0 && stageList[0].type === "ANSWER_QUESTION" && (
+                                <AnswerQuestionScreen setFinishScreen={setFinishScreen} stage={stageList[0]}/>
+                            )}
+                            {stageList.length > 0 && stageList[0].type === "SCAN_QR_CODE" && (
+                                <ScanQrCodeScreen setFinishScreen={setFinishScreen} stage={stageList[0]}/>
+                            )}
+
+                        </View>
+                    )}
+                </View>
+            )}
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
         </View>

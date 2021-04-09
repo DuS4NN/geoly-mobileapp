@@ -8,11 +8,10 @@ import styles from "./StageTypeScreenStyleSheet";
 import colors from "../../../../AppColors";
 import {Snackbar} from "react-native-paper";
 import mainStyles from "../../../../AppStyleSheet";
-import FinishScreen from "./FinishScreen";
 
 function ScanQrCodeScreen(props) {
 
-    const {finishScreen, setFinishScreen, finishLoading, stage, handleFinishStage} = props
+    const {setFinishScreen, stage} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -59,15 +58,10 @@ function ScanQrCodeScreen(props) {
 
     return (
         <View style={{flex: 1, backgroundColor: colors.white}}>
-
-            {finishScreen === true ? (
-                <FinishScreen finishLoading={finishLoading} note={stage.note} handleFinishStage={handleFinishStage}/>
-            ) : (
-                <View style={{flex: 1, backgroundColor: colors.white}}>
-                    <Text style={styles.qrCodeText}>{text.gameScreen.scanQrCode}</Text>
-                    <BarCodeScanner style={{height: Dimensions.get("screen").height-70, width: Dimensions.get("screen").width}} onBarCodeScanned={handleBarCodeScanned} />
-                </View>
-            )}
+            <View style={{flex: 1, backgroundColor: colors.white}}>
+                <Text style={styles.qrCodeText}>{text.gameScreen.scanQrCode}</Text>
+                <BarCodeScanner style={{height: Dimensions.get("screen").height-70, width: Dimensions.get("screen").width}} onBarCodeScanned={handleBarCodeScanned} />
+            </View>
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
         </View>

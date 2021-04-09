@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import colors from "../../../../AppColors";
 
 export default StyleSheet.create({
@@ -107,9 +107,19 @@ export default StyleSheet.create({
     ----- FINISH SCREEN -----
      */
     finishedContainer: {
-        flex: 1,
-        marginTop: 50,
+        flex: 4,
         alignItems: 'center',
+    },
+    leftStagesContainer: {
+        height: 20,
+        width: "100%",
+        backgroundColor: colors.backgroundGreen
+    },
+    leftStagesText: {
+        fontSize: 13,
+        fontFamily: "OpenSansLight",
+        textAlign: "center",
+        color: colors.gray
     },
     finishImage: {
         height: "40%",
@@ -117,6 +127,7 @@ export default StyleSheet.create({
         resizeMode: "contain",
     },
     finishedTitle: {
+        paddingTop: 15,
         fontFamily: "MarkProBold",
         fontSize: 20,
         color: colors.black,
