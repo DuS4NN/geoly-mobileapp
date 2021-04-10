@@ -12,11 +12,26 @@ import {API_SERVER_URL} from "@env";
 import axios from "axios";
 import handleError from "../../../ErrorHandler";
 
-function MainScreen () {
+function MainScreen (props) {
+    const {categories} = props
     const {userContext} = useContext(UserContext)
 
     const [navigationItem, setNavigationItem] = useState("QUESTS")
 
+    // QuestScreen
+    const [dailyQuest, setDailyQuest] = useState([])
+    const [classicQuests, setClassicQuests] = useState([])
+    const [partyQuests, setPartyQuests] = useState([])
+    const [init, setInit] = useState(true)
+    const [loadingQuestScreen, setLoadingQuestScreen] = useState(true)
+
+    // NearQuestScreen
+    const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(true)
+    const [quests, setQuests] = useState([])
+    const [stopLoading, setStopLoading] = useState(false)
+    const [coordinates, setCoordinates] = useState(null)
+    const [initNear, setInitNear] = useState(true)
 
     useEffect(() => {
         let lastUpdate = new Date(userContext.addressUpdate)
@@ -41,18 +56,19 @@ function MainScreen () {
         })
     }
 
+
     return (
         <View style={styles.background}>
 
             <View style={{...styles.content}}>
                 {navigationItem === "QUESTS" && (
-                    <QuestsScreen/>
+                    <QuestsScreen loadingQuestScreen={loadingQuestScreen} setLoadingQuestScreen={setLoadingQuestScreen} dailyQuest={dailyQuest} setDailyQuest={setDailyQuest} classicQuests={classicQuests} setClassicQuests={setClassicQuests} partyQuests={partyQuests} setPartyQuests={setPartyQuests} init={init} setInit={setInit}/>
                 )}
                 {navigationItem === "NEAR" && (
-                    <NearQuestsScreen/>
+                    <NearQuestsScreen initNear={initNear} setInitNear={setInitNear} coordinates={coordinates} setCoordinates={setCoordinates} page={page} setPage={setPage} loading={loading} setLoading={setLoading} quests={quests} setQuests={setQuests} stopLoading={stopLoading} setStopLoading={setStopLoading}/>
                 )}
                 {navigationItem === "CREATOR" && (
-                    <CreatorScreen/>
+                    <CreatorScreen categories={categories}/>
                 )}
                 {navigationItem === "ME" && (
                     <MeScreen/>
@@ -60,6 +76,7 @@ function MainScreen () {
             </View>
 
             <BottomNavigation navigationItem={navigationItem} setNavigationItem={setNavigationItem}/>
+
 
         </View>
     )

@@ -15,14 +15,11 @@ import Pusher from "pusher-js/react-native";
 import { debounce } from "lodash";
 import colors from "../../../AppColors";
 
-function QuestsScreen() {
+function QuestsScreen(props) {
 
+    const {dailyQuest, setDailyQuest, classicQuests, setClassicQuests, partyQuests, setPartyQuests, init, setInit, setLoadingQuestScreen, loadingQuestScreen} = props
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
-
-    const [dailyQuest, setDailyQuest] = useState([])
-    const [classicQuests, setClassicQuests] = useState([])
-    const [partyQuests, setPartyQuests] = useState([])
 
     const [navigationItem, setNavigationItem] = useState("CLASSIC")
 
@@ -30,16 +27,17 @@ function QuestsScreen() {
     const [showSnack, setShowSnack] = useState(false)
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
-    const [loading, setLoading] = useState(true)
-
     const [selectedQuest, setSelectedQuest] = useState(null)
 
     useEffect(() => {
-        loadData()
+        if(init){
+            loadData()
+            setInit(false)
+        }
     }, [])
 
     const loadData = () => {
-        setLoading(true)
+        setLoadingQuestScreen(true)
 
         const channels_questUpdate = []
         const channels_partyUpdate = []
@@ -97,11 +95,10 @@ function QuestsScreen() {
             setTypeSnack("ERROR")
             handleError(error)
         }).finally(function () {
-            setLoading(false)
+            setLoadingQuestScreen(false)
             initPusherChannels(channels_questUpdate, channels_partyUpdate, channels_partyQuestUpdate, channels_partyUserUpdate)
         })
     }
-
 
     const initPusherChannels = (channels_questUpdate, channels_partyUpdate, channels_partyQuestUpdate, channels_partyUserUpdate) => {
         const pusher = new Pusher(PUSHER_KEY+"", {
@@ -197,16 +194,18 @@ function QuestsScreen() {
     return (
         <View style={{flex: 1}}>
             {selectedQuest === null ? (
-                <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
                     <View style={styles.background}>
 
-                        <View style={styles.header}>
-                            <Text style={styles.headerText} >{text.questScreen.quests}</Text>
-                            <Image style={styles.headerImage} source={require("../../assets/images/quest.png")} />
-                        </View>
+                        <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
+                            <View style={styles.header}>
+                                <Text style={styles.headerText} >{text.questScreen.quests}</Text>
+                                <Image style={styles.headerImage} source={require("../../assets/images/quest.png")} />
+                            </View>
+                        </GestureRecognizer>
+
                         <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
 
-                        {loading === true ? (
+                        {loadingQuestScreen === true ? (
                             <View style={styles.loading}>
                                 <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
                             </View>
@@ -250,7 +249,7 @@ function QuestsScreen() {
                         <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
 
                     </View>
-                </GestureRecognizer>
+
             ) : (
                 <GameScreen removeQuestFromList={removeQuestFromList} setSelectedQuest={setSelectedQuest} quest={selectedQuest} type={navigationItem}/>
             )}

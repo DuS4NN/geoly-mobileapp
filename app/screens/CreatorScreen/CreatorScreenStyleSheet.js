@@ -1,7 +1,8 @@
 import { StyleSheet } from "react-native";
 import colors from "../../../AppColors";
 
-export default StyleSheet.create({
+export default
+StyleSheet.create({
     background: {
         flex: 1
     },
@@ -83,18 +84,18 @@ export default StyleSheet.create({
     },
     toggle: {
         marginLeft: "7%",
-         transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }],
+        transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }],
         alignSelf: "flex-start",
     },
 
-    loading: {
-        flex: 4,
-        alignItems: "center",
-        backgroundColor: colors.lightBackgroundGray
+    loadingContainer: {
+        flex: 1,
+        height: 50
     },
     loadingImage: {
-        height: "20%",
-        resizeMode: "contain"
+        height: "80%",
+        resizeMode: "contain",
+        alignSelf: "center"
     },
 
     button: {

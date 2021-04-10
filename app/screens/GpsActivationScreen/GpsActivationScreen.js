@@ -24,6 +24,7 @@ function GpsActivationScreen(props) {
 
     const reloadPosition = () => {
         setLoading(true)
+
         GPS().then(response => {
             if(response === null){
                 setTextSnack(text.error.gpsIsDisabled)

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/GeolyMobileApp.iml" filepath="$PROJECT_DIR$/.idea/GeolyMobileApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Geoly.iml" filepath="$PROJECT_DIR$/.idea/Geoly.iml" />
     </modules>
   </component>
 </project>

@@ -86,7 +86,7 @@ function MeScreen () {
             <View style={styles.content}>
 
                <View style={styles.contentContainer}>
-                   <Image style={styles.profileImage} source={{uri: IMAGE_SERVER_URL+userContext["profileImage"]+"&timestamp="+Date.now()}}/>
+                   <Image style={styles.profileImage} source={{uri: userContext["profileImage"]}}/>
 
                    <Text style={styles.nickName}>{userContext["nickName"]}</Text>
 

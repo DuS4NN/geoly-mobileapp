@@ -64,7 +64,15 @@ function CreatorStages (props) {
 
             <Text style={styles.formTitle}>{text.creator.stages}</Text>
 
-            {stages.length < 5 && (
+            {stages.length === 0 && (
+
+                <View style={styles.loadingContainer}>
+                    <Image style={styles.loadingImage} source={require("../../../assets/images/loading.gif")} />
+                </View>
+
+            )}
+
+            {stages.length < 5 && stages.length > 0 &&(
                 <View>
                     <Text style={styles.formLabel}>{text.creator.stageType}</Text>
                     <DropDownPicker

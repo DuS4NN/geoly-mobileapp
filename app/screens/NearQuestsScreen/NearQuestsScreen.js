@@ -12,38 +12,36 @@ import mainStyles from "../../../AppStyleSheet";
 import NearQuestsList from "./NearQuestsList";
 import QuestDetailScreen from "../QuestDetailScreen/QuestDetailScreen";
 import GpsActivationScreen from "../GpsActivationScreen/GpsActivationScreen";
+import GestureRecognizer from "react-native-swipe-gestures";
 
-function NearQuestsScreen() {
+function NearQuestsScreen(props) {
 
+    const {initNear, setInitNear, page, setPage, loading, setLoading, quests, setQuests, stopLoading, setStopLoading, coordinates, setCoordinates} = props
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
-
-    const [loading, setLoading] = useState(true)
-    const [quests, setQuests] = useState([])
 
     const [textSnack, setTextSnack] = useState("")
     const [showSnack, setShowSnack] = useState(false)
     const [typeSnack, setTypeSnack] = useState("ERROR")
 
-    const [page, setPage] = useState(1)
-    const [stopLoading, setStopLoading] = useState(false)
-    const [coordinates, setCoordinates] = useState(null)
     const [loadingNew, setLoadingNew] = useState(false)
     const [selectedQuest, setSelectedQuest] = useState(null)
 
     useEffect(() => {
-        loadData(1)
+        if(initNear){
+            loadData(1)
+            setInitNear(false)
+        }
     }, [])
 
-    useEffect(() => {
-        if(coordinates !== null){
-            setLoading(true)
-            getData(coordinates, page)
-        }
-    }, [coordinates])
+    const setNewCoordinates = (coordinates) => {
+        setLoading(true)
+        setCoordinates(coordinates)
+        getData(coordinates, page)
+    }
 
     const loadData = (pageNumber) => {
-        if(stopLoading) return
+        if(stopLoading || loadingNew) return
 
         if(pageNumber === 1){
             setLoading(true)
@@ -64,7 +62,7 @@ function NearQuestsScreen() {
     }
 
     const getData = (response, pageNumber) => {
-
+        console.log("LOADING")
         axios({
             method: "GET",
             url: API_SERVER_URL+"/getNearQuests?coordinates="+response.latitude+","+response.longitude+"&page="+pageNumber,
@@ -73,7 +71,6 @@ function NearQuestsScreen() {
             let statusCode = response.data.responseEntity.statusCode
 
             if(statusCode === "OK"){
-
                 let newQuests = response.data.data.map((quest => {
                     return {
                         id: quest[0],
@@ -83,9 +80,12 @@ function NearQuestsScreen() {
                     }
                 }))
 
-                if(newQuests.length === 0 || newQuests.length<10) setStopLoading(true)
+                if(newQuests.length === 0 || newQuests.length<10){
+                    setStopLoading(true)
+                }
                 setQuests(quests.concat(newQuests))
 
+                console.log("STOP LOADING")
             }else{
                 setTextSnack(text.error.somethingWentWrong)
                 setShowSnack(true)
@@ -106,33 +106,62 @@ function NearQuestsScreen() {
         setSelectedQuest(null)
     }
 
+    const onSwipe = (gestureName) => {
+        if(gestureName === "SWIPE_DOWN" && loading === false && loadingNew === false){
+            setStopLoading(false)
+            setLoading(true)
+            quests.length = 0
+            setPage(1)
+
+            GPS().then(response => {
+                if(response !== null){
+                    getData(response, 1)
+                    setCoordinates(response)
+                    return response
+                }else{
+                    setLoading(false)
+                    return null
+                }
+            })
+        }
+    }
+
     return (
         <View style={styles.background}>
             {selectedQuest === null ? (
-                <View style={{flex:1}}>
-                    <View style={styles.header}>
-                        <Text style={styles.headerText} >{text.nearScreen.near}</Text>
-                        <Image style={styles.headerImage} source={require("../../assets/images/near.png")} />
+
+
+                    <View style={{flex:1}}>
+
+                        <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
+                            <View style={styles.header}>
+                                <Text style={styles.headerText} >{text.nearScreen.near}</Text>
+                                <Image style={styles.headerImage} source={require("../../assets/images/near.png")} />
+                            </View>
+                        </GestureRecognizer>
+
+                        <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
+
+                        {loading === true ? (
+                            <View style={styles.loading}>
+                                <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                            </View>
+                        ) : (
+                            <View style={styles.content}>
+                                {coordinates === null ? (
+                                    <GpsActivationScreen setCoordinates={setNewCoordinates} />
+                                ) : (
+                                    <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} setSelectedQuest={setSelectedQuest} />
+                                )}
+
+                            </View>
+                        )}
+
+                        <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
                     </View>
-                    <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
 
-                    {loading === true ? (
-                        <View style={styles.loading}>
-                            <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                        </View>
-                    ) : (
-                        <View style={styles.content}>
-                            {coordinates === null ? (
-                                <GpsActivationScreen setCoordinates={setCoordinates} />
-                            ) : (
-                                <NearQuestsList questList={quests} page={page} setPage={setPage} loadData={loadData} loadingNew={loadingNew} stopLoading={stopLoading} setSelectedQuest={setSelectedQuest} />
-                            )}
 
-                        </View>
-                    )}
 
-                    <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-                </View>
             ) : (
                 <QuestDetailScreen goBack={goBack} quest={selectedQuest} />
             )}

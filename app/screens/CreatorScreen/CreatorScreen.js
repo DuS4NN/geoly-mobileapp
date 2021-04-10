@@ -15,16 +15,14 @@ import GpsActivationScreen from "../GpsActivationScreen/GpsActivationScreen";
 import {LinearGradient} from "expo-linear-gradient";
 import colors from "../../../AppColors";
 
-function CreatorScreen () {
-
+function CreatorScreen (props) {
+    const {categories} = props
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
 
-    const [categories, setCategories] = useState([])
     const [details, setDetails] = useState({})
     const [stages, setStages] = useState([])
     const [gpsEnable, setGpsEnable] = useState(true)
-    const [loading, setLoading] = useState(true)
     const [addQuestLoading, setAddQuestLoading] = useState(false)
     const [addStageLoading, setAddStageLoading] = useState(false)
     const [id, setId] = useState(0)
@@ -45,20 +43,6 @@ function CreatorScreen () {
             private: false
         })
         setFirstStage()
-        axios({
-            method: "GET",
-            url: API_SERVER_URL+"/categories"
-        }).then(function (response) {
-            setCategories(response.data.map(category => {
-                return {
-                    value: category.id,
-                    label: category.name
-                }
-            }))
-        }).catch(function (error) {
-            handleError(error)
-            showSnackBar(text.error.somethingWentWrong, "ERROR")
-        })
     }, [])
 
     const showSnackBar = (text, type) => {
@@ -71,15 +55,20 @@ function CreatorScreen () {
         GPS().then(response => {
             if(response !== null){
                 addStage(response, "GO_TO_PLACE")
+                setGpsEnable(true)
             }else{
                 setGpsEnable(false)
-                setLoading(false)
                 return null
             }
         })
     }
-    const addStage = (coordinates, type) => {
+
+    const setFirstStageWithCoordinates = (coordinates) => {
+        addStage(coordinates, "GO_TO_PLACE")
         setGpsEnable(true)
+    }
+
+    const addStage = (coordinates, type) => {
         setStages([
             ...stages,
             {
@@ -96,7 +85,6 @@ function CreatorScreen () {
             }
         ])
         setId(id+1)
-        setLoading(false)
         setAddStageLoading(false)
     }
 
@@ -203,47 +191,41 @@ function CreatorScreen () {
             <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/20}} />
 
             <View style={styles.content}>
-                {loading === true ? (
-                    <View style={styles.loading}>
-                        <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                    </View>
-                ) : (
-                    <View style={{flex:1}}>
-                        {gpsEnable === true ? (
-                            <ScrollView style={{flex:1}}>
-                                <CreatorForm categories={categories} details={details} setDetails={setDetails} />
-                                <CreatorStages stages={stages} setStages={setStages} showSnackBar={showSnackBar} addStage={addStage} addStageLoading={addStageLoading} setAddStageLoading={setAddStageLoading}/>
 
-                                <View style={styles.formContainer}>
-                                    <Text style={styles.formTitle}>{text.creator.addQuest}</Text>
+                <View style={{flex:1}}>
+                    {gpsEnable === true ? (
+                        <ScrollView style={{flex:1}}>
+                            <CreatorForm categories={categories} details={details} setDetails={setDetails} />
+                            <CreatorStages stages={stages} setStages={setStages} showSnackBar={showSnackBar} addStage={addStage} addStageLoading={addStageLoading} setAddStageLoading={setAddStageLoading}/>
 
+                            <View style={styles.formContainer}>
+                                <Text style={styles.formTitle}>{text.creator.addQuest}</Text>
 
+                                <TouchableOpacity activeOpacity={.8} onPress={handleAddQuest}>
+                                    {Platform.OS === "ios" ? (
+                                        <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                                            {addQuestLoading === true && (
+                                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                                            )}
+                                            <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
+                                        </View>
+                                    ) : (
+                                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                            {addQuestLoading === true && (
+                                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                                            )}
+                                            <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
+                                        </LinearGradient>
+                                    )}
+                                </TouchableOpacity>
+                            </View>
 
-                                    <TouchableOpacity activeOpacity={.8} onPress={handleAddQuest}>
-                                        {Platform.OS === "ios" ? (
-                                            <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
-                                                {addQuestLoading === true && (
-                                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                                                )}
-                                                <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
-                                            </View>
-                                        ) : (
-                                            <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                                                {addQuestLoading === true && (
-                                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                                                )}
-                                                <Text style={styles.buttonText}>{text.creator.addQuest}</Text>
-                                            </LinearGradient>
-                                        )}
-                                    </TouchableOpacity>
-                                </View>
+                        </ScrollView>
+                    ) : (
+                        <GpsActivationScreen setCoordinates={setFirstStageWithCoordinates}/>
+                    )}
+                </View>
 
-                            </ScrollView>
-                        ) : (
-                            <GpsActivationScreen setCoordinates={addStage}/>
-                        )}
-                    </View>
-                )}
             </View>
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>

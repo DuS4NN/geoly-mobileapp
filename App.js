@@ -4,7 +4,7 @@ import LoginScreen from "./app/screens/LoginScreen/LoginScreen";
 import * as Sentry from "@sentry/react-native";
 import * as Font from "expo-font";
 import axios from "axios";
-import {API_SERVER_URL} from "@env";
+import {API_SERVER_URL, IMAGE_SERVER_URL} from "@env";
 import handleError from "./ErrorHandler";
 import {UserContext} from "./UserContext";
 import styles from "./AppStyleSheet";
@@ -15,6 +15,7 @@ export default function App () {
     const [userContext, setUserContext] = useState([])
     const [loaded, setLoaded] = useState(false)
     const [fontLoaded, setFontLoaded] = useState(false)
+    const [categories, setCategories] = useState([])
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
@@ -26,6 +27,7 @@ export default function App () {
 
         loadFonts(setFontLoaded)
         checkUser()
+        loadCategories()
 
     }, [])
 
@@ -45,7 +47,7 @@ export default function App () {
                     mapTheme: options[1],
                     darkMode: options[2],
                     nickName: options[3],
-                    profileImage: options[4],
+                    profileImage: IMAGE_SERVER_URL+options[4]+"&timestamp="+Date.now(),
                     address: options[5],
                     addressUpdate: options[6],
                     id: options[7],
@@ -78,6 +80,22 @@ export default function App () {
         })
     }
 
+    const loadCategories = async () => {
+        axios({
+            method: "GET",
+            url: API_SERVER_URL+"/categories"
+        }).then(function (response) {
+            setCategories(response.data.map(category => {
+                return {
+                    value: category.id,
+                    label: category.name
+                }
+            }))
+        }).catch(function (error) {
+            handleError(error)
+        })
+    }
+
     return (
     <SafeAreaView style={styles.mainSafeAreaView}>
 
@@ -85,7 +103,7 @@ export default function App () {
             <UserContext.Provider value={{userContext, setUserContext}}>
 
                 {userContext["nickName"] !== null && (
-                    <MainScreen />
+                    <MainScreen categories={categories}/>
                 )}
 
                 {userContext["nickName"] === null && (

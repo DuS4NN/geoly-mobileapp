@@ -21,7 +21,7 @@ function NearQuestsList(props) {
             loadData(page+1)
             setPage(page+1)
         }
-    }, 50)
+    }, 100)
 
     return (
         <View style={{flex:1}}>
