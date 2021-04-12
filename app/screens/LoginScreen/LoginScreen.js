@@ -3,7 +3,7 @@ import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity, Pla
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {LinearGradient} from "expo-linear-gradient";
-import {FRONTEND_SERVER_URL, API_SERVER_URL} from "@env";
+import {FRONTEND_SERVER_URL, API_SERVER_URL, IMAGE_SERVER_URL} from "@env";
 import axios from "axios";
 import getText from "../../assets/text/Text";
 import colors from "../../../AppColors"
@@ -61,7 +61,7 @@ function LoginScreen() {
                 mapTheme: response.data.options[0][1],
                 darkMode: response.data.options[0][2],
                 nickName: response.data.options[0][3],
-                profileImage: response.data.options[0][4],
+                profileImage: IMAGE_SERVER_URL+response.data.options[0][4]+"&timestamp="+Date.now(),
                 address: response.data.options[0][5],
                 addressUpdate: response.data.options[0][6],
                 id: response.data.options[0][7],
