@@ -56,6 +56,14 @@ function MainScreen (props) {
         })
     }
 
+    const reloadDataAfterTakingQuest = () => {
+        setInit(true)
+        dailyQuest.length = 0
+        classicQuests.length = 0
+        partyQuests.length = 0
+        setLoadingQuestScreen(true)
+    }
+
 
     return (
         <View style={styles.background}>
@@ -65,13 +73,13 @@ function MainScreen (props) {
                     <QuestsScreen loadingQuestScreen={loadingQuestScreen} setLoadingQuestScreen={setLoadingQuestScreen} dailyQuest={dailyQuest} setDailyQuest={setDailyQuest} classicQuests={classicQuests} setClassicQuests={setClassicQuests} partyQuests={partyQuests} setPartyQuests={setPartyQuests} init={init} setInit={setInit}/>
                 )}
                 {navigationItem === "NEAR" && (
-                    <NearQuestsScreen initNear={initNear} setInitNear={setInitNear} coordinates={coordinates} setCoordinates={setCoordinates} page={page} setPage={setPage} loading={loading} setLoading={setLoading} quests={quests} setQuests={setQuests} stopLoading={stopLoading} setStopLoading={setStopLoading}/>
+                    <NearQuestsScreen reloadDataAfterTakingQuest={reloadDataAfterTakingQuest} initNear={initNear} setInitNear={setInitNear} coordinates={coordinates} setCoordinates={setCoordinates} page={page} setPage={setPage} loading={loading} setLoading={setLoading} quests={quests} setQuests={setQuests} stopLoading={stopLoading} setStopLoading={setStopLoading}/>
                 )}
                 {navigationItem === "CREATOR" && (
                     <CreatorScreen categories={categories}/>
                 )}
                 {navigationItem === "ME" && (
-                    <MeScreen/>
+                    <MeScreen reloadDataAfterTakingQuest={reloadDataAfterTakingQuest} />
                 )}
             </View>
 

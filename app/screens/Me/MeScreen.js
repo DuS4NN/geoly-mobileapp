@@ -3,14 +3,14 @@ import {Dimensions, Image, Text, View, TouchableHighlight} from "react-native";
 import styles from "./MeScreenStyleSheet";
 import {UserContext} from "../../../UserContext";
 import getText from "../../assets/text/Text";
-import {API_SERVER_URL, IMAGE_SERVER_URL} from "@env";
+import {API_SERVER_URL} from "@env";
 import colors from "../../../AppColors";
 import axios from "axios";
 import {Snackbar} from "react-native-paper";
 import mainStyles from "../../../AppStyleSheet";
 
-function MeScreen () {
-
+function MeScreen (props) {
+    const {reloadDataAfterTakingQuest} = props
     const {userContext, setUserContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
 
@@ -39,6 +39,7 @@ function MeScreen () {
 
             if(statusCode === "ACCEPTED"){
                 showSnackbar(text.success.signOnDaily,"SUCCESS")
+                reloadDataAfterTakingQuest()
             }else if(statusCode === "METHOD_NOT_ALLOWED"){
                 showSnackbar(text.error[serverResponse], "ERROR")
             }else{

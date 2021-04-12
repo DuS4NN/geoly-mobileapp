@@ -16,7 +16,7 @@ import GestureRecognizer from "react-native-swipe-gestures";
 
 function NearQuestsScreen(props) {
 
-    const {initNear, setInitNear, page, setPage, loading, setLoading, quests, setQuests, stopLoading, setStopLoading, coordinates, setCoordinates} = props
+    const {reloadDataAfterTakingQuest, initNear, setInitNear, page, setPage, loading, setLoading, quests, setQuests, stopLoading, setStopLoading, coordinates, setCoordinates} = props
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
 
@@ -62,7 +62,6 @@ function NearQuestsScreen(props) {
     }
 
     const getData = (response, pageNumber) => {
-        console.log("LOADING")
         axios({
             method: "GET",
             url: API_SERVER_URL+"/getNearQuests?coordinates="+response.latitude+","+response.longitude+"&page="+pageNumber,
@@ -84,8 +83,6 @@ function NearQuestsScreen(props) {
                     setStopLoading(true)
                 }
                 setQuests(quests.concat(newQuests))
-
-                console.log("STOP LOADING")
             }else{
                 setTextSnack(text.error.somethingWentWrong)
                 setShowSnack(true)
@@ -163,7 +160,7 @@ function NearQuestsScreen(props) {
 
 
             ) : (
-                <QuestDetailScreen goBack={goBack} quest={selectedQuest} />
+                <QuestDetailScreen reloadDataAfterTakingQuest={reloadDataAfterTakingQuest} goBack={goBack} quest={selectedQuest} />
             )}
         </View>
     )

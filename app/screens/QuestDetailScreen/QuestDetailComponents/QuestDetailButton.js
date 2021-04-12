@@ -12,7 +12,7 @@ import mainStyles from "../../../../AppStyleSheet";
 
 function QuestDetailButton (props) {
 
-    const {questId, showSnackBar} = props
+    const {reloadDataAfterTakingQuest, questId, showSnackBar} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -32,6 +32,7 @@ function QuestDetailButton (props) {
 
             if(statusCode === "ACCEPTED"){
                 showSnackBar(text.success.user_signed_up_on_quest, "SUCCESS")
+                reloadDataAfterTakingQuest()
             }else if(statusCode === "METHOD_NOT_ALLOWED"){
                 showSnackBar(text.error[serverResponse], "ERROR")
             }else{

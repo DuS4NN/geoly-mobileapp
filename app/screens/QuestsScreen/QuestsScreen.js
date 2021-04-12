@@ -34,6 +34,7 @@ function QuestsScreen(props) {
             loadData()
             setInit(false)
         }
+        console.log(init)
     }, [])
 
     const loadData = () => {

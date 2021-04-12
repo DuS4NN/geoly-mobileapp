@@ -17,7 +17,7 @@ import QuestDetailButton from "./QuestDetailComponents/QuestDetailButton";
 
 function QuestDetailScreen(props) {
 
-    const {quest, goBack} = props
+    const {reloadDataAfterTakingQuest, quest, goBack} = props
 
     const {userContext} = useContext(UserContext)
     const text = getText(userContext["languageId"])
@@ -135,7 +135,7 @@ function QuestDetailScreen(props) {
                         </View>
 
                         <QuestDetailStages stages={stages} />
-                        <QuestDetailButton questId={details.id} showSnackBar={showSnackBar} />
+                        <QuestDetailButton reloadDataAfterTakingQuest={reloadDataAfterTakingQuest} questId={details.id} showSnackBar={showSnackBar} />
                     </ScrollView>
                 )}
 
