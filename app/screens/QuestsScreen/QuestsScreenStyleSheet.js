@@ -136,7 +136,7 @@ export default StyleSheet.create({
     contentNavigationItemText: {
         fontFamily: "OpenSans",
         fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 14,
         color: colors.black
     },
     contentNavigationItemTextSelected: {

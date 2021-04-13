@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity, Platform} from "react-native";
+import {Text, View, Image, TextInput, Dimensions, Linking, TouchableOpacity, Platform, ScrollView} from "react-native";
 import {Snackbar} from "react-native-paper"
 import {UserContext} from "../../../UserContext";
 import {LinearGradient} from "expo-linear-gradient";
@@ -10,7 +10,6 @@ import colors from "../../../AppColors"
 import styles from "./LoginScreenStyleSheet";
 import mainStyles from "../../../AppStyleSheet.js"
 import handleError from "../../../ErrorHandler";
-
 
 function LoginScreen() {
 
@@ -90,47 +89,52 @@ function LoginScreen() {
     }
 
     return (
-        <View style={styles.background}>
-            <View style={styles.title}>
-                <Image source={require("../../assets/images/login.png")} style={styles.image} />
+        <ScrollView style={styles.container}>
 
-                <Text style={styles.text}>{text.loginScreen.title}</Text>
+            <View style={styles.background}>
 
-                <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/10}} />
+                <View style={styles.title}>
+                    <Image source={require("../../assets/images/login.png")} style={styles.image} />
+
+                    <Text style={styles.text}>{text.loginScreen.title}</Text>
+
+                    <View style={{...styles.division, borderRightWidth: Dimensions.get("window").width, borderTopWidth: Dimensions.get("window").width/10}} />
+                </View>
+
+                <View style={styles.form}>
+                    <Text style={styles.label}>{text.loginScreen.email}</Text>
+                    <TextInput keyboardType="email-address" style={styles.input} placeholder={text.loginScreen.email} value={email} onChangeText={text => onEmailChange(text)} />
+
+                    <Text style={[styles.label, styles.passwordLabel]}>{text.loginScreen.password}</Text>
+                    <TextInput secureTextEntry={true} style={styles.input} placeholderTextColor={colors.gray} placeholder={text.loginScreen.password} value={password} onChangeText={text => onPasswordChange(text)} />
+
+                    <Text onPress={redirectToRegisterPage} style={styles.register}>{text.loginScreen.register}</Text>
+
+                    <TouchableOpacity activeOpacity={.8} onPress={handleLogin}>
+                        {Platform.OS === "ios" ? (
+                            <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
+                                {loading === true && (
+                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                                )}
+                                <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                            </View>
+                        ) : (
+                            <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
+                                {loading === true && (
+                                    <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
+                                )}
+                                <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
+                            </LinearGradient>
+                        )}
+                    </TouchableOpacity>
+
+                </View>
+
+                <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
+
             </View>
 
-            <View style={styles.form}>
-                <Text style={styles.label}>{text.loginScreen.email}</Text>
-                <TextInput keyboardType="email-address" style={styles.input} placeholder={text.loginScreen.email} value={email} onChangeText={text => onEmailChange(text)} />
-
-                <Text style={[styles.label, styles.passwordLabel]}>{text.loginScreen.password}</Text>
-                <TextInput secureTextEntry={true} style={styles.input} placeholderTextColor={colors.gray} placeholder={text.loginScreen.password} value={password} onChangeText={text => onPasswordChange(text)} />
-
-                <Text onPress={redirectToRegisterPage} style={styles.register}>{text.loginScreen.register}</Text>
-
-                <TouchableOpacity activeOpacity={.8} onPress={handleLogin}>
-                    {Platform.OS === "ios" ? (
-                        <View style={{...styles.button, backgroundColor: colors.lightGreen}}>
-                            {loading === true && (
-                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                            )}
-                            <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
-                        </View>
-                    ) : (
-                        <LinearGradient style={styles.button} start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={[colors.lightGreen, colors.darkerGreen]}>
-                            {loading === true && (
-                                <Image style={mainStyles.buttonLoadingAnimationImage} source={require("../../assets/images/loading.gif")} />
-                            )}
-                            <Text style={styles.buttonText}>{text.loginScreen.signIn}</Text>
-                        </LinearGradient>
-                    )}
-                </TouchableOpacity>
-
-            </View>
-
-            <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-
-        </View>
+        </ScrollView>
     )
 
 }

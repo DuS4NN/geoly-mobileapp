@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Dimensions, Image, Text, View, TouchableHighlight} from "react-native";
+import {Dimensions, Image, Text, View, TouchableHighlight, ScrollView} from "react-native";
 import styles from "./MeScreenStyleSheet";
 import {UserContext} from "../../../UserContext";
 import getText from "../../assets/text/Text";
@@ -86,34 +86,36 @@ function MeScreen (props) {
 
             <View style={styles.content}>
 
-               <View style={styles.contentContainer}>
-                   <Image style={styles.profileImage} source={{uri: userContext["profileImage"]}}/>
+               <ScrollView style={{flex: 1}}>
+                   <View style={styles.contentContainer}>
+                       <Image style={styles.profileImage} source={{uri: userContext["profileImage"]}}/>
 
-                   <Text style={styles.nickName}>{userContext["nickName"]}</Text>
+                       <Text style={styles.nickName}>{userContext["nickName"]}</Text>
 
-                   <TouchableHighlight style={styles.highlightItemContainer} underlayColor={colors.highlightWhite} onPress={signOnDaily}>
-                       <View style={styles.itemContainer}>
-                           <Text style={styles.itemText}>{text.profile.daily}</Text>
-                           {loadingDaily === true && (
-                               <View style={styles.loading}>
-                                   <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                               </View>
-                           )}
-                       </View>
-                   </TouchableHighlight>
+                       <TouchableHighlight style={styles.highlightItemContainer} underlayColor={colors.highlightWhite} onPress={signOnDaily}>
+                           <View style={styles.itemContainer}>
+                               <Text style={styles.itemText}>{text.profile.daily}</Text>
+                               {loadingDaily === true && (
+                                   <View style={styles.loading}>
+                                       <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                                   </View>
+                               )}
+                           </View>
+                       </TouchableHighlight>
 
-                   <TouchableHighlight style={styles.highlightItemContainer} underlayColor={colors.highlightWhite} onPress={logOut}>
-                       <View style={styles.itemContainer}>
-                           <Text style={styles.itemText}>{text.profile.logout}</Text>
-                           {loadingLogOut === true && (
-                               <View style={styles.loading}>
-                                   <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
-                               </View>
-                           )}
-                       </View>
-                   </TouchableHighlight>
+                       <TouchableHighlight style={styles.highlightItemContainer} underlayColor={colors.highlightWhite} onPress={logOut}>
+                           <View style={styles.itemContainer}>
+                               <Text style={styles.itemText}>{text.profile.logout}</Text>
+                               {loadingLogOut === true && (
+                                   <View style={styles.loading}>
+                                       <Image style={styles.loadingImage} source={require("../../assets/images/loading.gif")} />
+                                   </View>
+                               )}
+                           </View>
+                       </TouchableHighlight>
 
-               </View>
+                   </View>
+               </ScrollView>
 
             </View>
 

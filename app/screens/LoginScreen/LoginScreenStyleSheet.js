@@ -2,6 +2,10 @@ import { StyleSheet } from "react-native";
 import colors from "../../../AppColors";
 
 export default StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.white,
+    },
     background: {
         flex: 1,
         backgroundColor: colors.white,
@@ -9,22 +13,23 @@ export default StyleSheet.create({
         alignItems: "center",
     },
     title:{
-        flex: 2,
+        flex: 1,
         alignItems: "center",
         backgroundColor: colors.backgroundGreen
     },
     image: {
-        flex: 1.5,
-        resizeMode: "contain",
-        marginTop: 20
+        marginTop: 30,
+        height: 200,
+        width: 200
     },
     text: {
         flex: 0.5,
         fontFamily: "MarkProBold",
         fontWeight: "bold",
         fontSize: 30,
+        paddingBottom: 10,
         textTransform: "uppercase",
-        color: colors.darkGreen
+        color: colors.darkGreen,
     },
     division: {
         width: 0,
@@ -35,7 +40,10 @@ export default StyleSheet.create({
         borderTopColor: colors.backgroundGreen,
     },
     form: {
-        flex: 2
+        flex: 2,
+        justifyContent: "flex-end",
+        paddingBottom: 30,
+        paddingTop: 15
     },
     label: {
         fontFamily: "OpenSans",

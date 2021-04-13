@@ -69,8 +69,9 @@ export default StyleSheet.create({
     },
 
     leftStagesContainer: {
-        height: 20,
-        backgroundColor: colors.backgroundGreen
+        paddingBottom: 10,
+        paddingTop: 5,
+        backgroundColor: colors.backgroundGreen,
     },
     leftStagesText: {
         fontSize: 13,

@@ -154,6 +154,14 @@ function QuestsScreen(props) {
 
     const onSwipe = (gestureName) => {
          switch(gestureName){
+            case "SWIPE_UP":
+                loadData()
+                break
+        }
+    }
+
+    const onSwipeSide = (gestureName) => {
+        switch(gestureName){
             case "SWIPE_LEFT":
                 if(navigationItem === "DAILY") setNavigationItem("CLASSIC")
                 else if(navigationItem === "CLASSIC") setNavigationItem("PARTY")
@@ -161,9 +169,6 @@ function QuestsScreen(props) {
             case "SWIPE_RIGHT":
                 if(navigationItem === "PARTY") setNavigationItem("CLASSIC")
                 else if(navigationItem === "CLASSIC") setNavigationItem("DAILY")
-                break
-            case "SWIPE_DOWN":
-                loadData()
                 break
         }
     }
@@ -194,7 +199,7 @@ function QuestsScreen(props) {
     return (
         <View style={{flex: 1}}>
             {selectedQuest === null ? (
-                    <View style={styles.background}>
+                    <GestureRecognizer style={styles.background}  onSwipe={(direction, state) => onSwipeSide(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
 
                         <GestureRecognizer style={{flex: 1}} onSwipe={(direction, state) => onSwipe(direction, state)} config={{velocityThreshold: 0.3, directionalOffsetThreshold: 80}}>
                             <View style={styles.header}>
@@ -248,7 +253,7 @@ function QuestsScreen(props) {
 
                         <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
 
-                    </View>
+                    </GestureRecognizer>
 
             ) : (
                 <GameScreen removeQuestFromList={removeQuestFromList} setSelectedQuest={setSelectedQuest} quest={selectedQuest} type={navigationItem}/>

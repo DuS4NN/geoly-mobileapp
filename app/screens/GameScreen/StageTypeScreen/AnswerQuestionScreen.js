@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from "react";
-import {Text, View, TextInput, Image, TouchableOpacity, Alert, TouchableHighlight, Platform} from "react-native";
+import {Text, View, TextInput, Image, TouchableOpacity, Alert, TouchableHighlight, Platform, ScrollView} from "react-native";
 import {UserContext} from "../../../../UserContext";
 import {API_SERVER_URL} from "@env";
 import axios from "axios";
@@ -153,7 +153,7 @@ function AnswerQuestionScreen(props) {
 
 
     return (
-        <View style={{flex: 1}}>
+        <ScrollView style={{flex: 1}}>
             <View style={styles.questionContainer}>
                 <Text style={styles.questionText}>{stage.question}</Text>
 
@@ -201,7 +201,7 @@ function AnswerQuestionScreen(props) {
             </View>
 
             <Snackbar style={typeSnack === "ERROR" ? mainStyles.snackBarError : mainStyles.snackBarSuccess} visible={showSnack} onDismiss={() => setShowSnack(false)} duration={2000}>{textSnack}</Snackbar>
-        </View>
+        </ScrollView>
     )
 }
 
