@@ -2,4 +2,4 @@ Diplomová práca - Mobilná aplikácia Geoly
 
 React Native, Expo
 
-Vytvorená: 2021
+Vytvorené: 2021
